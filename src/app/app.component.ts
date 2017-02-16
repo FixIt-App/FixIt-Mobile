@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Platform, NavController } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 
@@ -11,7 +11,10 @@ import { FindWorkPage } from '../pages/findwork/findwork'
 export class MyApp {
   rootPage = HomePage;
 
-  constructor(platform: Platform, private navController: NavController) {
+  @ViewChild('myNav')
+  nav: NavController
+
+  constructor(platform: Platform) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -21,6 +24,17 @@ export class MyApp {
   }
 
   navigateToHome() {
-     this.navController.push(FindWorkPage)
+    console.log('click!')
+     this.nav.push(FindWorkPage).then(
+      response => {
+        console.log('Response ' + response);
+      },
+      error => {
+        console.log('Error: ' + error);
+      }
+    ).catch(exception => {
+      console.log('Exception ' + exception);
+    });
+
   }
 }

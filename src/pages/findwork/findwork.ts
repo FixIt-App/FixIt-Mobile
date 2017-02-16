@@ -7,6 +7,6 @@ import {Component} from '@angular/core';
 export class FindWorkPage {
 
     constructor(){
-
+      console.log("Se ejecuta!")
     }
 }
