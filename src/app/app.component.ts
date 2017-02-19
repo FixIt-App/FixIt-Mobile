@@ -1,21 +1,31 @@
 import { Component, ViewChild } from '@angular/core';
-import { Platform, NavController } from 'ionic-angular';
+
+import { Platform, MenuController, Nav } from 'ionic-angular';
+
 import { StatusBar, Splashscreen } from 'ionic-native';
 
+import { Login } from '../pages/login/login';
 import { HomePage } from '../pages/home/home';
-import { FindWorkPage } from '../pages/findwork/findwork'
+
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage = HomePage;
+  @ViewChild(Nav) nav: Nav;
 
-  @ViewChild('myNav')
-  nav: NavController
+  // make HelloIonicPage the root (or first) page
+  rootPage: any = Login;
 
-  constructor(platform: Platform) {
-    platform.ready().then(() => {
+  constructor(
+    public platform: Platform,
+    public menu: MenuController
+  ) {
+    this.initializeApp();
+  }
+
+  initializeApp() {
+    this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       StatusBar.styleDefault();
@@ -23,18 +33,5 @@ export class MyApp {
     });
   }
 
-  navigateToHome() {
-    console.log('click!')
-     this.nav.push(FindWorkPage).then(
-      response => {
-        console.log('Response ' + response);
-      },
-      error => {
-        console.log('Error: ' + error);
-      }
-    ).catch(exception => {
-      console.log('Exception ' + exception);
-    });
-
-  }
 }
+

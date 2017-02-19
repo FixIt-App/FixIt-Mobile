@@ -7,15 +7,15 @@
 
 <ion-content>
 
- <ion-card>
- <ion-item>
-    <ion-avatar item-left class="work-icon-container">
-        <ion-icon name="build" style="font-size: 30px;"></ion-icon>
-    </ion-avatar>
-    <h2>Plomería</h2>
-    <p>Encuentra profesionales en plomería a $50 la hora.</p>
-  </ion-item>
-</ion-card>
-
-
+<ion-card *ngFor="let work of works" (click)="goToNextStep()">
+  <img src="{{work.icon}}" class="work-type-image"/>
+  <ion-card-content>
+    <ion-card-title>
+    {{ work.name }}  
+    </ion-card-title>
+    <p>
+    {{ work.description }}
+    </p>
+  </ion-card-content>
+  </ion-card>
 </ion-content> 
