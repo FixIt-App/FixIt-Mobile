@@ -7,7 +7,7 @@
 
 <ion-content>
 
-<ion-card *ngFor="let work of works" (click)="goToNextStep()">
+<ion-card *ngFor="let work of works" (click)="goToNextStep(work)">
   <img src="{{work.icon}}" class="work-type-image"/>
   <ion-card-content>
     <ion-card-title>

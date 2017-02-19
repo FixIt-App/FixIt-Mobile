@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, ToastController } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 import { WorkTypeService } from '../../services/wortktype.service'
 import { WorkType } from '../../models/worktype'
+import { SchedulePage } from '../schedule/schedule'
 
 @Component({
   selector: 'find-work',
@@ -13,7 +14,6 @@ export class FindWorkPage implements OnInit {
 
     constructor(
       private navController: NavController,
-      public toastController: ToastController,
       private workTypeService: WorkTypeService){
       
     }
@@ -21,17 +21,15 @@ export class FindWorkPage implements OnInit {
     ngOnInit(){
       this.workTypeService.getWorkTypes()
           .then(works => this.works = works)
-          .catch(err =>{
+          .catch(err => {
             console.log("Error al cargar los datos, intentando de nuevo")
           })
     }
 
-    goToNextStep(){
-      var toast = this.toastController.create({
-        message: 'Actualmente esta funcionalidad no está disponible',
-        duration: 1000
+    goToNextStep(work: WorkType){
+      this.navController.push(SchedulePage, {
+        work: work
       })
-      toast.present()
     }
     
 }

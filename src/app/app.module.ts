@@ -1,9 +1,14 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
+
+
 import { FindWorkPage } from '../pages/findwork/findwork'
 import { HomePage } from '../pages/home/home'
 import { Login } from '../pages/login/login'
+import { SchedulePage } from '../pages/schedule/schedule'
+
+
 import { WorkTypeService } from '../services/wortktype.service'
 
 @NgModule({
@@ -11,7 +16,8 @@ import { WorkTypeService } from '../services/wortktype.service'
     MyApp,
     HomePage,
     FindWorkPage,
-    Login
+    Login,
+    SchedulePage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -21,7 +27,8 @@ import { WorkTypeService } from '../services/wortktype.service'
     MyApp,
     HomePage,
     FindWorkPage,
-    Login
+    Login,
+    SchedulePage
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},
