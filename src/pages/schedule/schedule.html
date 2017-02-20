@@ -1,6 +1,6 @@
 <ion-header>
 <ion-toolbar>
-    <ion-title>Fixit</ion-title>
+    <ion-title>FixIt</ion-title>
 </ion-toolbar>
 </ion-header>
 
@@ -15,23 +15,24 @@
 
     <ion-grid>
         <ion-row>
-            <ion-col width-80 offset-10> <button color="danger" ion-button type="submit" block>Lo necesito para ya</button></ion-col>
+            <ion-col width-80 offset-10> <button color="danger" ion-button type="button" block>Lo necesito para ya</button></ion-col>
         </ion-row>
     </ion-grid>
 
     <ion-card-header>
        Agendar una cita
     </ion-card-header>
-
+    <form action="" (ngSubmit)="nextStep()">
     <ion-item>
         <ion-label>Fecha y Hora</ion-label>
-        <ion-datetime displayFormat="MMM DD, YYYY HH:mm"></ion-datetime>
+        <ion-datetime required name="date" [(ngModel)]="work.date" displayFormat="MMM DD, YYYY HH:mm"></ion-datetime>
     </ion-item>
-    <ion-grid>
-        <ion-row>
-            <ion-col width-80 offset-10> <button ion-button type="submit" block>Agendar Cita</button></ion-col>
-        </ion-row>
-    </ion-grid>
+        <ion-grid>
+            <ion-row>
+                <ion-col width-80 offset-10> <button ion-button type="submit" block>Agendar Cita</button></ion-col>
+            </ion-row>
+        </ion-grid>
+    </form>
 
 
   </ion-card-content>
