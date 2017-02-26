@@ -2,5 +2,9 @@
   "name": "fixit",
   "app_id": "34d6b8c9",
   "v2": true,
-  "typescript": true
+  "typescript": true,
+  "proxies": [{
+    "path": "/api",
+    "proxyUrl": "http://192.168.0.11:8000/"
+  }]
 }

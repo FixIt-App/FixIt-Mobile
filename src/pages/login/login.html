@@ -5,13 +5,13 @@
     
 
     
-
+    <form action="" (ngSubmit)="login()">
     <ion-grid>
         <ion-row>
             <ion-col width-80 offset-10>
                 <ion-item>
                     <ion-label stacked>Username</ion-label>
-                    <ion-input type="text"></ion-input>
+                    <ion-input  name="username" [(ngModel)]="username" type="text"></ion-input>
                 </ion-item>
             </ion-col>
         </ion-row>
@@ -19,7 +19,7 @@
             <ion-col width-80 offset-10>
                 <ion-item>
                     <ion-label stacked>Password</ion-label>
-                    <ion-input type="password"></ion-input>
+                    <ion-input  name="password" [(ngModel)]="password" type="password"></ion-input>
                 </ion-item>
             </ion-col>
         </ion-row>
@@ -28,12 +28,13 @@
 
     <ion-grid style="margin-top: 10vh;">
         <ion-row>
-            <ion-col width-80 offset-10><button ion-button full (click)="login()">Sign in</button></ion-col>
+            <ion-col width-80 offset-10><button type="submit" ion-button full>Sign in</button></ion-col>
         </ion-row>
         <ion-row>
-            <ion-col width-80 offset-10><button ion-button full (click)="login()">Sign up</button></ion-col>
+            <ion-col width-80 offset-10><button type="button" ion-button full (click)="signUp()">Sign up</button></ion-col>
         </ion-row>
     </ion-grid>
+    </form>
 
 
 </ion-content>

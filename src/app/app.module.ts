@@ -11,6 +11,7 @@ import { WherePage  } from '../pages/where/where'
 
 
 import { WorkTypeService } from '../services/wortktype.service'
+import { AuthService } from '../services/auth.service'
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { WorkTypeService } from '../services/wortktype.service'
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    WorkTypeService
+    WorkTypeService,
+    AuthService,
   ]
 })
 export class AppModule {}
