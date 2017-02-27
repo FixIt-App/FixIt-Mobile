@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
+import { WhatPage } from '../what/what';
 
 @Component({
   selector: 'where',
@@ -14,7 +15,7 @@ export class WherePage {
       private navParams: NavParams){
     }
 
-    nextStep(ev) {
-      ev.preventDefault()
+    nextStep() {
+      this.navController.push(WhatPage);
     }
 }

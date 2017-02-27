@@ -1,0 +1,56 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>FixIt</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content text-center padding>
+  <h1 color="primary">Cuéntanos tu problema</h1>
+  <ion-textarea rows="3" placeholder="descripción del problema..."></ion-textarea>
+
+  <ion-row>
+    <ion-col text-center>
+      <button ion-button icon-left (click)="takePicture('camera')">
+        <ion-icon name='camera' ></ion-icon>
+        Cámara
+      </button>
+    </ion-col>
+    <ion-col>
+      <button ion-button icon-left (click)="takePicture('gallery')">
+        <ion-icon name='image'></ion-icon>
+        Galeria
+      </button>
+    </ion-col>
+  </ion-row>
+
+  <div class="contThump">
+    <div padding text-center *ngIf="images.length == 0" class="addImage">
+        <h3 color="primary">¿Quieres agregar imagenes?</h3>
+        <p color="light-gray">Agrega imagens con la cámara en el botón <ion-icon class="roundIcon" name='camera'></ion-icon>, o
+        desde la galeria en el botón <ion-icon class="roundIcon" name='image'></ion-icon></p>
+    </div>
+
+    <div class="thumb" *ngFor="let image of images; let i = index">
+       <div class="options">
+        <button ion-button clear (click)="deleteImage(i)">
+          <ion-icon name='close-circle' color="danger"> </ion-icon>
+        </button>
+      </div>
+      <ion-thumbnail item-left style="margin: 8px 0 0 0;">
+        <img class="thumbnail" [src]="image">
+      </ion-thumbnail>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+      <button ion-button icon-right full (click)="finalize()">
+        Finalizar
+        <ion-icon name="send"></ion-icon>
+      </button>
+  </ion-toolbar>
+</ion-footer>

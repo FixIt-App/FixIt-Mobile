@@ -22,7 +22,7 @@ export class Login {
         this.authService.login(this.username, this.password)
             .then(token =>{
                 localStorage.setItem('token', token.token)
-                this.navController.push(FindWorkPage)
+                this.navController.setRoot(FindWorkPage)
             }).catch(err => {
                 var alert = this.alertCtrl.create({
                     title: 'Error al inicar sesión',
@@ -34,7 +34,7 @@ export class Login {
     }
 
     signUp(){
-        this.navController.push(FindWorkPage)
+        this.navController.setRoot(FindWorkPage)
     }
 }
 

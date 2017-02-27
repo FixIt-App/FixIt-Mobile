@@ -8,6 +8,7 @@ import { HomePage } from '../pages/home/home'
 import { Login } from '../pages/login/login'
 import { SchedulePage } from '../pages/schedule/schedule'
 import { WherePage  } from '../pages/where/where'
+import { WhatPage  } from '../pages/what/what'
 
 
 import { WorkTypeService } from '../services/wortktype.service'
@@ -21,6 +22,7 @@ import { AuthService } from '../services/auth.service'
     Login,
     SchedulePage,
     WherePage,
+    WhatPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -33,6 +35,7 @@ import { AuthService } from '../services/auth.service'
     Login,
     SchedulePage,
     WherePage,
+    WhatPage
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},
