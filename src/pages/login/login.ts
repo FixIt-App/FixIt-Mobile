@@ -20,13 +20,21 @@ export class Login {
 
     login(){
         this.authService.login(this.username, this.password)
-            .then(token =>{
+            .subscribe(
+            token => {
                 localStorage.setItem('token', token.token)
                 this.navController.setRoot(FindWorkPage)
-            }).catch(err => {
+            },
+            err => {
+                let msg = "error";
+                if (err.status == 500) {
+                    msg = "error de conexión, porfavor intenta mas tarde";
+                } else if (err.status == 400) {
+                    msg = "Las credenciales ingresadas no son correctas!";
+                }
                 var alert = this.alertCtrl.create({
                     title: 'Error al inicar sesión',
-                    subTitle: 'Las credenciales ingresadas no son correctas!',
+                    subTitle: msg,
                     buttons: ['OK']
                 });
                 alert.present();
