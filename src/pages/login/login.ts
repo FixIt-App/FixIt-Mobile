@@ -3,7 +3,7 @@ import { NavController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 
 import { FindWorkPage } from '../findwork/findwork'
-import { AuthService } from '../../services/auth.service'
+import { AuthService } from '../../providers/auth.service'
 
 @Component({
   selector: 'login',
