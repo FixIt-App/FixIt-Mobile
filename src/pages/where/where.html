@@ -12,6 +12,14 @@
       <ion-card-title class="center-text">
         ¿Dónde enviamos tu servicio?
       </ion-card-title>
+
+      <ion-select [(ngModel)]="selectedAddress">
+        <ion-option *ngFor="let address of addresses" [value]="address">{{ address.name }}</ion-option>
+      </ion-select>
+
+      <button ion-button icon-left class="nuevaDirBtn" (click)="newAddress()" block>
+        <ion-icon name="add"></ion-icon> Nueva Dirección
+      </button>  
     </ion-card-content>
   </ion-card>
 

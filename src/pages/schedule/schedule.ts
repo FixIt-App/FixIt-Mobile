@@ -12,8 +12,8 @@ import { WherePage } from '../where/where'
 })
 export class SchedulePage {
 
-    workType: WorkType
-    work: Work
+    workType: WorkType;
+    work: Work;
     form: FormGroup;
     minDate: string;
     maxDate: string;
@@ -39,7 +39,8 @@ export class SchedulePage {
     }
 
     nextStepNow() {
-      this.work.date = new Date()
+      this.work.date = new Date();
+      console.log(this.work.date);
       this.navController.push(WherePage, {
         work: this.work,
         workType: this.workType
@@ -58,7 +59,6 @@ export class SchedulePage {
     }
 
     isDateValid(date: FormControl): any {
-        console.log(date.value);
         let yesterday = new Date();
         yesterday.setDate(yesterday.getDate() - 1);
         if((new Date(date.value)) < yesterday) return { "la fecha no puede ser menor a ": 'hoy' };
