@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, LoadingController, Loading } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 
-import { FindWorkPage } from '../findwork/findwork'
-import { AuthService } from '../../providers/auth.service'
+import { FindWorkPage } from '../findwork/findwork';
+import { AuthService } from '../../providers/auth-service';
+import { UserDataService } from '../../providers/user-data-service';
 
 @Component({
   selector: 'login',
@@ -13,19 +14,38 @@ export class Login {
 
     username: string;
     password: string;
+    token: string;
+    loader: Loading;
 
     constructor(private navController: NavController,
-        private authService: AuthService, public alertCtrl: AlertController){
+                private authService: AuthService, 
+                public alertCtrl: AlertController,
+                public userDataService: UserDataService,
+                private loadingCtrl: LoadingController)
+    {
+        this.loader = this.loadingCtrl.create({content: "Please wait..."});
+    }
+
+
+    ionViewDidLoad() {
+        this.token = localStorage.getItem('token');
+        if(this.token) {
+            this.loader.present();
+            this.getAuthenticatedUser();
+        }
     }
 
     login(){
+        this.loader.present();
         this.authService.login(this.username, this.password)
             .subscribe(
             token => {
-                localStorage.setItem('token', token.token)
-                this.navController.setRoot(FindWorkPage)
+                localStorage.setItem('token', token.token);
+                this.token = token.token;
+                this.getAuthenticatedUser();
             },
             err => {
+                this.loader.dismiss();
                 let msg = "error";
                 if (err.status == 500) {
                     msg = "error de conexión, porfavor intenta mas tarde";
@@ -39,6 +59,21 @@ export class Login {
                 });
                 alert.present();
             })
+    }
+
+    getAuthenticatedUser() {
+        //TODO(a.santamaria): change it to work with workers too
+        this.authService.getAuthCustomer(this.token).subscribe(
+            customer => {
+                this.userDataService.setCustomer(customer);
+                this.navController.setRoot(FindWorkPage);
+                this.loader.dismiss();
+            },
+            error => {
+                this.loader.dismiss();
+            }
+        )
+        
     }
 
     signUp(){
