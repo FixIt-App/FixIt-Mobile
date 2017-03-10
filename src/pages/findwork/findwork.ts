@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { WorkTypeService } from '../../services/wortktype.service'
+import { WorkTypeService } from '../../providers/wortktype.service'
 import { WorkType } from '../../models/worktype'
 import { SchedulePage } from '../schedule/schedule'
 

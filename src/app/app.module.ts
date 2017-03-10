@@ -4,23 +4,24 @@ import { MyApp } from './app.component';
 
 
 import { FindWorkPage } from '../pages/findwork/findwork'
-import { HomePage } from '../pages/home/home'
 import { Login } from '../pages/login/login'
 import { SchedulePage } from '../pages/schedule/schedule'
 import { WherePage  } from '../pages/where/where'
+import { WhatPage  } from '../pages/what/what'
 
 
-import { WorkTypeService } from '../services/wortktype.service'
-import { AuthService } from '../services/auth.service'
+import { WorkTypeService } from '../providers/wortktype.service'
+import { AuthService } from '../providers/auth.service'
+import { AddressService } from '../providers/address-service'
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
     FindWorkPage,
     Login,
     SchedulePage,
     WherePage,
+    WhatPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -28,16 +29,17 @@ import { AuthService } from '../services/auth.service'
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage,
     FindWorkPage,
     Login,
     SchedulePage,
     WherePage,
+    WhatPage
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     WorkTypeService,
     AuthService,
+    AddressService
   ]
 })
 export class AppModule {}

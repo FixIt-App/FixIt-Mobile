@@ -1,0 +1,53 @@
+page-what {
+  ion-textarea {
+    border: dashed 3px map-get($colors, 'primary');
+    font-size: 18px;
+  }
+  .btn-icon {
+    ion-icon {
+      font-size: 1.5em;
+    }
+  }
+  .thumbnail {
+      display: block;
+      max-width:100%;
+      max-height:150px;
+      width: inherit;
+      height: 100%;
+      margin-left: auto;
+      margin-right: auto;
+  }
+  img {
+      display: block;
+      max-width:100%;
+      max-height:150px;
+      width: inherit;
+      height: auto;
+      margin-left: auto;
+      margin-right: auto;
+  }
+  .thumb {
+    width: 48%;
+    float: left;
+    margin: 0 1%;
+    
+  }
+  .contThump {
+    .options {
+      margin: 0 3px -45px 0;
+      text-align: right;
+      ion-icon {
+        font-size: 1.8em;
+      }
+    }
+  }
+  .addImage {
+    background: #f1f1f1;
+    padding: 20px 25px;
+    margin-top: 20px;
+    p {
+      color: #717171 !important;
+      font-size: 13px !important;
+    }
+  }
+}

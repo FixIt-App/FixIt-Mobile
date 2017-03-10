@@ -3,30 +3,29 @@ import { Http, Headers, RequestOptions } from '@angular/http'
 
 import { SERVER_URL } from './services.util'
 import 'rxjs/Rx'
+import { Observable } from "rxjs/Observable";
 
 @Injectable()
 export class AuthService {
-    loginUrl: string = SERVER_URL + "/api-token-auth/"
     
-
     constructor(private http: Http){    }
 
-    login(username: string, password: string): Promise<any>{
+    login(username: string, password: string): Observable<any>{
+        let loginUrl: string = SERVER_URL + "/api/token-auth/";
         var headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' })
         var options = new RequestOptions({ headers: headers });
-        return this.http.post(this.loginUrl,{
+        return this.http.post(loginUrl,{
             username: username,
             password: password
-        }, options).toPromise()
-        .then(response =>  {
-            console.log(response.json())
-            return response.json()
-        }).catch(this.handleError)
+        }, options)
+        .map(response => response.json())
+        .catch(this.handleError)
         
     }
-    private handleError(error: any): Promise<any> {
+
+    private handleError(error: any): Observable<any> {
         console.error('An error occurred', error);
-        return Promise.reject(error.message || error);
+        return Observable.throw(error.message || error);
     }
 
 }

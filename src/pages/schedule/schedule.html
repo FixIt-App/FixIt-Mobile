@@ -1,40 +1,37 @@
 <ion-header>
-<ion-toolbar>
+  <ion-navbar>
     <ion-title>FixIt</ion-title>
-</ion-toolbar>
+  </ion-navbar>
 </ion-header>
 
 <ion-content>
 
   <ion-card>
-  <ion-card-content>
+    <ion-card-content>
 
-    <ion-card-title class="center-text">
-      Servicio de {{workType.name}}
-    </ion-card-title>
+        <ion-card-title class="center-text">
+            Servicio de {{workType.name}}
+        </ion-card-title>
 
-    <ion-grid>
-        <ion-row>
-            <ion-col width-80 offset-10> <button color="danger" ion-button type="button" block>Lo necesito para ya</button></ion-col>
-        </ion-row>
-    </ion-grid>
+        <button class="agendarBtn" color="danger" ion-button type="button" block (click)="nextStepNow()">Lo necesito para ya</button>
 
-    <ion-card-header>
-       Agendar una cita
-    </ion-card-header>
-    <form action="" (ngSubmit)="nextStep()">
-    <ion-item>
-        <ion-label>Fecha y Hora</ion-label>
-        <ion-datetime required name="date" [(ngModel)]="work.date" displayFormat="MMM DD, YYYY HH:mm"></ion-datetime>
-    </ion-item>
-        <ion-grid>
-            <ion-row>
-                <ion-col width-80 offset-10> <button ion-button type="submit" block>Agendar Cita</button></ion-col>
-            </ion-row>
-        </ion-grid>
-    </form>
+        <ion-card-header>
+        Agendar una cita
+        </ion-card-header>
+        <form [formGroup]="form" (ngSubmit)="nextStep()">
+            <ion-item>
+                <ion-label>Fecha y Hora</ion-label>
+                <ion-datetime formControlName="date" [(ngModel)]="work.date" [min]="minDate" [max]="maxDate" displayFormat="MMM DD, YYYY HH:mm"></ion-datetime>
+            </ion-item>
+            <div class="errorBox" *ngIf="!form.controls.date.valid  && (form.controls.date.dirty || submitAttempt)">
+               * La fecha debe ser mayor.
+            </div>
+
+            <button ion-button disabled *ngIf="!form.valid" class="agendarBtn" type="submit" block>Agendar Cita</button>
+            <button ion-button *ngIf="form.valid" class="agendarBtn" type="submit" block>Agendar Cita</button>  
+        </form>
 
 
-  </ion-card-content>
-</ion-card>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
