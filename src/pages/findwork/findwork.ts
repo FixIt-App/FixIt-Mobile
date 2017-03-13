@@ -23,12 +23,13 @@ export class FindWorkPage implements OnInit {
 
     ngOnInit(){
       this.customer = this.userDataService.getCustomer();
-      console.log(this.customer);
       this.workTypeService.getWorkTypes()
-          .then(works => this.works = works)
-          .catch(err => {
-            console.log("Error al cargar los datos, intentando de nuevo")
-          })
+        .subscribe( works => {
+          this.works = works;
+        },
+        error => {
+          console.log(error);
+        })
     }
 
     goToNextStep(work: WorkType){
