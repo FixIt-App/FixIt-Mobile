@@ -3,6 +3,8 @@ import { NavController, LoadingController, Loading } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 
 import { FindWorkPage } from '../findwork/findwork';
+import { CreateUserPage } from '../user/create'
+
 import { AuthService } from '../../providers/auth-service';
 import { UserDataService } from '../../providers/user-data-service';
 
@@ -77,7 +79,7 @@ export class Login {
     }
 
     signUp(){
-        this.navController.setRoot(FindWorkPage)
+        this.navController.setRoot(CreateUserPage)
     }
 }
 

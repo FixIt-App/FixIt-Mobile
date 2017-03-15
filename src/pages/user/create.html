@@ -1,0 +1,32 @@
+  <ion-content>
+
+    <form action="" (ngSubmit)="create()">
+    <ion-grid>
+        <ion-row>
+            <ion-col width-80 offset-10>
+                <ion-item>
+                    <ion-label stacked>Username</ion-label>
+                    <ion-input  name="username" [(ngModel)]="username" type="text"></ion-input>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col width-80 offset-10>
+                <ion-item>
+                    <ion-label stacked>Password</ion-label>
+                    <ion-input  name="password" [(ngModel)]="password" type="password"></ion-input>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+
+    <ion-grid style="margin-top: 10vh;">
+        <ion-row>
+            <ion-col width-80 offset-10><button type="button" ion-button full type="submit"> Crear </button></ion-col>
+        </ion-row>
+    </ion-grid>
+    </form>
+
+
+</ion-content>

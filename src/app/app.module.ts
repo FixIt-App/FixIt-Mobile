@@ -8,6 +8,7 @@ import { Login } from '../pages/login/login'
 import { SchedulePage } from '../pages/schedule/schedule'
 import { WherePage  } from '../pages/where/where'
 import { WhatPage  } from '../pages/what/what'
+import { CreateUserPage } from '../pages/user/create'
 
 
 import { WorkTypeService } from '../providers/wortktype-service'
@@ -22,7 +23,8 @@ import { UserDataService } from '../providers/user-data-service'
     Login,
     SchedulePage,
     WherePage,
-    WhatPage
+    WhatPage,
+    CreateUserPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -34,7 +36,8 @@ import { UserDataService } from '../providers/user-data-service'
     Login,
     SchedulePage,
     WherePage,
-    WhatPage
+    WhatPage,
+    CreateUserPage
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},
