@@ -2,22 +2,62 @@
 
     <form action="" (ngSubmit)="create()">
     <ion-grid>
+        
         <ion-row>
             <ion-col width-80 offset-10>
                 <ion-item>
-                    <ion-label stacked>Username</ion-label>
+                    <ion-label stacked>Nombre</ion-label>
+                    <ion-input ></ion-input>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col width-80 offset-10>
+                <ion-item>
+                    <ion-label stacked>Apellido</ion-label>
+                    <ion-input  ></ion-input>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col width-80 offset-10>
+                <ion-item>
+                    <ion-label stacked>Ciudad</ion-label>
+                    <ion-input  name="city"></ion-input>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col width-80 offset-10>
+                <ion-item>
+                    <ion-label stacked>Correo</ion-label>
+                    <ion-input ></ion-input>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        
+        <ion-row>
+            <ion-col width-80 offset-10>
+                <ion-item>
+                    <ion-label stacked>Nombre de Usuario</ion-label>
                     <ion-input  name="username" [(ngModel)]="username" type="text"></ion-input>
                 </ion-item>
             </ion-col>
         </ion-row>
+        
         <ion-row>
             <ion-col width-80 offset-10>
                 <ion-item>
-                    <ion-label stacked>Password</ion-label>
+                    <ion-label stacked>Contraseña</ion-label>
                     <ion-input  name="password" [(ngModel)]="password" type="password"></ion-input>
                 </ion-item>
             </ion-col>
         </ion-row>
+
+
     </ion-grid>
 
 
