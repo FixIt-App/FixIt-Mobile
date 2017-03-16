@@ -1,8 +1,14 @@
 <ion-header>
 
-  <ion-navbar>
+  <ion-toolbar>
     <ion-title>Nueva Dirección</ion-title>
-  </ion-navbar>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span color="light" showWhen="ios">Cerrar</span>
+        <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
 
 </ion-header>
 

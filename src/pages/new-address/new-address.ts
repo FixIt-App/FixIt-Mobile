@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
-import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
+import { NavController, NavParams, ViewController } from 'ionic-angular';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'page-new-address',
@@ -44,7 +44,8 @@ export class NewAddressPage {
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
-              private formBuilder: FormBuilder) 
+              private formBuilder: FormBuilder,
+              private viewCtrl: ViewController) 
   {
     
     this.form = this.formBuilder.group({
@@ -70,6 +71,10 @@ export class NewAddressPage {
     } else {
       console.log('fuck');
     }
+  }
+
+   dismiss() {
+    this.viewCtrl.dismiss();
   }
 
 }
