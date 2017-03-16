@@ -7,6 +7,7 @@ import { CreateUserPage } from '../user/create'
 
 import { AuthService } from '../../providers/auth-service';
 import { UserDataService } from '../../providers/user-data-service';
+import { SERVER_URL } from '../../providers/services.util';
 
 @Component({
   selector: 'login',
@@ -48,7 +49,7 @@ export class Login {
             },
             err => {
                 this.loader.dismiss();
-                let msg = "error";
+                let msg = "error " + SERVER_URL;
                 if (err.status == 500) {
                     msg = "error de conexión, porfavor intenta mas tarde";
                 } else if (err.status == 400) {
@@ -70,7 +71,7 @@ export class Login {
                 this.userDataService.setCustomer(customer);
                 this.navController.setRoot(FindWorkPage);
                 this.loader.dismiss();
-            },
+            },  
             error => {
                 this.loader.dismiss();
             }
@@ -79,7 +80,7 @@ export class Login {
     }
 
     signUp(){
-        this.navController.setRoot(CreateUserPage)
+        this.navController.push(CreateUserPage)
     }
 }
 
