@@ -18,7 +18,7 @@
         <ion-card-header>
         Agendar una cita
         </ion-card-header>
-        <form [formGroup]="form" (ngSubmit)="nextStep()">
+        <form [formGroup]="form">
             <ion-item>
                 <ion-label>Fecha y Hora</ion-label>
                 <ion-datetime formControlName="date" [(ngModel)]="work.date" [min]="minDate" [max]="maxDate" displayFormat="MMM DD, YYYY HH:mm"></ion-datetime>
@@ -27,8 +27,8 @@
                * La fecha debe ser mayor.
             </div>
 
-            <button ion-button disabled *ngIf="!form.valid" class="agendarBtn" type="submit" block>Agendar Cita</button>
-            <button ion-button *ngIf="form.valid" class="agendarBtn" type="submit" block>Agendar Cita</button>  
+            <button ion-button disabled *ngIf="!form.valid" class="agendarBtn" block (click)="nextStep()">Agendar Cita</button>
+            <button ion-button *ngIf="form.valid" class="agendarBtn" block (click)="nextStep()">Agendar Cita</button>  
         </form>
 
 

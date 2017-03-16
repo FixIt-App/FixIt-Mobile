@@ -3,8 +3,10 @@
   "app_id": "08142b23",
   "v2": true,
   "typescript": true,
-  "proxies": [{
+  "proxies": [
+    {
       "path": "/api",
-      "proxyUrl": "http://192.168.0.3:8000/api"
-    }]
+      "proxyUrl": "http://192.168.0.6:8000/api"
+    }
+  ]
 }
