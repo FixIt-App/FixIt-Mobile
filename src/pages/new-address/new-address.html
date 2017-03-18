@@ -25,7 +25,8 @@
             </ion-select>
           </ion-item>
         </ion-col>
-
+      </ion-row>
+      <ion-row>
         <ion-col width-20>
           <ion-item>
             <ion-input type="text" [formControl]="trackNumber"></ion-input>
@@ -52,7 +53,11 @@
   </form>
 
   <div *ngIf="!mapLoaded" class="spinner"></div>
-  <div #map id="map"></div>
-  <img #locationIcon id="locationIcon" class="locatinoIcon" src="http://www.freeiconspng.com/uploads/blue-location-icon-png-19.png">
+  <div style="height: 100%; width: 100%">
+    <div #map id="map"></div>
+    <img #locationIcon id="locationIcon" class="locatinoIcon" src="http://www.freeiconspng.com/uploads/blue-location-icon-png-19.png">
+    
+  </div>
+  
   
 </ion-content>

@@ -96,15 +96,6 @@ export class NewAddressPage {
   }
 
   setMarker() {
-    var de = document.documentElement;
-    var mapElem = document.getElementById("map");
-    var box = mapElem.getBoundingClientRect();
-    var top = box.top + window.pageYOffset - de.clientTop;
-    var left = box.left + window.pageXOffset - de.clientLeft;
-    console.log('top ' + top + ' left ' + left);
-    console.log(this.map.getCenter());
-    console.log(this.mapElement.nativeElement);
-    console.log(this.mapElement.nativeElement.offsetTop);
     var offsetT = this.mapElement.nativeElement.offsetTop;
     var offsetL = this.mapElement.nativeElement.offsetLeft;
     var divHeight = this.mapElement.nativeElement.offsetHeight / 2;
@@ -112,16 +103,9 @@ export class NewAddressPage {
     
     var iconHeight = this.locationIcon.nativeElement.offsetHeight;
     var iconWidth = this.locationIcon.nativeElement.offsetWidth;
-    console.log('offT ' + offsetT );
-    console.log('offL ' + offsetL );
-    console.log('divWidth ' + divWidth );
-    console.log('divHeight ' + divHeight );
-
-    console.log('cambiar ubiacion a: ' + (offsetT + divHeight) + ' ' + (offsetL + divWidth));
-    this.locationIcon.nativeElement.style.top = (offsetT + divHeight) + "px";
-    this.locationIcon.nativeElement.style.left = (offsetL + divWidth - (iconWidth/2)) +  "px";
-    console.log(this.locationIcon.nativeElement.style.top + '  ' + this.locationIcon.nativeElement.style.left);
-    console.log(this.locationIcon);
+  
+    this.locationIcon.nativeElement.style.top = - (divHeight + (iconHeight)) + "px";
+    this.locationIcon.nativeElement.style.left = (divWidth - (iconWidth/2)) +  "px";
   }
   
   addMarker() {
@@ -135,7 +119,37 @@ export class NewAddressPage {
     let content = "<h4>Information!</h4>";          
   
     this.addInfoWindow(marker, content);
+    let pos = this.map.getCenter();
+    console.log(pos.lat);
+    console.log(pos.lng);
+    this.getGeoLocation(pos.lat(), pos.lng());
   
+  }
+
+  getGeoLocation(lat: number, lng: number) {
+    if (navigator.geolocation) {
+        let geocoder = new google.maps.Geocoder();
+        let latlng = new google.maps.LatLng(lat, lng);
+        let request = { latLng: latlng };
+        console.log('voy a llamar geolocation');
+        console.log(lat + ' ' + lng);
+        geocoder.geocode(request, 
+        (results, status) => {
+          if (status == google.maps.GeocoderStatus.OK) {
+            let result = results[0];
+            console.log(result);
+            let rsltAdrComponent = result.address_components;
+            let resultLength = rsltAdrComponent.length;
+            if (result != null) {
+              console.log(rsltAdrComponent);
+              console.log(rsltAdrComponent[0].long_name);
+              console.log(rsltAdrComponent[1].long_name);
+            } else {
+              alert("No address available!");
+            }
+          }
+        });
+    }
   }
 
   addInfoWindow(marker, content) {
