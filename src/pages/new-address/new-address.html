@@ -7,6 +7,7 @@
         <span color="light" showWhen="ios">Cerrar</span>
         <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
       </button>
+      <button ion-button (click)="addMarker()"><ion-icon name="add"></ion-icon>Add Marker</button>
     </ion-buttons>
   </ion-toolbar>
 
@@ -49,4 +50,9 @@
       </ion-row>
     </ion-grid>
   </form>
+
+  <div *ngIf="!mapLoaded" class="spinner"></div>
+  <div #map id="map"></div>
+  <img #locationIcon id="locationIcon" class="locatinoIcon" src="http://www.freeiconspng.com/uploads/blue-location-icon-png-19.png">
+  
 </ion-content>
