@@ -9,21 +9,36 @@ import { Address } from '../models/address';
 
 @Injectable()
 export class AddressService {
+    token: string;
 
-  constructor(public http: Http) {}
+    constructor(public http: Http) {
+        this.token = localStorage.getItem('token');
+    }
 
-  getAddresses(token: string, idCustomer: number): Observable<any>{
-      //todo(a-santamria): change to url addresses of specific customer
-      let getAddressesUrl: string = `${SERVER_URL}/api/addresses`;
-      console.log(getAddressesUrl);
-      var headers = new Headers({ 'Content-Type': 'application/json', 
-                                  'Accept': 'application/json',
-                                  'Authorization': `Token ${token}`
+    getCustomerAddresses(): Observable<any> {
+        let getAddressesUrl: string = `${SERVER_URL}/api/myadresses/`;
+        var headers = new Headers({ 'Content-Type': 'application/json', 
+                                    'Accept': 'application/json',
+                                    'Authorization': `Token ${this.token}`
+                                    });
+        var options = new RequestOptions({ headers: headers });
+        return this.http.get(getAddressesUrl, options)
+                        .map(response => response.json().map(data => new Address(data)))
+                        .catch(this.handleError)
+        
+    }
+
+    addCustomerAddress(newAddres: Address): Observable<any> {
+        let getAddressesUrl: string = `${SERVER_URL}/api/myadresses/`;
+        var headers = new Headers({ 'Content-Type': 'application/json', 
+                                    'Accept': 'application/json',
+                                    'Authorization': `Token ${this.token}`
                                 });
-      var options = new RequestOptions({ headers: headers });
-      return this.http.get(getAddressesUrl, options)
-                      .map(response => response.json().map(data => new Address(data)))
-                      .catch(this.handleError)
+        var body = JSON.stringify(newAddres);
+        var options = new RequestOptions({ headers: headers });
+        return this.http.post(getAddressesUrl, body, options)
+                        .map(response =>  new Address(response))
+                        .catch(this.handleError)
         
     }
 

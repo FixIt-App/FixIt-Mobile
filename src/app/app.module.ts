@@ -9,10 +9,14 @@ import { SchedulePage } from '../pages/schedule/schedule'
 import { WherePage  } from '../pages/where/where'
 import { WhatPage  } from '../pages/what/what'
 
+import { CreateUserPage } from '../pages/user/create'
+import { NewAddressPage } from '../pages/new-address/new-address';
 
-import { WorkTypeService } from '../providers/wortktype.service'
-import { AuthService } from '../providers/auth.service'
+
+import { WorkTypeService } from '../providers/wortktype-service'
+import { AuthService } from '../providers/auth-service'
 import { AddressService } from '../providers/address-service'
+import { UserDataService } from '../providers/user-data-service'
 
 @NgModule({
   declarations: [
@@ -21,7 +25,9 @@ import { AddressService } from '../providers/address-service'
     Login,
     SchedulePage,
     WherePage,
-    WhatPage
+    WhatPage,
+    CreateUserPage,
+    NewAddressPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -33,13 +39,16 @@ import { AddressService } from '../providers/address-service'
     Login,
     SchedulePage,
     WherePage,
-    WhatPage
+    WhatPage,
+    CreateUserPage,
+    NewAddressPage
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     WorkTypeService,
     AuthService,
-    AddressService
+    AddressService,
+    UserDataService
   ]
 })
 export class AppModule {}
