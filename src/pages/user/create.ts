@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { NavController, LoadingController, Loading } from 'ionic-angular'
+import { NavController } from 'ionic-angular'
 import { AlertController } from 'ionic-angular'
 
 import { Login } from '../login/login'
@@ -22,6 +22,8 @@ export class CreateUserPage {
     }
 
     create(){
+        this.customer.username = this.customer.email;
+
         this.userService.saveCustomer(this.customer)
             .subscribe(customer => {
                var alert = this.alertCtrl.create({
@@ -37,16 +39,21 @@ export class CreateUserPage {
                 
             },
             error => {
+                var msg = 'No se pudo crear el usuario'
+                if(error.status = 500){
+                    msg = "El correo seleccionado ya está en uso"
+                }
+                
                 var alert = this.alertCtrl.create({
                     title: 'Error',
-                    subTitle: 'No se pudo crear el usuario',
+                    subTitle: msg,
                     buttons: ['OK']
                 });
 
                 alert.present()
-                    .then(err => {
+                     .then(err => {
                         this.customer = new Customer({})
-                    })
+                     })
             })
     }
 
