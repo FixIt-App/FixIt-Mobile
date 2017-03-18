@@ -3,8 +3,11 @@ import { NavController, LoadingController, Loading } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 
 import { FindWorkPage } from '../findwork/findwork';
+import { CreateUserPage } from '../user/create'
+
 import { AuthService } from '../../providers/auth-service';
 import { UserDataService } from '../../providers/user-data-service';
+import { SERVER_URL } from '../../providers/services.util';
 
 @Component({
   selector: 'login',
@@ -45,7 +48,7 @@ export class Login {
             },
             err => {
                 this.loader.dismiss();
-                let msg = "error";
+                let msg = "error " + SERVER_URL;
                 if (err.status == 500) {
                     msg = "error de conexión, porfavor intenta mas tarde";
                 } else if (err.status == 400) {
@@ -67,7 +70,7 @@ export class Login {
                 console.log(customer);
                 this.navController.setRoot(FindWorkPage);
                 this.loader.dismiss();
-            },
+            },  
             error => {
                 this.loader.dismiss();
             }
@@ -76,7 +79,7 @@ export class Login {
     }
 
     signUp(){
-        this.navController.setRoot(FindWorkPage)
+        this.navController.push(CreateUserPage)
     }
 }
 

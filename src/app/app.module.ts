@@ -8,7 +8,10 @@ import { Login } from '../pages/login/login'
 import { SchedulePage } from '../pages/schedule/schedule'
 import { WherePage  } from '../pages/where/where'
 import { WhatPage  } from '../pages/what/what'
+
+import { CreateUserPage } from '../pages/user/create'
 import { NewAddressPage } from '../pages/new-address/new-address';
+
 
 import { WorkTypeService } from '../providers/wortktype-service'
 import { AuthService } from '../providers/auth-service'
@@ -23,6 +26,7 @@ import { UserDataService } from '../providers/user-data-service'
     SchedulePage,
     WherePage,
     WhatPage,
+    CreateUserPage,
     NewAddressPage
   ],
   imports: [
@@ -36,6 +40,7 @@ import { UserDataService } from '../providers/user-data-service'
     SchedulePage,
     WherePage,
     WhatPage,
+    CreateUserPage,
     NewAddressPage
   ],
   providers: [
