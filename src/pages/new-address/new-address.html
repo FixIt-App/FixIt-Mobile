@@ -1,0 +1,52 @@
+<ion-header>
+
+  <ion-toolbar>
+    <ion-title>Nueva Dirección</ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span color="light" showWhen="ios">Cerrar</span>
+        <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form [formGroup]="form">
+    <ion-grid>
+      <ion-row>
+        <ion-col width-30>
+          <ion-item>
+            <ion-select [formControl]="trackType">
+                <ion-option *ngFor="let trackType of trackTypes">{{ trackType }}</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+
+        <ion-col width-20>
+          <ion-item>
+            <ion-input type="text" [formControl]="trackNumber"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col width-10> <ion-item no-lines> # </ion-item> </ion-col>
+        <ion-col width-20>
+          <ion-item>
+            <ion-input type="text" [formControl]="genNumber"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col width-10> <ion-item no-lines> - </ion-item> </ion-col>
+        <ion-col width-10>
+          <ion-item>
+            <ion-input type="text" [formControl]="placaNumber"></ion-input>
+          </ion-item>
+        </ion-col>
+
+      </ion-row>
+      <ion-row>
+        <button ion-button class="agendarBtn" block (click)="saveAddress()">Guardar Dirección</button>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

@@ -17,7 +17,6 @@ export class Login {
 
     username: string;
     password: string;
-    token: string;
     loader: Loading;
 
     constructor(private navController: NavController,
@@ -25,27 +24,27 @@ export class Login {
                 public alertCtrl: AlertController,
                 public userDataService: UserDataService,
                 private loadingCtrl: LoadingController)
-    {
-        this.loader = this.loadingCtrl.create({content: "Please wait..."});
-    }
+    {}
 
 
     ionViewDidLoad() {
-        this.token = localStorage.getItem('token');
-        if(this.token) {
+        if(localStorage.getItem('token')) {
+            this.loader = this.loadingCtrl.create({content: "Please wait..."});
             this.loader.present();
-            this.getAuthenticatedUser();
+            this.getAuthenticatedCustomer();
         }
     }
 
     login(){
+        console.log('entre');
+        this.loader = this.loadingCtrl.create({content: "Please wait..."});
         this.loader.present();
-        this.authService.login(this.username, this.password)
-            .subscribe(
+        this.authService.login(this.username, this.password).subscribe(
             token => {
+                console.log(token.token);
                 localStorage.setItem('token', token.token);
-                this.token = token.token;
-                this.getAuthenticatedUser();
+                this.authService.reloadToken();
+                this.getAuthenticatedCustomer();
             },
             err => {
                 this.loader.dismiss();
@@ -64,11 +63,11 @@ export class Login {
             })
     }
 
-    getAuthenticatedUser() {
-        //TODO(a.santamaria): change it to work with workers too
-        this.authService.getAuthCustomer(this.token).subscribe(
+    getAuthenticatedCustomer() {
+        this.authService.getAuthCustomer().subscribe(
             customer => {
                 this.userDataService.setCustomer(customer);
+                console.log(customer);
                 this.navController.setRoot(FindWorkPage);
                 this.loader.dismiss();
             },  
