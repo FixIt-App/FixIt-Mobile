@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, LoadingController, ModalController } from 'ionic-angular';
+import { DatePicker } from 'ionic-native';
 
 import { WorkType } from '../../models/worktype'
 import { Work } from '../../models/work'
@@ -40,6 +41,8 @@ export class WherePage {
           console.log('acabe');
           console.log(data);
           this.addresses = data;
+          if(this.addresses && this.addresses.length > 0)
+            this.selectedAddress = this.addresses[0];
           loader.dismiss();
         },
         error => {
@@ -60,5 +63,23 @@ export class WherePage {
     newAddress() {
        let modal = this.modalCtrl.create(NewAddressPage);
        modal.present();
+    }
+
+    editDate() {
+      let options = {
+          date: this.work.date,
+          mode: 'datetime',
+          androidTheme: DatePicker.ANDROID_THEMES.THEME_HOLO_LIGHT,
+          minDate: new Date()
+        }
+
+        DatePicker.show(options).then(
+          date => {
+            this.work.date = date;
+          },
+          error => {
+            console.log('Error: ' + error);
+          }
+        );
     }
 }

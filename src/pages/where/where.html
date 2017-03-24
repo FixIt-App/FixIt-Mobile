@@ -8,20 +8,26 @@
 
   <ion-card>
     <ion-card-content>
+      <button ion-button icon-left class="nuevaDirBtn" (click)="editDate()" block>
+        <ion-icon name="create"></ion-icon> {{ work.date | date:'medium'  }}
+      </button>  
 
       <ion-card-title class="center-text">
         ¿Dónde enviamos tu servicio?
       </ion-card-title>
-
-      <ion-select [(ngModel)]="selectedAddress">
-        <ion-option *ngFor="let address of addresses" [value]="address">{{ address.name }}</ion-option>
-      </ion-select>
-
+      <ion-item>
+        <ion-select [(ngModel)]="selectedAddress">
+          <ion-option *ngFor="let address of addresses" [value]="address">{{ address.name }}</ion-option>
+        </ion-select>
+      </ion-item>
       <button ion-button icon-left class="nuevaDirBtn" (click)="newAddress()" block>
         <ion-icon name="add"></ion-icon> Nueva Dirección
       </button>  
     </ion-card-content>
   </ion-card>
 
-  <button ion-button block (click)="nextStep()">Siguente</button>
 </ion-content>
+
+<ion-footer>
+  <button ion-button block (click)="nextStep()">Siguente</button>
+</ion-footer>
