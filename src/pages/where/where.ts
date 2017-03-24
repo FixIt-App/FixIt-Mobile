@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, ModalController } from 'ionic-angular';
+import { DatePicker } from 'ionic-native';
 
 import { WorkType } from '../../models/worktype'
 import { Work } from '../../models/work'
 import { WhatPage } from '../what/what';
+import { NewAddressPage } from '../new-address/new-address';
 import { AddressService } from '../../providers/address-service';
 import { Address } from '../../models/address';
 
@@ -13,7 +15,6 @@ import { Address } from '../../models/address';
 })
 export class WherePage {
 
-    token: string;
     addresses: Address[];
     selectedAddress: Address;
     workType: WorkType;
@@ -22,7 +23,8 @@ export class WherePage {
     constructor(private navController: NavController,
                 private navParams: NavParams,
                 private loadingCtrl: LoadingController,
-                private addressService: AddressService)
+                private addressService: AddressService,
+                private modalCtrl: ModalController)
     {
       this.work = this.navParams.get('work');
       this.workType = this.navParams.get('workType');
@@ -31,16 +33,16 @@ export class WherePage {
 
     ionViewDidLoad() {
       console.log('voy a llamar service');
-      this.token = localStorage.getItem('token');
 
       let loader = this.loadingCtrl.create({content: "Please wait..."});
       loader.present();
-      //todo(a-santamaria): change to real customer id 
-      this.addressService.getAddresses(this.token, 1).subscribe(
+      this.addressService.getCustomerAddresses().subscribe(
         data => {
           console.log('acabe');
           console.log(data);
           this.addresses = data;
+          if(this.addresses && this.addresses.length > 0)
+            this.selectedAddress = this.addresses[0];
           loader.dismiss();
         },
         error => {
@@ -59,6 +61,25 @@ export class WherePage {
     }
 
     newAddress() {
-      
+       let modal = this.modalCtrl.create(NewAddressPage);
+       modal.present();
+    }
+
+    editDate() {
+      let options = {
+          date: this.work.date,
+          mode: 'datetime',
+          androidTheme: DatePicker.ANDROID_THEMES.THEME_HOLO_LIGHT,
+          minDate: new Date()
+        }
+
+        DatePicker.show(options).then(
+          date => {
+            this.work.date = date;
+          },
+          error => {
+            console.log('Error: ' + error);
+          }
+        );
     }
 }
