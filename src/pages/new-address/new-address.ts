@@ -1,7 +1,7 @@
 import { Component, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { NavController, NavParams, ViewController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
-import { Geolocation, NativeGeocoder } from 'ionic-native';
+import { Geolocation } from 'ionic-native';
 
 declare var google;
 
@@ -128,8 +128,6 @@ export class NewAddressPage {
   }
 
   setMarker() {
-    var offsetT = this.mapElement.nativeElement.offsetTop;
-    var offsetL = this.mapElement.nativeElement.offsetLeft;
     var divHeight = this.mapElement.nativeElement.offsetHeight / 2;
     var divWidth = this.mapElement.nativeElement.offsetWidth / 2;
     
@@ -151,8 +149,7 @@ export class NewAddressPage {
   getLocByAddres() {
     let address: string = `${this.streetType.value} ${this.streetNumber.value} ${this.genNumber.value}-${this.placaNumber.value}, Bogotá, Colombia`;
     console.log(address);
-    let geocoder = new google.maps.Geocoder();
-     this.geocoder.geocode({address: address},
+    this.geocoder.geocode({address: address},
       (results, status) => {
         console.log(status);
         console.log(results);
@@ -173,7 +170,6 @@ export class NewAddressPage {
               let result = results[0];
               console.log(result);
               let rsltAdrComponent = result.address_components;
-              let resultLength = rsltAdrComponent.length;
               if (result != null) {
                 let street: string[] = rsltAdrComponent[1].short_name.split(/[ \.]+/);
                 let streetName: string = street[0];
@@ -185,7 +181,7 @@ export class NewAddressPage {
                   console.log(genNumbers2);
                   genNumbers = genNumbers2.split(/[-,]+/);
                 } else {
-                  let genNumbers = ["", ""];
+                  genNumbers = ["", ""];
                 }
                 /**
                  * force anglar to rerender values

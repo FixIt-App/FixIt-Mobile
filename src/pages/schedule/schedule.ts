@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { DatePicker } from 'ionic-native';
 
 import { WorkType } from '../../models/worktype'
 import { Work } from '../../models/work'
@@ -14,28 +14,25 @@ export class SchedulePage {
 
     workType: WorkType;
     work: Work;
-    form: FormGroup;
     minDate: string;
     maxDate: string;
     today: Date;
 
     constructor(private navController: NavController,
-                private navParams: NavParams,
-                private formBuilder: FormBuilder)
+                private navParams: NavParams)
     {
       this.workType = navParams.get('work')
       this.work = new Work();
       this.today = new Date();
-      // this.minDate = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`
+      this.minDate = `${this.today.getFullYear()}-${this.today.getMonth()}-${this.today.getDate()}`
       // this.maxDate = `${today.getFullYear()+1}-${today.getMonth()}-${today.getDate()}`
-      this.minDate = `${this.today.getFullYear()}`;
+      // this.minDate = `${this.today.getFullYear()}`;
       this.maxDate = `${this.today.getFullYear()+1}`;
 
       console.log(this.minDate + ' ' + this.maxDate);
+    }
 
-      this.form = this.formBuilder.group({
-        date: ['', Validators.compose([Validators.required, this.isDateValid])]
-      });
+    ionViewDidLoad() {
     }
 
     nextStepNow() {
@@ -47,21 +44,25 @@ export class SchedulePage {
       })
     }
 
-    nextStep() {
-      if(!this.form.valid) {
-        return;
-      }
-      console.log(this.work.date);
-      this.navController.push(WherePage, {
-        work: this.work,
-        workType: this.workType
-      })
-    }
+    makeDate() {
+      let options = {
+          date: new Date(),
+          mode: 'datetime',
+          androidTheme: DatePicker.ANDROID_THEMES.THEME_HOLO_LIGHT,
+          minDate: new Date()
+        }
 
-    isDateValid(date: FormControl): any {
-        let yesterday = new Date();
-        yesterday.setDate(yesterday.getDate() - 1);
-        if((new Date(date.value)) < yesterday) return { "la fecha no puede ser menor a ": 'hoy' };
-        return null;
+        DatePicker.show(options).then(
+          date => {
+            this.work.date = date;
+            this.navController.push(WherePage, {
+              work: this.work,
+              workType: this.workType
+            })
+          },
+          error => {
+            console.log('Error: ' + error);
+          }
+        );
     }
 }
