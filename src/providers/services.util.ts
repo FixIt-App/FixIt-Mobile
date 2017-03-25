@@ -1,5 +1,5 @@
 
-const SERVER_LOCATION: string = "http://192.168.0.6";
+const SERVER_LOCATION: string = "http://192.168.0.11";
 
 const SERVER_PORT: string = "8000";
 

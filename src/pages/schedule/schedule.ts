@@ -30,6 +30,10 @@ export class SchedulePage {
       // this.maxDate = `${today.getFullYear()+1}-${today.getMonth()}-${today.getDate()}`
       this.minDate = `${this.today.getFullYear()}`;
       this.maxDate = `${this.today.getFullYear()+1}`;
+      
+      var currentDate = new Date();
+      currentDate.setHours(currentDate.getHours() + 3)
+      this.work.date = this.convertUTCDateToLocalDate(currentDate).toISOString();
 
       console.log(this.minDate + ' ' + this.maxDate);
 
@@ -38,8 +42,18 @@ export class SchedulePage {
       });
     }
 
+    convertUTCDateToLocalDate(date: Date): Date {
+      var newDate = new Date(date.getTime()+date.getTimezoneOffset()*60*1000);
+      var offset = date.getTimezoneOffset() / 60;
+      var hours = date.getHours();
+
+      newDate.setHours(hours - offset);
+
+      return newDate;   
+    }
+
     nextStepNow() {
-      this.work.date = new Date();
+      this.work.date = new Date().toISOString();
       console.log(this.work.date);
       this.navController.push(WherePage, {
         work: this.work,
