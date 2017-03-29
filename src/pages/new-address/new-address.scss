@@ -4,12 +4,12 @@ page-new-address {
     max-width: 100%;
     text-align: center;
   }
-  // .select-md {
-  //   margin-left: 30%;
-  // }
-  // .select-ios {
-  //   margin-left: 30%;
-  // }
+  .errorBox {
+     color: #FF9800;
+     padding: 5px 20px;
+     font-size: 13px;
+     font-weight: 700;
+  }
 
   .item-md {
     padding-left: 0px;
@@ -25,7 +25,7 @@ page-new-address {
 
   #map {
     width: 100%;
-    height: 70%;
+    height: 90%;
   }
 
   .locatinoIcon {
@@ -37,7 +37,7 @@ page-new-address {
 
   .text-input {
     width: 100%;
-    margin: 0;
+    // margin: 0;
   }
 
   .spinner {

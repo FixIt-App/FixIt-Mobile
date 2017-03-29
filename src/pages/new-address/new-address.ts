@@ -1,7 +1,10 @@
 import { Component, ViewChild, ElementRef, NgZone } from '@angular/core';
-import { NavController, NavParams, ViewController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, AlertController, ToastController, LoadingController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Geolocation } from 'ionic-native';
+
+import { AddressService } from '../../providers/address-service';
+import { Address } from '../../models/address';
 
 declare var google;
 
@@ -11,87 +14,58 @@ declare var google;
 })
 export class NewAddressPage {
 
-  // streetTypes: any[] = [
-  //   { name: 'Avenida', abbreviation: 'AV' },
-  //   { name: 'Avenida Calle', abbreviation: 'AV CLL' },
-  //   { name: 'Avenida Carrera', abbreviation: 'AV CR' },
-  //   { name: 'Calle', abbreviation: 'CLL' },
-  //   { name: 'Carrera', abbreviation: 'CR' },
-  //   { name: 'Circular', abbreviation: 'CQ' },
-  //   { name: 'Circunvalar', abbreviation: 'CV' },
-  //   { name: 'Diagonal', abbreviation: 'DG' },
-  //   { name: 'Manzana', abbreviation: 'MZ' },
-  //   { name: 'Transversal', abbreviation: 'TR' },
-  //   { name: 'Vía', abbreviation: 'VIA' }
-  // ];
-
-  streetAbb: any = {
-    'Av' : 'Avenida',
-    'Ac': 'Avenida Calle',
-    'Ak': 'Avenida Carrera',
-    'Cl': 'Calle',
-    'Cra': 'Carrera',
-    'Ai': 'Circunvalar',
-    'Dg': 'Diagonal',
-    'Tv': 'Transversal',
-  }
-  streetTypes: string[] = [
-    'Avenida',
-    'Avenida Calle',
-    'Avenida Carrera',
-    'Calle',
-    'Carrera',
-    'Circular',
-    'Circunvalar',
-    'Diagonal',
-    'Manzana',
-    'Transversal',
-    'Vía'
-  ];
+  cities: string[] = [
+    'Bogotá, Colombia',
+    'Chia, Colombia',
+  ]
 
   @ViewChild('map') mapElement: ElementRef;
   @ViewChild('locationIcon') locationIcon: ElementRef;
   map: any;
-
   streetType: AbstractControl;
   streetNumber: AbstractControl;
   genNumber: AbstractControl;
   placaNumber: AbstractControl;
 
-  // streetType: string;
-  // streetNumber: string;
-  // genNumber: string;
-  // placaNumber: string;
+  address: AbstractControl;
+  address2: AbstractControl;
+  location: AbstractControl;
+  currentMarker: any;
 
   form: FormGroup;
   mapLoaded: boolean;
   geocoder: any;
+  center: any;
+  submitAttempt: boolean;
+  city: string;
+  country: string;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
+              private alertCtrl: AlertController,
+              private toastCtrl: ToastController,
+              private loadingCtrl: LoadingController,
               private formBuilder: FormBuilder,
               private viewCtrl: ViewController,
-              private ngZone: NgZone)
+              private ngZone: NgZone,
+              private addressService: AddressService)
   {
-    
     this.form = this.formBuilder.group({
-        streetType:   ['', Validators.compose([Validators.required])],
-        streetNumber: ['', Validators.compose([Validators.required])],
-        genNumber:   ['', Validators.compose([Validators.required])],
-        placaNumber: ['', Validators.compose([Validators.required])],
+        address:   ['', Validators.compose([Validators.required])],
+        address2:   [''],
+        location: ['', Validators.compose([Validators.required])]
       });
-    this.form.patchValue({ 'streetType' : 'Calle'});
-    this.streetType = this.form.controls['streetType'];
-    this.streetNumber = this.form.controls['streetNumber'];
-    this.genNumber = this.form.controls['genNumber'];
-    this.placaNumber = this.form.controls['placaNumber'];
-
-    // this.streetType = 'Calle';
+    this.address = this.form.controls['address'];
+    this.address2 = this.form.controls['address2'];
+    this.location = this.form.controls['location'];
+    this.form.patchValue({ 'location' : this.cities[0]});
+    console.log(this.location.value);
     this.mapLoaded = false;
     this.geocoder = new google.maps.Geocoder();
     this.form.valueChanges
              .debounceTime(600)
              .distinctUntilChanged()
+             .skip(1)
              .subscribe(() => this.getLocByAddres());
   }
 
@@ -100,34 +74,33 @@ export class NewAddressPage {
   }
 
   loadMap() {
-    Geolocation.getCurrentPosition().then(
+    this.geocoder.geocode({address: 'Bogotá'},
       (position) => {
- 
-        let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-    
+        let latLng = new google.maps.LatLng(position[0].geometry.location.lat(), position[0].geometry.location.lng());
+        this.center = latLng;
+
         let mapOptions = {
           center: latLng,
           zoom: 15,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
+          disableDefaultUI: true
         }
     
         this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-        // 'center_changed'
-        
-        this.map.addListener('dragend', () => {
-          this.getCenterGeocode();
-        });
-
         this.mapLoaded = true;
-        this.setMarker();
-        this.getCenterGeocode();
-      }, 
-      (err) => {
-        console.log(err);
       });
   }
 
-  setMarker() {
+  setMarker(position) {
+    if(this.currentMarker)
+      this.currentMarker.setMap(null);
+    this.currentMarker = new google.maps.Marker({
+      position: position,
+      map: this.map
+    });
+  }
+
+  setMarkerIcon() {
     var divHeight = this.mapElement.nativeElement.offsetHeight / 2;
     var divWidth = this.mapElement.nativeElement.offsetWidth / 2;
     
@@ -147,19 +120,20 @@ export class NewAddressPage {
   }
 
   getLocByAddres() {
-    let address: string = `${this.streetType.value} ${this.streetNumber.value} ${this.genNumber.value}-${this.placaNumber.value}, Bogotá, Colombia`;
-    console.log(address);
-    this.geocoder.geocode({address: address},
+    this.geocoder.geocode({address: this.address.value + this.location.value},
       (results, status) => {
         console.log(status);
         console.log(results);
         if (status == google.maps.GeocoderStatus.OK && results && results.length > 0) {
+          console.log(results);
           console.log(results[0].geometry.location);
           this.map.setCenter(results[0].geometry.location);
+          this.setMarker(results[0].geometry.location);
         }
       }
      );
   }
+
   getGeocode(lat: number, lng: number) {
     if (navigator.geolocation) {
         let latlng = new google.maps.LatLng(lat, lng);
@@ -168,39 +142,34 @@ export class NewAddressPage {
           (results, status) => {
             if (status == google.maps.GeocoderStatus.OK) {
               let result = results[0];
-              console.log(result);
               let rsltAdrComponent = result.address_components;
               if (result != null) {
-                let street: string[] = rsltAdrComponent[1].short_name.split(/[ \.]+/);
-                let streetName: string = street[0];
-                let streetNumber: string = street.slice(1,street.length).join(" ");
-                let genNumbers: string[] = rsltAdrComponent[0].long_name.split('-');
-                let formated: string = result.formatted_address;
-                if(formated.indexOf('#') != -1) {
-                  let genNumbers2: string = formated.split('#')[1].split(' ')[0];
-                  console.log(genNumbers2);
-                  genNumbers = genNumbers2.split(/[-,]+/);
-                } else {
-                  genNumbers = ["", ""];
-                }
+                let addressString: string[] = result.formatted_address.split(',');
+
                 /**
-                 * force anglar to rerender values
-                 * this has to be done since map listener is not registered
-                 */
-                if(this.streetType.value != this.streetAbb[streetName])
-                  this.ngZone.run(() => this.form.patchValue({ 'streetType' : this.streetAbb[streetName]}));
-                if(this.streetNumber.value != streetNumber)
-                  this.ngZone.run(() => this.form.patchValue({ 'streetNumber': streetNumber}));
-                if(this.genNumber.value != genNumbers[0])
-                  this.ngZone.run(() => this.form.patchValue({ 'genNumber': genNumbers[0]}));
-                if(this.placaNumber.value != genNumbers[1])
-                  this.ngZone.run(() => this.form.patchValue({ 'placaNumber': genNumbers[1]}));
+                //  * force anglar to rerender values
+                //  * this has to be done since map listener is not registered
+                //  */
+                let address = addressString[0].split(' a ');
+                this.ngZone.run(() => this.address.setValue(address[0]));
+
+                let currCity = addressString.slice(1,addressString.length).map(value => value.trim() ).join(", ");
+                if(this.cities.indexOf(currCity) == -1) {
+                  this.cities.push(currCity);
+                }
+                this.ngZone.run(() => this.location.setValue(currCity));
               } else {
                 alert("No address available!");
               }
             }
           });
     }
+  }
+
+  centerToLocation() {
+      this.map.panTo(this.center);
+      // console.log(this.center);
+      this.getGeocode(this.center.lat(), this.center.lng());
   }
 
   addInfoWindow(marker, content) {
@@ -217,12 +186,96 @@ export class NewAddressPage {
 
   saveAddress() {
     if(this.form.valid) {
-      console.log('es valido');
+      let alert = this.alertCtrl.create();
+      alert.setTitle('Nombre corto');
+
+      alert.addInput({
+        type: 'radio',
+        label: 'Casa',
+        value: 'Casa',
+      });
+
+      alert.addInput({
+        type: 'radio',
+        label: 'Apto',
+        value: 'Apto',
+      });
+
+      alert.addInput({
+        type: 'radio',
+        label: 'Trabajo',
+        value: 'Trabajo',
+      });
+
+      alert.addInput({
+        type: 'radio',
+        label: 'Otro',
+        value: 'Otro',
+      });
+
+      alert.addButton('Cancel');
+      alert.addButton({
+        text: 'OK',
+        handler: data => {
+          if(data == 'Otro') {
+            let alert2 = this.alertCtrl.create( {
+              title: 'Nombre corto',
+              inputs: [
+                {
+                  name: 'name',
+                  placeholder: 'nombre'
+                },
+              ]
+            });
+            alert2.addButton('Cancel');
+            alert2.addButton({
+              text: 'OK',
+              handler: data => {
+                this.sendAddressToServer(data.name);
+              }
+            });
+            alert2.setTitle('Nombre corto');
+            alert2.present();
+          } else {
+            this.sendAddressToServer(data);
+          }
+        }
+      });
+      alert.present();
     } else {
-      console.log('fuck');
+      this.submitAttempt = true;
     }
   }
 
+  sendAddressToServer(shortName: string) {
+    let loader = this.loadingCtrl.create({content: "Please wait..."});
+    loader.present();
+    let vals: string[] = this.location.value.split(', ');
+    let city: string = vals[0].trim();
+    let country: string = vals[1].trim();
+    this.addressService.addCustomerAddress(
+      new Address({
+        name: shortName,
+        address: this.address.value + ' ' + this.address2.value,
+        city: city,
+        country: country
+      })).subscribe(
+        (newAddress) => {
+          console.log(newAddress);
+          this.viewCtrl.dismiss(newAddress);
+          loader.dismiss();
+        },
+        (error) => {
+          console.log(error);
+          let toast = this.toastCtrl.create({
+             message: 'Error, por favor intenta mas tarde.',
+             duration: 4000,
+             showCloseButton: true,
+          });
+          loader.dismiss();
+        }
+      )
+  }
   dismiss() {
     this.viewCtrl.dismiss();
   }

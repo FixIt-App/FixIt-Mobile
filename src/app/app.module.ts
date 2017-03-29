@@ -17,6 +17,7 @@ import { WorkTypeService } from '../providers/wortktype-service'
 import { AuthService } from '../providers/auth-service'
 import { AddressService } from '../providers/address-service'
 import { UserDataService } from '../providers/user-data-service'
+import { WorkService } from '../providers/work-service'
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { UserDataService } from '../providers/user-data-service'
     WorkTypeService,
     AuthService,
     AddressService,
-    UserDataService
+    UserDataService,
+    WorkService
   ]
 })
 export class AppModule {}

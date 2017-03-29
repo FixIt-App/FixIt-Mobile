@@ -41,8 +41,11 @@ export class WherePage {
           console.log('acabe');
           console.log(data);
           this.addresses = data;
-          if(this.addresses && this.addresses.length > 0)
+          if(this.addresses && this.addresses.length > 0) {
             this.selectedAddress = this.addresses[0];
+          } else {
+            this.newAddress();
+          }
           loader.dismiss();
         },
         error => {
@@ -62,6 +65,14 @@ export class WherePage {
 
     newAddress() {
        let modal = this.modalCtrl.create(NewAddressPage);
+       modal.onDidDismiss(
+         (newAddress) => {
+           if(newAddress) {
+             this.addresses.push(newAddress);
+             this.selectedAddress = this.addresses[this.addresses.length-1];
+           }
+         }
+       );
        modal.present();
     }
 

@@ -1,9 +1,6 @@
 page-where {
-  .select-md {
-    margin-left: 30%;
-  }
-  .select-ios {
-    margin-left: 30%;
+  ion-select {
+    max-width: 100%;
   }
   .nuevaDirBtn {
     width: 80%;

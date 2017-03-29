@@ -17,7 +17,9 @@
       </ion-card-title>
       <ion-item>
         <ion-select [(ngModel)]="selectedAddress">
-          <ion-option *ngFor="let address of addresses" [value]="address">{{ address.name }}</ion-option>
+          <ion-option *ngFor="let address of addresses" [value]="address">
+            {{ address.name }}: {{ address.address }}
+          </ion-option>
         </ion-select>
       </ion-item>
       <button ion-button icon-left class="nuevaDirBtn" (click)="newAddress()" block>

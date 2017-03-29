@@ -29,7 +29,8 @@ export class AddressService {
     }
 
     addCustomerAddress(newAddres: Address): Observable<any> {
-        let getAddressesUrl: string = `${SERVER_URL}/api/myadresses/`;
+        console.log(newAddres);
+        let getAddressesUrl: string = `${SERVER_URL}/api/addresses/`;
         var headers = new Headers({ 'Content-Type': 'application/json', 
                                     'Accept': 'application/json',
                                     'Authorization': `Token ${this.token}`
@@ -37,7 +38,7 @@ export class AddressService {
         var body = JSON.stringify(newAddres);
         var options = new RequestOptions({ headers: headers });
         return this.http.post(getAddressesUrl, body, options)
-                        .map(response =>  new Address(response))
+                        .map(response => new Address(response.json()))
                         .catch(this.handleError)
         
     }
