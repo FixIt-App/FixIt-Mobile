@@ -10,7 +10,7 @@
             <ion-row>
                 <ion-col width-80 offset-10>
                     <ion-item>
-                        <ion-label stacked>Username</ion-label>
+                        <ion-label stacked>Correo</ion-label>
                         <ion-input  name="username" [(ngModel)]="username" type="text"></ion-input>
                     </ion-item>
                 </ion-col>
@@ -18,7 +18,7 @@
             <ion-row>
                 <ion-col width-80 offset-10>
                     <ion-item>
-                        <ion-label stacked>Password</ion-label>
+                        <ion-label stacked>Contraseña</ion-label>
                         <ion-input  name="password" [(ngModel)]="password" type="password"></ion-input>
                     </ion-item>
                 </ion-col>
@@ -28,10 +28,10 @@
 
         <ion-grid style="margin-top: 10vh;">
             <ion-row>
-                <ion-col width-80 offset-10><button type="button" ion-button full (click)="login()">Sign in</button></ion-col>
+                <ion-col width-80 offset-10><button type="button" ion-button full (click)="login()">Iniciar Sesión</button></ion-col>
             </ion-row>
             <ion-row>
-                <ion-col width-80 offset-10><button type="button" ion-button full (click)="signUp()">Sign up</button></ion-col>
+                <ion-col width-80 offset-10><button type="button" ion-button full (click)="signUp()">Crear Usuario</button></ion-col>
             </ion-row>
         </ion-grid>
     </form>
