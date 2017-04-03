@@ -52,7 +52,7 @@ export class CreateUserPage {
 
                 alert.present()
                      .then(err => {
-                        this.customer = new Customer({})
+                        this.customer.username = ""
                      })
             })
     }
