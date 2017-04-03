@@ -7,7 +7,7 @@ export class Work {
     date: Date;
     description : string;
     address: Address;
-    images: any[];
+    images: number[];
 
     export(): any {
         var obj: any = {};
@@ -15,7 +15,7 @@ export class Work {
         obj.date = this.date;
         obj.description = this.description;
         obj.addressid = this.address.id;
-        obj.images = this.images.map(image => image.id);
+        obj.images = this.images;
         return obj
     }
 }

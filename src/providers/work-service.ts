@@ -37,6 +37,7 @@ export class WorkService {
                                   'Authorization': `Token ${this.token}`
                               });
       var body = JSON.stringify(work.export());
+      console.log(body);
       var options = new RequestOptions({ headers: headers });
       return this.http.post(createWorkUrl, body, options)
                       .map(response => response.json())

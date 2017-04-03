@@ -135,7 +135,7 @@ export class WhatPage {
       toast.present();
     } else {
       this.work.description = this.description.value;
-      this.work.images = this.images.map(image => image.id);
+      this.work.images = this.images.map(image => image.idServer);
 
       this.workService.createWork(this.work).subscribe(
         (data) => {
