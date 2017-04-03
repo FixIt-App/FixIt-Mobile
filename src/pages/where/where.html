@@ -1,6 +1,12 @@
 <ion-header>
   <ion-navbar>
     <ion-title>FixIt</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-right (click)="nextStep()">
+         Sigiente
+        <ion-icon name="send"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -29,7 +35,3 @@
   </ion-card>
 
 </ion-content>
-
-<ion-footer>
-  <button ion-button block (click)="nextStep()">Siguente</button>
-</ion-footer>
