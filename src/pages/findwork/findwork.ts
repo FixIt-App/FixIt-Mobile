@@ -1,41 +1,46 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { WorkTypeService } from '../../providers/wortktype-service'
-import { WorkType } from '../../models/worktype'
 import { SchedulePage } from '../schedule/schedule'
 import { UserDataService } from '../../providers/user-data-service';
+
+import { WorkType } from '../../models/worktype'
 import { Customer } from '../../models/user';
+import { Work } from '../../models/work';
+
 @Component({
   selector: 'find-work',
   templateUrl: 'findwork.html'
 })
 export class FindWorkPage implements OnInit {
 
-    works: WorkType[] = null;
-    customer: Customer;
+  works: WorkType[] = null;
+  customer: Customer;
+  work: Work;
 
-    constructor(
-      private navController: NavController,
-      private workTypeService: WorkTypeService,
-      public userDataService: UserDataService){
-      
-    }
+  constructor(private navController: NavController,
+              private workTypeService: WorkTypeService,
+              public userDataService: UserDataService)
+  {
+    this.work = new Work;
+  }
 
-    ngOnInit(){
-      this.customer = this.userDataService.getCustomer();
-      this.workTypeService.getWorkTypes()
-        .subscribe( works => {
+  ngOnInit(){
+    this.customer = this.userDataService.getCustomer();
+    this.workTypeService.getWorkTypes().subscribe(
+      works => {
           this.works = works;
-        },
-        error => {
+      },
+      error => {
           console.log(error);
-        })
-    }
+      });
+  }
 
-    goToNextStep(work: WorkType){
-      this.navController.push(SchedulePage, {
-        work: work
-      })
-    }
+  goToNextStep(selectedWork: WorkType){
+    this.work.workType = selectedWork;
+    this.navController.push(SchedulePage, {
+      work: this.work
+    });
+  }
     
 }

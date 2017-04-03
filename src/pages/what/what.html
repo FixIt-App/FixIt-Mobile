@@ -2,55 +2,82 @@
 
   <ion-navbar>
     <ion-title>FixIt</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-right clear color="light" (click)="finalize()">
+         Pedir trabajo
+        <ion-icon name="send"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content text-center padding>
-  <h1 color="primary">Cuéntanos tu problema</h1>
-  <ion-textarea rows="3" placeholder="descripción del problema..."></ion-textarea>
-
-  <ion-row>
-    <ion-col text-center>
-      <button ion-button icon-left (click)="takePicture('camera')">
-        <ion-icon name='camera' ></ion-icon>
-        Cámara
-      </button>
-    </ion-col>
-    <ion-col>
-      <button ion-button icon-left (click)="takePicture('gallery')">
-        <ion-icon name='image'></ion-icon>
-        Galeria
-      </button>
-    </ion-col>
-  </ion-row>
+<ion-content text-center>
+  <!--<h1 color="primary">Cuéntanos tu problema</h1>-->
+  <form [formGroup]="form">
+    <ion-textarea rows="3" [(formControl)]="description" placeholder="Cuéntanos tu problema..."></ion-textarea>
+  </form>
+  <div class="errorBox" *ngIf="!description.valid  && (description.dirty || submitAttempt)">
+      * requerido.
+  </div>
 
   <div class="contThump">
     <div padding text-center *ngIf="images.length == 0" class="addImage">
-        <h3 color="primary">¿Quieres agregar imagenes?</h3>
-        <p color="light-gray">Agrega imagens con la cámara en el botón <ion-icon class="roundIcon" name='camera'></ion-icon>, o
-        desde la galeria en el botón <ion-icon class="roundIcon" name='image'></ion-icon></p>
+        <h3 color="primary">¿Quieres agregar imágenes?</h3>
+        <p color="light-gray">Agrega imágenes con la cámara en el botón <ion-icon class="roundIcon" name='camera'></ion-icon>, o
+        desde la galería en el botón <ion-icon class="roundIcon" name='image'></ion-icon></p>
     </div>
-
-    <div class="thumb" *ngFor="let image of images; let i = index">
-       <div class="options">
-        <button ion-button clear (click)="deleteImage(i)">
-          <ion-icon name='close-circle' color="danger"> </ion-icon>
-        </button>
+    <span *ngFor="let image of images">
+      <div class="thumb" *ngIf="image.isUploading">
+        <div class="sk-circle">
+          <div class="sk-circle1 sk-child"></div>
+          <div class="sk-circle2 sk-child"></div>
+          <div class="sk-circle3 sk-child"></div>
+          <div class="sk-circle4 sk-child"></div>
+          <div class="sk-circle5 sk-child"></div>
+          <div class="sk-circle6 sk-child"></div>
+          <div class="sk-circle7 sk-child"></div>
+          <div class="sk-circle8 sk-child"></div>
+          <div class="sk-circle9 sk-child"></div>
+          <div class="sk-circle10 sk-child"></div>
+          <div class="sk-circle11 sk-child"></div>
+          <div class="sk-circle12 sk-child"></div>
+        </div>
+        <div class="options">
+          <button ion-button clear (click)="deleteImage(image.id)" class="btn-icon">
+            <ion-icon name='trash' color="danger"> </ion-icon>
+          </button>
+        </div>
+    </div>
+      <div class="thumb" *ngIf="!image.isUploading" [ngStyle]="{'background-image':'url(' + image.src + ')'}">
+          <div class="options">
+            <button ion-button clear (click)="deleteImage(image.id)" class="btn-icon">
+              <ion-icon name='trash' color="danger"> </ion-icon>
+            </button>
+          </div>
       </div>
-      <ion-thumbnail item-left style="margin: 8px 0 0 0;">
-        <img class="thumbnail" [src]="image">
-      </ion-thumbnail>
-    </div>
+    </span>
   </div>
+
+  <ion-fab left bottom>
+    <button ion-fab color="primary" (click)="takePicture('camera')">
+      <ion-icon name="camera"></ion-icon>
+    </button>
+  </ion-fab>
+
+  <ion-fab right bottom>
+    <button ion-fab color="primary" (click)="takePicture('gallery')">
+      <ion-icon name="image"></ion-icon>
+    </button>
+  </ion-fab>
 </ion-content>
 
-<ion-footer>
+<!--<ion-footer>
   <ion-toolbar>
       <button ion-button icon-right full (click)="finalize()">
         Finalizar
         <ion-icon name="send"></ion-icon>
       </button>
   </ion-toolbar>
-</ion-footer>
+</ion-footer>-->
