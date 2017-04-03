@@ -2,14 +2,14 @@ import { Component } from '@angular/core'
 import { NavController } from 'ionic-angular'
 import { AlertController } from 'ionic-angular'
 
-import { Login } from '../login/login'
+import { LoginPage } from '../login/login'
 
 import { UserDataService } from '../../providers/user-data-service'
 import { Customer } from '../../models/user'
 
 @Component({
-    selector: 'create-user',
-    templateUrl: 'create.html'
+    selector: 'page-create-user',
+    templateUrl: 'create-user.html'
 })
 export class CreateUserPage {
 
@@ -34,7 +34,7 @@ export class CreateUserPage {
 
                 alert.present()
                      .then(res =>{
-                         this.navController.setRoot(Login)
+                         this.navController.setRoot(LoginPage)
                 })
                 
             },
