@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, LoadingController, ModalController } from 'ionic-angular';
 import { DatePicker } from 'ionic-native';
 
-import { WorkType } from '../../models/worktype'
 import { Work } from '../../models/work'
 import { WhatPage } from '../what/what';
 import { NewAddressPage } from '../new-address/new-address';
@@ -17,7 +16,6 @@ export class WherePage {
 
     addresses: Address[];
     selectedAddress: Address;
-    workType: WorkType;
     work: Work;
     
     constructor(private navController: NavController,
@@ -27,7 +25,6 @@ export class WherePage {
                 private modalCtrl: ModalController)
     {
       this.work = this.navParams.get('work');
-      this.workType = this.navParams.get('workType');
       this.addresses = [];
     }
 
@@ -43,6 +40,7 @@ export class WherePage {
           this.addresses = data;
           if(this.addresses && this.addresses.length > 0) {
             this.selectedAddress = this.addresses[0];
+            this.work.address = this.selectedAddress;
           } else {
             this.newAddress();
           }
@@ -56,10 +54,9 @@ export class WherePage {
     }
 
     nextStep() {
+      this.work.address = this.selectedAddress;
       this.navController.push(WhatPage, {
-        work: this.work,
-        workType: this.workType,
-        address: this.selectedAddress
+        work: this.work
       });
     }
 

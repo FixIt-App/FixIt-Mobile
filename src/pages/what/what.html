@@ -16,9 +16,9 @@
 <ion-content text-center>
   <!--<h1 color="primary">Cuéntanos tu problema</h1>-->
   <form [formGroup]="form">
-    <ion-textarea rows="3" [(formControl)]="textExplanation" placeholder="Cuéntanos tu problema..."></ion-textarea>
+    <ion-textarea rows="3" [(formControl)]="description" placeholder="Cuéntanos tu problema..."></ion-textarea>
   </form>
-  <div class="errorBox" *ngIf="!textExplanation.valid  && (textExplanation.dirty || submitAttempt)">
+  <div class="errorBox" *ngIf="!description.valid  && (description.dirty || submitAttempt)">
       * requerido.
   </div>
 

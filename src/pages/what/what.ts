@@ -3,6 +3,7 @@ import { NavController, NavParams, AlertController, ToastController } from 'ioni
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Camera } from 'ionic-native';
 
+import { Work } from '../../models/work'
 import { WorkService } from '../../providers/work-service';
 
 @Component({
@@ -11,12 +12,13 @@ import { WorkService } from '../../providers/work-service';
 })
 export class WhatPage {
 
+  work: Work;
   images: { src: string, 
             isUploading: boolean, 
             idServer: number,
             id: number }[];
   currId: number;
-  textExplanation: AbstractControl;
+  description: AbstractControl;
   currentMarker: any;
 
   form: FormGroup;
@@ -29,12 +31,13 @@ export class WhatPage {
               private formBuilder: FormBuilder,
               private workService: WorkService) 
   {
+    this.work = navParams.get('work');
     this.images = [];
     this.currId = 0;
     this.form = this.formBuilder.group({
-      textExplanation:   ['', Validators.compose([Validators.required])],
+      description:   ['', Validators.compose([Validators.required])],
     });
-    this.textExplanation = this.form.controls['textExplanation'];
+    this.description = this.form.controls['description'];
   }
 
   ionViewDidLoad() {
@@ -131,7 +134,32 @@ export class WhatPage {
       });
       toast.present();
     } else {
-      
+      this.work.description = this.description.value;
+      this.work.images = this.images.map(image => image.id);
+
+      this.workService.createWork(this.work).subscribe(
+        (data) => {
+          console.log(data);
+          //TODO fabka: acá llamar la pagina de finalizacion
+          let toast = this.toastCtrl.create({
+            message: 'Trabajo creado exitosamente',
+            duration: 3000,
+            showCloseButton: true,
+            closeButtonText: 'Cerrar'
+          });
+          toast.present();
+        },
+        (error) => {
+          console.log(error);
+          let toast = this.toastCtrl.create({
+            message: 'Error, por favor intenta más tarde',
+            duration: 3000,
+            showCloseButton: true,
+            closeButtonText: 'Cerrar'
+          });
+          toast.present();
+        }
+      )
     }
   }
 
