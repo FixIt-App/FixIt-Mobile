@@ -1,40 +1,41 @@
   <ion-content>
+    <div *ngIf="authenticatingUser">
+        <h1>//TODO (fabka): poner loading mientras se intenta autenticar</h1>
+    </div>
+    <span *ngIf="!authenticatingUser">
+        <img src="images/fix-it.jpg" style="height: 150px; width: auto; display: block; margin-left: auto; margin-right: auto; margin-top: 15%;"/>
+        
+        <form>
+            <ion-grid>
+                <ion-row>
+                    <ion-col width-80 offset-10>
+                        <ion-item>
+                            <ion-label stacked>Correo</ion-label>
+                            <ion-input  name="username" [(ngModel)]="username" type="text"></ion-input>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col width-80 offset-10>
+                        <ion-item>
+                            <ion-label stacked>Contraseña</ion-label>
+                            <ion-input  name="password" [(ngModel)]="password" type="password"></ion-input>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
 
-    <img src="images/fix-it.jpg" style="height: 150px; width: auto; display: block; margin-left: auto; margin-right: auto; margin-top: 15%;"/>
 
-    
-
-    
-    <form>
-        <ion-grid>
-            <ion-row>
-                <ion-col width-80 offset-10>
-                    <ion-item>
-                        <ion-label stacked>Correo</ion-label>
-                        <ion-input  name="username" [(ngModel)]="username" type="text"></ion-input>
-                    </ion-item>
-                </ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col width-80 offset-10>
-                    <ion-item>
-                        <ion-label stacked>Contraseña</ion-label>
-                        <ion-input  name="password" [(ngModel)]="password" type="password"></ion-input>
-                    </ion-item>
-                </ion-col>
-            </ion-row>
-        </ion-grid>
-
-
-        <ion-grid style="margin-top: 10vh;">
-            <ion-row>
-                <ion-col width-80 offset-10><button type="button" ion-button full (click)="login()">Iniciar Sesión</button></ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col width-80 offset-10><button type="button" ion-button full (click)="signUp()">Crear Usuario</button></ion-col>
-            </ion-row>
-        </ion-grid>
-    </form>
+            <ion-grid style="margin-top: 10vh;">
+                <ion-row>
+                    <ion-col width-80 offset-10><button type="button" ion-button full (click)="login()">Iniciar Sesión</button></ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col width-80 offset-10><button type="button" ion-button full (click)="signUp()">Crear Usuario</button></ion-col>
+                </ion-row>
+            </ion-grid>
+        </form>
+    </span>
 
 
 </ion-content>

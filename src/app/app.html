@@ -1,2 +1,25 @@
+<ion-menu [content]="content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-list no-lines>
+        <button ion-item color="primary">
+          <ion-avatar item-left>
+            <img src="http://ionicframework.com/dist/preview-app/www/assets/img/avatar-ts-woody.png">
+          </ion-avatar>
+          <h1 *ngIf="customer"> {{ customer.firstName }} {{ customer.lastName }} </h1>
+        </button>
+      </ion-list>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-list no-lines>
+      <button menuClose ion-item class="item-menu" *ngFor="let p of pages" (click)="openPage(p)">
+        {{p.title}}
+      </button>
+    </ion-list>
+  </ion-content>
+
+</ion-menu>
 
 <ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
