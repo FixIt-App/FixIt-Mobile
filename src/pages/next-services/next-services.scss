@@ -3,6 +3,11 @@ page-next-services {
     height: 100%;
   }
 
+  ion-card {
+    box-shadow: none !important;
+    background: rgba(201, 222, 220, 0.13) !important;
+  }
+
   .card-left {
     height: 100%;
     h1 {
