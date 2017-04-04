@@ -29,7 +29,7 @@ export class WhatPage {
               public alertCtrl: AlertController,
               public toastCtrl: ToastController,
               private formBuilder: FormBuilder,
-              private workService: WorkService) 
+              private workService: WorkService)
   {
     this.work = navParams.get('work');
     this.images = [];

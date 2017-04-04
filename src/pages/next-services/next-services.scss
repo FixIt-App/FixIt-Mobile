@@ -1,0 +1,46 @@
+page-next-services {
+  ion-col {
+    height: 100%;
+  }
+
+  .card-left {
+    height: 100%;
+    h1 {
+      line-height: 150%;
+      font-size: 3rem;
+    }
+    background-color: map-get($colors, 'secondary');
+  }
+
+  .card-left-tomorrow {
+    height: 100%;
+    h1 {
+      line-height: 150%;
+      font-size: 3rem;
+    }
+    background-color: map-get($colors, 'warning');
+  }
+
+  .card-left-today {
+    height: 100%;
+    h1 {
+      line-height: 150%;
+      font-size: 3rem;
+    }
+    ion-icon {
+      font-size: 3.2em;
+    }
+    background-color: map-get($colors, 'danger');
+  }
+
+  .card-right {
+    ion-row {
+      margin: 15px 0px 15px 16px;
+      font-size: 1.5rem;
+      white-space: nowrap;
+      //TODO not working should show ...
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}

@@ -22,7 +22,7 @@ export class FindWorkPage implements OnInit {
               private workTypeService: WorkTypeService,
               public userDataService: UserDataService)
   {
-    this.work = new Work;
+    this.work = new Work({});
   }
 
   ngOnInit(){
