@@ -9,7 +9,7 @@ import { Customer } from '../../models/user';
 import { Work } from '../../models/work';
 
 @Component({
-  selector: 'find-work',
+  selector: 'page-find-work',
   templateUrl: 'findwork.html'
 })
 export class FindWorkPage implements OnInit {

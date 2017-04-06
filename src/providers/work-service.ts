@@ -28,7 +28,7 @@ export class WorkService {
       });
       var options = new RequestOptions({ headers: headers });
       return this.http.post(uploadImageUrl, body, options)
-                      .map(response => response.json())
+                      .map(response => response.json() )
                       .catch(this.handleError)
   }
 

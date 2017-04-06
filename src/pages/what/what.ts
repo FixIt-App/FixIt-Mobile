@@ -45,7 +45,11 @@ export class WhatPage {
   }
 
   takePicture(type: string) {
-    // console.log('entre a al camar');
+    let imageId = this.currId++;
+    this.sleep(700).then(() => {
+      this.images.push({ src: '', isUploading: true, idServer: -1, id: imageId});
+    });
+
     let options = {
         quality: 100,
         destinationType: Camera.DestinationType.DATA_URL,
@@ -62,64 +66,60 @@ export class WhatPage {
       options.correctOrientation = false;
     }
 
-    let id = this.currId++;
-    this.sleep(700).then(() => {
-      this.images.push({ src: '', isUploading: true, idServer: -1, id: id});
-    })
-
     Camera.getPicture(options).then(
-      (imageURI) => {
+      (base64Img) => {
         console.log('voy a llamar');
         console.log(this.images.length);
-        this.workService.sendImage(imageURI).subscribe(
+        this.workService.sendImage(base64Img).subscribe(
           (data) => {
-            console.log(data.id);
+            console.log(data);
+            console.log('voy a guardar en ' + imageId + ' type: ' + type);
             for(let image of this.images) {
-              if(image.id == id) {
-                this.images[this.images.length-1].src = `data:image/png;base64,${imageURI}`;
-                this.images[this.images.length-1].idServer = data.id;
-                this.images[this.images.length-1].isUploading = false;
+              if(image.id == imageId) {
+                image.src = `data:image/png;base64,${base64Img}`;
+                image.idServer = data.id;
+                image.isUploading = false;
                 break;
               }
             }
           },
           (error) => {
-            this.deleteImageNoConfirm(id);
+            this.deleteImageNoConfirm(imageId);
             //TODO what to do on error
             console.log(error);
           }
         )
       }, (err) => {
-        this.deleteImageNoConfirm(id);
+        this.deleteImageNoConfirm(imageId);
         console.log('error: ' + err);
       });
-    }
+  }
 
-    deleteImageNoConfirm(id: number) {
-      for(let i = 0; i < this.images.length; i++) {
-        if(this.images[i].id == id) {
-          this.images.splice(i, 1);
-          break;
-        }
+  deleteImageNoConfirm(id: number) {
+    for(let i = 0; i < this.images.length; i++) {
+      if(this.images[i].id == id) {
+        this.images.splice(i, 1);
+        break;
       }
     }
+  }
 
-    deleteImage(id: number) {
+  deleteImage(id: number) {
     let confirm = this.alertCtrl.create({
-        title: '¿Eliminar imagen?',
-        buttons: [
-          {
-            text: 'Cancelar'
-          },
-          {
-            text: 'Aceptar',
-            handler: () => {
-              this.deleteImageNoConfirm(id);
-            }
+      title: '¿Eliminar imagen?',
+      buttons: [
+        {
+          text: 'Cancelar'
+        },
+        {
+          text: 'Aceptar',
+          handler: () => {
+            this.deleteImageNoConfirm(id);
           }
-        ]
-      });
-      confirm.present();
+        }
+      ]
+    });
+    confirm.present();
   }
 
   finalize() {

@@ -8,19 +8,18 @@
 
 
 <ion-content padding>
-  <ion-card *ngFor="let work of works">
-    <ion-row>
+    <ion-row *ngFor="let work of works" class="row-work">
       <ion-col center text-center width-25 class="card-left-today" *ngIf="isToday(work.date)">
        <ion-icon name="alert"></ion-icon>
-       <h1>Ahora</h1>
+        <div class="title1">Ahora</div>
       </ion-col>
       <ion-col center text-center width-25 class="card-left-tomorrow" *ngIf="isTomorrow(work.date)">
-       <h1>Mañ</h1>
+        <div class="title1">Mañ</div>
       </ion-col>
       <ion-col center text-center width-25 class="card-left" *ngIf="!isTomorrow(work.date) && !isToday(work.date)">
-        <h1>{{ work.date | date:'MMM' }}</h1>
-        <h1>{{ work.date | date:'dd' }}</h1>
-        <p>{{ work.date | date:'shortTime' }}</p>
+        <div class="title2">{{ work.date | date:'MMM' }}</div>
+        <div class="title1">{{ work.date | date:'dd' }}</div>
+        <div class="title3">{{ work.date | date:'shortTime' }}</div>
       </ion-col>
       <ion-col center text-center width-75 class="card-right">
         <ion-row>
@@ -37,5 +36,4 @@
         </ion-row>
       </ion-col>
     </ion-row>
-  </ion-card>
 </ion-content>
