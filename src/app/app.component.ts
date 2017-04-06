@@ -1,9 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
-import { Platform, MenuController, Nav, NavController, Events } from 'ionic-angular';
+import { Platform, MenuController, Nav, Events } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 
 import { LoginPage } from '../pages/login/login';
 import { FindWorkPage } from '../pages/findwork/findwork';
+import { NextServicesPage } from '../pages/next-services/next-services';
 
 import { Customer } from '../models/user';
 
@@ -24,11 +25,12 @@ export class MyApp {
   {
     // menu navigation pages
     this.pages = [
-      { title: 'Próximos servicios', component: FindWorkPage },
+      { title: 'Próximos servicios', component: NextServicesPage },
       { title: 'Historial servicios', component: FindWorkPage },
       { title: 'Configuraciones', component: FindWorkPage },
       { title: 'Cerrar sesión', component: null }
     ];
+    this.listenToCustomerLogged();
     this.initializeApp();
   }
 
@@ -38,8 +40,6 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       StatusBar.styleDefault();
       Splashscreen.hide();
-
-      this.listenToCustomerLogged();
     });
   }
   
