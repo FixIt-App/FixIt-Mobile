@@ -1,75 +1,43 @@
-<ion-header>
-        <ion-navbar>
-            <ion-title>Crear Usuario</ion-title>
-        </ion-navbar>
-    </ion-header>
- <ion-content>
+<ion-content>
     <form action="" (ngSubmit)="create()">
-    <ion-grid>
-        
-        <ion-row >
-            <ion-col width-80 offset-10>
                 <ion-item>
-                    <ion-label stacked>Nombre</ion-label>
-                    <ion-input  name="name" [(ngModel)]="customer.firstName" type="text"></ion-input>
+                    <ion-input placeholder="Nombre" name="name" [(ngModel)]="customer.firstName" type="text"></ion-input>
+                    <ion-icon name="person" color="light-green" item-left></ion-icon>
                 </ion-item>
-            </ion-col>
-        </ion-row>
 
-        <ion-row>
-            <ion-col width-80 offset-10>
                 <ion-item>
-                    <ion-label stacked>Apellido</ion-label>
-                    <ion-input name="lastname" [(ngModel)]="customer.lastName" type="text"></ion-input>
+                    <ion-input placeholder="Apellido" name="lastname" [(ngModel)]="customer.lastName" type="text"></ion-input>
+                    <ion-icon name="person" color="light-green" item-left></ion-icon>
                 </ion-item>
-            </ion-col>
-        </ion-row>
 
-        <ion-row>
-            <ion-col width-80 offset-10>
                 <ion-item>
-                    <ion-label stacked>Ciudad</ion-label>
-                    <ion-select [(ngModel)]="customer.city" name="city">
+                    <ion-select placeholder="Ciudad" [(ngModel)]="customer.city" name="city">
                         <ion-option value="Bogotá, Colombia" selected="true" selected>Bogotá, Colombia</ion-option>
                     </ion-select>
                 </ion-item>
-            </ion-col>
-        </ion-row>
 
-        <ion-row>
-            <ion-col width-80 offset-10>
                 <ion-item>
-                    <ion-label stacked>Correo</ion-label>
-                    <ion-input name="email" [(ngModel)]="customer.email" type="email"></ion-input>
+                    <ion-input placeholder="Correo" name="email" [(ngModel)]="customer.email" type="email"></ion-input>
+                    <ion-icon name="at" color="light-green" item-left></ion-icon>
                 </ion-item>
-            </ion-col>
-        </ion-row>
+
+                <ion-item>
+                    <ion-input placeholder="Contraseña" name="password" [(ngModel)]="customer.password" type="password"></ion-input>
+                    <ion-icon name="lock" color="light-green" item-left></ion-icon>
+                </ion-item>
+
+                <ion-item>
+                    <ion-input placeholder="Teléfono" name="phone" [(ngModel)]="customer.phone" type="tel"></ion-input>
+                    <ion-icon name="call" color="light-green" item-left></ion-icon>
+                </ion-item>
+
+        <div style="margin-top: 10vh;">
+            <button type="button" ion-button full color="light-green" type="submit"> Crear Usuario</button>
+            <button ion-button type="button" full color="danger" (click)="goBack()">
+                Cerrar
+            </button>
+        </div>
         
-        <ion-row>
-            <ion-col width-80 offset-10>
-                <ion-item>
-                    <ion-label stacked>Contraseña</ion-label>
-                    <ion-input  name="password" [(ngModel)]="customer.password" type="password"></ion-input>
-                </ion-item>
-            </ion-col>
-        </ion-row>
-
-         <ion-row>
-            <ion-col width-80 offset-10>
-                <ion-item>
-                    <ion-label stacked>Teléfono</ion-label>
-                    <ion-input  name="phone" [(ngModel)]="customer.phone" type="tel"></ion-input>
-                </ion-item>
-            </ion-col>
-        </ion-row>
-    </ion-grid>
-
-
-    <ion-grid>
-        <ion-row>
-            <ion-col width-80 offset-10><button type="button" ion-button full type="submit"> Crear Usuario</button></ion-col>
-        </ion-row>
-    </ion-grid>
     </form>
 
 

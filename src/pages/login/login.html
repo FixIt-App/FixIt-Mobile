@@ -3,37 +3,27 @@
         <h1>//TODO (fabka): poner loading mientras se intenta autenticar</h1>
     </div>
     <span *ngIf="!authenticatingUser">
-        <img src="images/fix-it.jpg" style="height: 150px; width: auto; display: block; margin-left: auto; margin-right: auto; margin-top: 15%;"/>
+        <img src="images/fix-it.jpg" />
         
         <form>
-            <ion-grid>
-                <ion-row>
-                    <ion-col width-80 offset-10>
-                        <ion-item>
-                            <ion-label stacked>Correo</ion-label>
-                            <ion-input  name="username" [(ngModel)]="username" type="text"></ion-input>
-                        </ion-item>
-                    </ion-col>
-                </ion-row>
-                <ion-row>
-                    <ion-col width-80 offset-10>
-                        <ion-item>
-                            <ion-label stacked>Contraseña</ion-label>
-                            <ion-input  name="password" [(ngModel)]="password" type="password"></ion-input>
-                        </ion-item>
-                    </ion-col>
-                </ion-row>
-            </ion-grid>
+            <ion-item>
+                <ion-input placeholder="Correo" name="username" [(ngModel)]="username" type="text"></ion-input>
+                <ion-icon name="person" color="light-green" item-left></ion-icon>
+            </ion-item>
 
+            <ion-item>
+                <ion-input placeholder="Contraseña" name="password" [(ngModel)]="password" type="password"></ion-input>
+                <ion-icon name="lock" color="light-green" item-left></ion-icon>
+            </ion-item>
 
-            <ion-grid style="margin-top: 10vh;">
-                <ion-row>
-                    <ion-col width-80 offset-10><button type="button" ion-button full (click)="login()">Iniciar Sesión</button></ion-col>
-                </ion-row>
-                <ion-row>
-                    <ion-col width-80 offset-10><button type="button" ion-button full (click)="signUp()">Crear Usuario</button></ion-col>
-                </ion-row>
-            </ion-grid>
+            <div style="margin-top: 10vh;">
+                <button ion-button type="button" full color="light-green" (click)="login()">
+                    Iniciar Sesión
+                </button>
+                <button ion-button type="button" full color="light-green" (click)="signUp()">
+                    Crear Usuario
+                </button>
+            </div>
         </form>
     </span>
 

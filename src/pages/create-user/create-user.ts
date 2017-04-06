@@ -13,48 +13,52 @@ import { Customer } from '../../models/user'
 })
 export class CreateUserPage {
 
-    customer: Customer;
+  customer: Customer;
 
-    constructor(private userService: UserDataService,
-                public alertCtrl: AlertController,
-                private navController: NavController){
-        this.customer = new Customer({});
-    }
+  constructor(private userService: UserDataService,
+              public alertCtrl: AlertController,
+              private navController: NavController){
+    this.customer = new Customer({});
+  }
 
-    create(){
-        this.customer.username = this.customer.email;
+  create(){
+    this.customer.username = this.customer.email;
 
-        this.userService.saveCustomer(this.customer)
-            .subscribe(customer => {
-               var alert = this.alertCtrl.create({
-                    title: 'Éxito',
-                    subTitle: 'Usuario creado correctamente',
-                    buttons: ['OK']
-                });
+    this.userService.saveCustomer(this.customer)
+      .subscribe(customer => {
+        var alert = this.alertCtrl.create({
+          title: 'Éxito',
+          subTitle: 'Usuario creado correctamente',
+          buttons: ['OK']
+        });
 
-                alert.present()
-                     .then(res =>{
-                         this.navController.setRoot(LoginPage)
-                })
-                
-            },
-            error => {
-                var msg = 'No se pudo crear el usuario'
-                if(error.status = 500){
-                    msg = "El correo seleccionado ya está en uso"
-                }
-                
-                var alert = this.alertCtrl.create({
-                    title: 'Error',
-                    subTitle: msg,
-                    buttons: ['OK']
-                });
+        alert.present()
+          .then(res =>{
+            this.navController.setRoot(LoginPage)
+        })
+          
+      },
+      error => {
+        var msg = 'No se pudo crear el usuario'
+        if(error.status = 500){
+          msg = "El correo seleccionado ya está en uso"
+        }
+        
+        var alert = this.alertCtrl.create({
+          title: 'Error',
+          subTitle: msg,
+          buttons: ['OK']
+        });
 
-                alert.present()
-                     .then(err => {
-                        this.customer.username = ""
-                     })
-            })
-    }
+        alert.present()
+          .then(err => {
+          this.customer.username = ""
+          })
+      })
+  }
+
+  goBack() {
+    this.navController.pop();
+  }
 
 }

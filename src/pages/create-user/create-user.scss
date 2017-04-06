@@ -1,15 +1,6 @@
-page-login {
+page-create-user {
   ion-content {
     background-color: map-get($colors, 'dark-blue') !important;
-  }
-  img {
-    height: 150px; 
-    width: auto; 
-    display: block; 
-    margin-left: auto; 
-    margin-right: auto; 
-    margin-top: 15%;
-    border-radius: 35%;
   }
   form {
     padding: 20px;
