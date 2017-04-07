@@ -26,10 +26,23 @@
                     <ion-icon name="lock" color="light-green" item-left></ion-icon>
                 </ion-item>
 
-                <ion-item>
-                    <ion-input placeholder="Teléfono" name="phone" [(ngModel)]="customer.phone" type="tel"></ion-input>
-                    <ion-icon name="call" color="light-green" item-left></ion-icon>
-                </ion-item>
+                <ion-row>
+                    <ion-col width-25>
+                        <ion-item>
+                            <ion-select class="countryCode" name="city">
+                                <ion-option value="+51" selected="true" selected>+51 Colombia</ion-option>
+                                <ion-option value="+1">+1</ion-option>
+                                <ion-option value="+2">+2</ion-option>
+                            </ion-select>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col width-75>
+                        <ion-item>
+                            <ion-input placeholder="Teléfono" name="phone" [(ngModel)]="customer.phone" type="tel"></ion-input>
+                            <ion-icon name="call" color="light-green" item-left></ion-icon>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
 
         <div style="margin-top: 10vh;">
             <button type="button" ion-button full color="light-green" type="submit"> Crear Usuario</button>
