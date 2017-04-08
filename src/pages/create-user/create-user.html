@@ -1,5 +1,5 @@
 <ion-content>
-    <form action="" (ngSubmit)="create()">
+    <form>
                 <ion-item>
                     <ion-input placeholder="Nombre" name="name" [(ngModel)]="customer.firstName" type="text"></ion-input>
                     <ion-icon name="person" color="light-green" item-left></ion-icon>
@@ -28,12 +28,14 @@
 
                 <ion-row>
                     <ion-col width-25>
-                        <ion-item>
-                            <ion-select class="countryCode" name="city">
+                        <ion-item (click)="gotToSelectCountry()">
+                            <!--<ion-select class="countryCode" name="city">
                                 <ion-option value="+51" selected="true" selected>+51 Colombia</ion-option>
                                 <ion-option value="+1">+1</ion-option>
                                 <ion-option value="+2">+2</ion-option>
-                            </ion-select>
+                            </ion-select>-->
+                            <!--<button ion-button (click)="gotToSelectCountry()"> go </button>-->
+                            <span *ngIf="selectedCountry"> {{ selectedCountry.emoji }} {{ selectedCountry.countryCallingCodes[0] }} </span>
                         </ion-item>
                     </ion-col>
                     <ion-col width-75>
@@ -45,7 +47,7 @@
                 </ion-row>
 
         <div style="margin-top: 10vh;">
-            <button type="button" ion-button full color="light-green" type="submit"> Crear Usuario</button>
+            <button type="button" ion-button full color="light-green" (click)="create()"> Crear Usuario</button>
             <button ion-button type="button" full color="danger" (click)="goBack()">
                 Cerrar
             </button>

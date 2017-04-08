@@ -1,11 +1,12 @@
 import { Component } from '@angular/core'
 import { NavController } from 'ionic-angular'
-import { AlertController } from 'ionic-angular'
+import { AlertController, ModalController } from 'ionic-angular'
 
 import { LoginPage } from '../login/login'
 
 import { UserDataService } from '../../providers/user-data-service'
 import { Customer } from '../../models/user'
+import { CountryCodeSelectorPage } from '../country-code-selector/country-code-selector'
 
 @Component({
     selector: 'page-create-user',
@@ -14,10 +15,22 @@ import { Customer } from '../../models/user'
 export class CreateUserPage {
 
   customer: Customer;
+  selectedCountry: any = {
+    "alpha2": "CO",
+    "alpha3": "COL",
+    "countryCallingCodes": [
+      "+57"
+    ],
+    "emoji": "🇨🇴",
+    "ioc": "COL",
+    "name": "Colombia",
+  };
 
   constructor(private userService: UserDataService,
               public alertCtrl: AlertController,
-              private navController: NavController){
+              private navController: NavController,
+              private modalCtrl: ModalController)
+  {
     this.customer = new Customer({});
   }
 
@@ -59,6 +72,24 @@ export class CreateUserPage {
 
   goBack() {
     this.navController.pop();
+  }
+
+  gotToSelectCountry() {
+    // this.navController.push(CountryCodeSelectorPage).then(
+    //   (data) => {
+    //     console.log(data);
+    //   }
+    // );
+
+    let modal = this.modalCtrl.create(CountryCodeSelectorPage);
+       modal.onDidDismiss(
+         (data) => {
+           if(data) {
+            this.selectedCountry = data;
+           }
+         }
+       );
+       modal.present();
   }
 
 }
