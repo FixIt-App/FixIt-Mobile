@@ -49,7 +49,7 @@ export class NextServicesPage {
         this.tomorrow.getMonth() == date.getMonth() && 
         this.tomorrow.getDate() == date.getDate()) 
     {
-        return true;
+      return true;
     }
     return false;
   }

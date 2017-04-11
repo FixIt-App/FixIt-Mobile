@@ -26,21 +26,23 @@
                     <ion-icon name="lock" color="light-green" item-left></ion-icon>
                 </ion-item>
 
-                <ion-row>
-                    <ion-col width-25>
-                        <ion-item class="country-code" (click)="gotToSelectCountry()">
-                            <span *ngIf="selectedCountry"> {{ selectedCountry.emoji }} {{ selectedCountry.countryCallingCodes[0] }} </span>
-                        </ion-item>
-                    </ion-col>
-                    <ion-col width-75>
-                        <ion-item>
-                            <ion-input placeholder="Teléfono" name="phone" [(ngModel)]="phone" type="tel"></ion-input>
-                            <ion-icon name="call" color="light-green" item-left></ion-icon>
-                        </ion-item>
-                    </ion-col>
-                </ion-row>
+                <ion-grid no-padding>
+                    <ion-row>
+                        <ion-col col-3>
+                            <ion-item class="country-code" (click)="gotToSelectCountry()">
+                                <span *ngIf="selectedCountry"> {{ selectedCountry.emoji }} {{ selectedCountry.countryCallingCodes[0] }} </span>
+                            </ion-item>
+                        </ion-col>
+                        <ion-col col-8 offset-1>
+                            <ion-item>
+                                <ion-input placeholder="Teléfono" name="phone" [(ngModel)]="phone" type="tel"></ion-input>
+                                <ion-icon name="call" color="light-green" item-left></ion-icon>
+                            </ion-item>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
 
-        <div style="margin-top: 10vh;">
+        <div style="margin-top: 5vh;">
             <button type="button" ion-button full color="light-green" (click)="create()"> Crear Usuario</button>
             <button ion-button type="button" full color="danger" (click)="goBack()">
                 Cerrar
