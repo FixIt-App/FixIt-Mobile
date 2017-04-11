@@ -1,5 +1,32 @@
 page-find-work {
-  ion-card {
-    box-shadow: none !important;
+  .class-title {
+    font-size: 2rem;
+    color: #757575;
+    margin: 13px 8px 13px 0;
+    padding-left: 16px;
+  }
+  ion-slides {
+    height: 30%;
+    .swiper-slide {
+      width: 32% !important;
+      height: 80% !important;
+      .slide-zoom { 
+        height: 100%;
+      }
+      ion-card {
+        height: 100% !important;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+        .options {
+          position: absolute;
+          text-align: left;
+          top: 100%;
+          width: 100%;
+          background-color: white;
+          height: 50px;
+        }
+      }
+    }
   }
 }
