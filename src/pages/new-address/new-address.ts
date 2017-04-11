@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef, NgZone } from '@angular/core';
-import { NavController, NavParams, ViewController, AlertController, ToastController, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, AlertController, ToastController, LoadingController, IonicPage } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 
 import { AddressService } from '../../providers/address-service';
@@ -7,6 +7,7 @@ import { Address } from '../../models/address';
 
 declare var google;
 
+@IonicPage()
 @Component({
   selector: 'page-new-address',
   templateUrl: 'new-address.html'
