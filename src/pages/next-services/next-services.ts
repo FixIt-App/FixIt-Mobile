@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, IonicPage } from 'ionic-angular';
 
 import { Work } from '../../models/work'
 import { WorkService } from '../../providers/work-service';
 
+@IonicPage()
 @Component({
   selector: 'page-next-services',
   templateUrl: 'next-services.html'
@@ -49,7 +50,7 @@ export class NextServicesPage {
         this.tomorrow.getMonth() == date.getMonth() && 
         this.tomorrow.getDate() == date.getDate()) 
     {
-        return true;
+      return true;
     }
     return false;
   }

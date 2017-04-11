@@ -3,8 +3,6 @@ import { NavController, NavParams, LoadingController, ModalController } from 'io
 import { DatePicker } from 'ionic-native';
 
 import { Work } from '../../models/work'
-import { WhatPage } from '../what/what';
-import { NewAddressPage } from '../new-address/new-address';
 import { AddressService } from '../../providers/address-service';
 import { Address } from '../../models/address';
 
@@ -55,13 +53,15 @@ export class WherePage {
 
     nextStep() {
       this.work.address = this.selectedAddress;
-      this.navController.push(WhatPage, {
+      // lazzy loading work description page
+      this.navController.push('WorkDescriptionPage', {
         work: this.work
       });
     }
 
     newAddress() {
-       let modal = this.modalCtrl.create(NewAddressPage);
+      // lazzy loading new address page
+       let modal = this.modalCtrl.create('NewAddressPage');
        modal.onDidDismiss(
          (newAddress) => {
            if(newAddress) {

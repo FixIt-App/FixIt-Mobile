@@ -1,16 +1,17 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, ToastController, IonicPage } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Camera } from 'ionic-native';
 
 import { Work } from '../../models/work'
 import { WorkService } from '../../providers/work-service';
 
+@IonicPage()
 @Component({
-  selector: 'page-what',
-  templateUrl: 'what.html'
+  selector: 'page-work-description',
+  templateUrl: 'work-description.html'
 })
-export class WhatPage {
+export class WorkDescriptionPage {
 
   work: Work;
   images: { src: string, 

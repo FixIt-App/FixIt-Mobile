@@ -1,17 +1,14 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
-
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpModule } from '@angular/http';
 
 import { FindWorkPage } from '../pages/findwork/findwork'
 import { LoginPage } from '../pages/login/login'
 import { SchedulePage } from '../pages/schedule/schedule'
 import { WherePage  } from '../pages/where/where'
-import { WhatPage  } from '../pages/what/what'
-
 import { CreateUserPage } from '../pages/create-user/create-user'
-import { NewAddressPage } from '../pages/new-address/new-address'
-import { NextServicesPage } from '../pages/next-services/next-services'
 import { CountryCodeSelectorPage } from '../pages/country-code-selector/country-code-selector'
 
 import { WorkTypeService } from '../providers/wortktype-service'
@@ -27,13 +24,12 @@ import { WorkService } from '../providers/work-service'
     LoginPage,
     SchedulePage,
     WherePage,
-    WhatPage,
     CreateUserPage,
-    NewAddressPage,
-    NextServicesPage,
     CountryCodeSelectorPage
   ],
   imports: [
+    BrowserModule,
+    HttpModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -43,10 +39,7 @@ import { WorkService } from '../providers/work-service'
     LoginPage,
     SchedulePage,
     WherePage,
-    WhatPage,
     CreateUserPage,
-    NewAddressPage,
-    NextServicesPage,
     CountryCodeSelectorPage
   ],
   providers: [

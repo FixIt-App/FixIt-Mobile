@@ -1,13 +1,13 @@
 import { Component, ViewChild, ElementRef, NgZone } from '@angular/core';
-import { NavController, NavParams, ViewController, AlertController, ToastController, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, AlertController, ToastController, LoadingController, IonicPage } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
-import { Geolocation } from 'ionic-native';
 
 import { AddressService } from '../../providers/address-service';
 import { Address } from '../../models/address';
 
 declare var google;
 
+@IonicPage()
 @Component({
   selector: 'page-new-address',
   templateUrl: 'new-address.html'
@@ -141,7 +141,7 @@ export class NewAddressPage {
           (results, status) => {
             if (status == google.maps.GeocoderStatus.OK) {
               let result = results[0];
-              let rsltAdrComponent = result.address_components;
+              // let rsltAdrComponent = result.address_components;
               if (result != null) {
                 let addressString: string[] = result.formatted_address.split(',');
 
@@ -271,6 +271,7 @@ export class NewAddressPage {
              duration: 4000,
              showCloseButton: true,
           });
+          toast.present();
           loader.dismiss();
         }
       )
