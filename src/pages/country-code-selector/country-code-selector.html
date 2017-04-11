@@ -3,7 +3,7 @@
   <ion-navbar>
     <ion-searchbar placeholder="Buscar" (ionInput)="getItems($event)"></ion-searchbar>
     <ion-buttons start>
-      <button ion-button clear color="light" (click)="dismiss()">
+      <button ion-button color="light" (click)="dismiss()">
         <span showWhen="ios">Cerrar</span>
         <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
       </button>
@@ -23,5 +23,7 @@
       </ion-item>
      </span>
     </ion-list>
-  
+    
+    <div *ngIf="!countryCodes" class="spinner"></div>
+
 </ion-content>

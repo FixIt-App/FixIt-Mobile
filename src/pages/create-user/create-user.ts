@@ -25,6 +25,7 @@ export class CreateUserPage {
     "ioc": "COL",
     "name": "Colombia",
   };
+  phone: number;
 
   constructor(private userService: UserDataService,
               public alertCtrl: AlertController,
@@ -36,6 +37,7 @@ export class CreateUserPage {
 
   create(){
     this.customer.username = this.customer.email;
+    this.customer.phone = this.selectedCountry.countryCallingCodes[0] + this.phone;
 
     this.userService.saveCustomer(this.customer)
       .subscribe(customer => {
@@ -45,10 +47,10 @@ export class CreateUserPage {
           buttons: ['OK']
         });
 
-        alert.present()
-          .then(res =>{
+        alert.present().then(
+          res =>{
             this.navController.setRoot(LoginPage)
-        })
+          });
           
       },
       error => {
@@ -63,10 +65,10 @@ export class CreateUserPage {
           buttons: ['OK']
         });
 
-        alert.present()
-          .then(err => {
-          this.customer.username = ""
-          })
+        alert.present().then(
+          err => {
+            this.customer.username = ""
+          });
       })
   }
 
@@ -75,12 +77,6 @@ export class CreateUserPage {
   }
 
   gotToSelectCountry() {
-    // this.navController.push(CountryCodeSelectorPage).then(
-    //   (data) => {
-    //     console.log(data);
-    //   }
-    // );
-
     let modal = this.modalCtrl.create(CountryCodeSelectorPage);
        modal.onDidDismiss(
          (data) => {
