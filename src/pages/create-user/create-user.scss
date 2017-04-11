@@ -1,15 +1,6 @@
-page-login {
+page-create-user {
   ion-content {
     background-color: map-get($colors, 'primary') !important;
-  }
-  img {
-    height: 150px; 
-    width: auto; 
-    display: block; 
-    margin-left: auto; 
-    margin-right: auto; 
-    margin-top: 15%;
-    border-radius: 35%;
   }
   form {
     padding: 20px;
@@ -19,8 +10,18 @@ page-login {
       margin: 10px 0 0;
       color: #5D5D5D;
     }
+    .country-code {
+      padding-left: 0px !important;
+      padding-right: 0px !important;
+    }
     .button {
       margin: 20px 0 !important;
+    }
+    .country-code {
+      ion-label {
+        max-width: 100% !important;
+        margin: 12px 0px 12px 10px !important;
+      }
     }
   }
   

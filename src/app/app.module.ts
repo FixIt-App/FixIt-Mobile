@@ -12,6 +12,7 @@ import { WhatPage  } from '../pages/what/what'
 import { CreateUserPage } from '../pages/create-user/create-user'
 import { NewAddressPage } from '../pages/new-address/new-address'
 import { NextServicesPage } from '../pages/next-services/next-services'
+import { CountryCodeSelectorPage } from '../pages/country-code-selector/country-code-selector'
 
 import { WorkTypeService } from '../providers/wortktype-service'
 import { AuthService } from '../providers/auth-service'
@@ -29,7 +30,8 @@ import { WorkService } from '../providers/work-service'
     WhatPage,
     CreateUserPage,
     NewAddressPage,
-    NextServicesPage
+    NextServicesPage,
+    CountryCodeSelectorPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -44,7 +46,8 @@ import { WorkService } from '../providers/work-service'
     WhatPage,
     CreateUserPage,
     NewAddressPage,
-    NextServicesPage
+    NextServicesPage,
+    CountryCodeSelectorPage
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},

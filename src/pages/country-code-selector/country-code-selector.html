@@ -1,0 +1,29 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-searchbar placeholder="Buscar" (ionInput)="getItems($event)"></ion-searchbar>
+    <ion-buttons start>
+      <button ion-button color="light" (click)="dismiss()">
+        <span showWhen="ios">Cerrar</span>
+        <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+  
+</ion-header>
+
+
+<ion-content padding>
+  
+   <ion-list radio-group>
+     <span *ngFor="let country of countryCodes">
+      <ion-item *ngIf="country.emoji && country.countryCallingCodes">
+          <ion-label>  {{ country.emoji }} {{ country.countryCallingCodes[0] }} {{ country.name }}</ion-label>
+          <ion-radio checked="false" (click)="select(country)" [value]="country"></ion-radio>
+      </ion-item>
+     </span>
+    </ion-list>
+    
+    <div *ngIf="!countryCodes" class="spinner"></div>
+
+</ion-content>
