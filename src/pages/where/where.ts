@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController, ModalController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, ModalController, ToastController } from 'ionic-angular';
 import { DatePicker } from 'ionic-native';
 
 import { Work } from '../../models/work'
-import { AddressService } from '../../providers/address-service';
 import { Address } from '../../models/address';
+
+import { AddressService } from '../../providers/address-service';
+import { WorkService } from '../../providers/work-service';
 
 @Component({
   selector: 'page-where',
@@ -19,8 +21,10 @@ export class WherePage {
     constructor(private navController: NavController,
                 private navParams: NavParams,
                 private loadingCtrl: LoadingController,
+                private toastCtrl: ToastController,
                 private addressService: AddressService,
-                private modalCtrl: ModalController)
+                private modalCtrl: ModalController,
+                private workService: WorkService)
     {
       this.work = this.navParams.get('work');
       this.addresses = [];
@@ -51,12 +55,32 @@ export class WherePage {
       )
     }
 
-    nextStep() {
+    sendWork() {
       this.work.address = this.selectedAddress;
-      // lazzy loading work description page
-      this.navController.push('WorkDescriptionPage', {
-        work: this.work
-      });
+
+      this.workService.createWork(this.work).subscribe(
+        (data) => {
+          console.log(data);
+          //TODO fabka: acá llamar la pagina de finalizacion
+          let toast = this.toastCtrl.create({
+            message: 'Trabajo creado exitosamente',
+            duration: 3000,
+            showCloseButton: true,
+            closeButtonText: 'Cerrar'
+          });
+          toast.present();
+        },
+        (error) => {
+          console.log(error);
+          let toast = this.toastCtrl.create({
+            message: 'Error, por favor intenta más tarde',
+            duration: 3000,
+            showCloseButton: true,
+            closeButtonText: 'Cerrar'
+          });
+          toast.present();
+        }
+      )
     }
 
     newAddress() {

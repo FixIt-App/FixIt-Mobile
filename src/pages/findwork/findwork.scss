@@ -1,14 +1,15 @@
 page-find-work {
   .class-title {
     font-size: 2rem;
-    color: #757575;
+    color: map-get($colors, 'primary');
     margin: 13px 8px 13px 0;
     padding-left: 16px;
+    font-weight: bold;
   }
   ion-slides {
     height: 30%;
     .swiper-slide {
-      width: 32% !important;
+      width: 33% !important;
       height: 80% !important;
       .slide-zoom { 
         height: 100%;

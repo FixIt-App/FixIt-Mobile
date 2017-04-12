@@ -3,6 +3,8 @@ import { NavController, NavParams, AlertController, ToastController, IonicPage }
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Camera } from 'ionic-native';
 
+import { SchedulePage } from '../schedule/schedule';
+
 import { Work } from '../../models/work'
 import { WorkService } from '../../providers/work-service';
 
@@ -123,7 +125,7 @@ export class WorkDescriptionPage {
     confirm.present();
   }
 
-  finalize() {
+  nextStep() {
     this.submitAttempt = true;
     if(!this.form.valid) return;
     if(this.images.filter( image => image.isUploading == true).length > 0) {
@@ -137,30 +139,9 @@ export class WorkDescriptionPage {
     } else {
       this.work.description = this.description.value;
       this.work.images = this.images.map(image => image.idServer);
-
-      this.workService.createWork(this.work).subscribe(
-        (data) => {
-          console.log(data);
-          //TODO fabka: acá llamar la pagina de finalizacion
-          let toast = this.toastCtrl.create({
-            message: 'Trabajo creado exitosamente',
-            duration: 3000,
-            showCloseButton: true,
-            closeButtonText: 'Cerrar'
-          });
-          toast.present();
-        },
-        (error) => {
-          console.log(error);
-          let toast = this.toastCtrl.create({
-            message: 'Error, por favor intenta más tarde',
-            duration: 3000,
-            showCloseButton: true,
-            closeButtonText: 'Cerrar'
-          });
-          toast.present();
-        }
-      )
+      this.navCtrl.push(SchedulePage, {
+        work: this.work
+      })
     }
   }
 

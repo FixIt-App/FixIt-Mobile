@@ -18,8 +18,7 @@
           <div class="options">
               {{ work.name }}  
               <p>
-              <!--{{ work.description }}-->
-              {{ 50000 | currency:'COP':true:'4.0' }}
+              Desde: {{ 50000 | currency:'usd':true:'4.0' }}
               </p>
           </div>
         </ion-card>
@@ -32,11 +31,15 @@
           <div class="options">
               {{ work.name }}  
               <p>
-              <!--{{ work.description }}-->
-              {{ 50000 | currency:'COP':true:'4.0' }}
+              Desde: {{ 50000 | currency:'usd':true:'4.0' }}
               </p>
           </div>
         </ion-card>
       </ion-slide>
     </ion-slides>
+    <br>
+    <button ion-button round block outline icon-right (click)="nonStandardWork()"> 
+      ¿Otro tipo de trabajo?
+      <ion-icon name="send"></ion-icon>
+    </button>
 </ion-content> 

@@ -42,5 +42,18 @@ export class FindWorkPage implements OnInit {
       work: this.work
     });
   }
+
+  nonStandardWork() {
+    //TODO (a-santamaria): set real non standard work type
+    this.work.workType = {
+      id: 1,
+      name: 'Trabajo no estándar',
+      description: '',
+      icon: ''
+    }
+    this.navController.push('WorkDescriptionPage', {
+      work: this.work
+    });
+  }
     
 }
