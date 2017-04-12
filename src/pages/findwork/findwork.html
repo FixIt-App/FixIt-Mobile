@@ -10,15 +10,41 @@
 
 <ion-content>
   <!--<ion-list>-->
+    <!--<div class="loader">
+      <svg class="scaler" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+        width="194.459px" height="194.459px" viewBox="0 0 194.459 194.459" enable-background="new 0 0 194.459 194.459"
+        xml:space="preserve">
+      <g>
+        <path d="M74.889,82.625c2.381-2.563-0.482-6.241-1.191-7.168c-1.557-2.926,1.438-8.228,6.969-7.729
+          c1.531,0.032,4.58,2.042,3.873-2.988c-0.707-5.031,4.258-12.385,11.525-12.468c2.532-0.028,4.661,0.402,6.442,1.165
+          c3.723,2.471,5.967,6.684,6.57,11.639c-0.082,1.926-0.461,3.959-1.166,6.041c-0.67,1.979,1.469,4.071,3.432,3.43
+          c8.113-2.655,12.088,2.902,10.465,10.617c-2.014,9.568-7.557,10.404-14.828,7.689c-4.135-0.434-5.279,1.412-5.848,3.811
+          s-3.417,5.107-6.903,5.44c-7.738,0.417-7.232-11.82-13.25-7.8S68.604,88.042,74.889,82.625z"/>
+      </g>
+      </svg>
+    </div>-->
+    <!--<div class="class-title">Trending...</div>-->
+    <img src="../assets/fixit-home.svg" class="home-icon">
+    <div class="background">
+      <div class="spiner">
+        <div class="dot"></div>
+      </div>
 
-    <div class="class-title">Trending...</div>
-    <ion-slides slides>
+       <div class="spiner2" style="left: -29%">
+        <div class="dot2"></div>
+      </div>
+
+      <div class="spiner3" style="left: -62%">
+        <div class="dot3"></div>
+      </div>
+
+    </div>
+    <!--<ion-slides slides>
       <ion-slide *ngFor="let work of works">
         <ion-card (click)="goToNextStep(work)" [ngStyle]="{'background-image':'url(' + work.icon + ')'}">
           <div class="options">
               {{ work.name }}  
               <p>
-              <!--{{ work.description }}-->
               {{ 50000 | currency:'COP':true:'4.0' }}
               </p>
           </div>
@@ -32,11 +58,10 @@
           <div class="options">
               {{ work.name }}  
               <p>
-              <!--{{ work.description }}-->
               {{ 50000 | currency:'COP':true:'4.0' }}
               </p>
           </div>
         </ion-card>
       </ion-slide>
-    </ion-slides>
+    </ion-slides>-->
 </ion-content> 

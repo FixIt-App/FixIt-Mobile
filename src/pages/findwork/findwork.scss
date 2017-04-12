@@ -29,4 +29,186 @@ page-find-work {
       }
     }
   }
+
+// .scaler {
+//   animation: scaleOut 2.5s infinite;
+//   animation-timing-function: ease-out;
+// }
+
+// @keyframes scaleOut {
+//  0% {
+//    transform: scale(0.6);
+//    opacity: 1;
+//  }
+//  30% {
+//    transform: scale(1);
+//    opacity: 0.6;
+//  }
+//  100% {
+//    transform: scale(0);
+//    opacity: 0;
+//  }
+// }
+
+// .loader {
+//     width: 100px;
+//     height: 100px;
+//     animation: bounceIn 2.5s infinite;
+//     animation: scaleOut 2.5s infinite;
+//     animation-timing-function: linear;
+// }
+
+// @keyframes bounceIn {
+//  0% {
+//    transform: translate(110px, 180px);
+//  }
+// //  20% {
+// //    transform: translate(70px, 250px);
+// //  }
+// //  50% {
+// //    transform: translate(40px, 200px);
+// //  }
+//  30% {
+//    transform: translate(100px, 170px);
+//  }
+//  100% {
+//    transform: translate(70px, 0px);
+//  }
+// }
+  .home-icon {
+    height: 101px;
+    top: 40%;
+    position: relative;
+    left: 40%;
+  }
+  .background {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: table;
+    text-align: center;
+    left: 50%;
+    top: -10%;
+  }
+  .spiner {
+    display: table-cell;
+    vertical-align: middle;
+    position: relative;
+    // left: 50%;
+    animation: opacityBounce 2.5s infinite linear;
+  }
+
+  @keyframes opacityBounce {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  .dot {
+    // border-radius: 100%;
+    // border: 1px solid #000;
+    // background: black;
+    width: 20px;
+    height: 20px;
+    // animation: straightLine 2.5s infinite linear;
+    animation: xAxis 2.5s infinite cubic-bezier(0.02, 0.01, 0.21, 1);
+  }
+
+  @keyframes xAxis {
+    50% {
+      animation-timing-function: cubic-bezier(0.3, 0.27, 0.07, 1.64);
+      transform: translateX(100px);
+      // transform: scale(0);
+      // opacity: 0;
+    }
+  }
+
+  .dot::after {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    background-color: map-get($colors, 'primary');
+    animation: yAxis 2.5s infinite cubic-bezier(0.3, 0.27, 0.07, 1.64);
+  }
+
+  @keyframes yAxis {
+    50% {
+      animation-timing-function: cubic-bezier(0.02, 0.01, 0.21, 1);
+      transform: translateY(-100px);
+      // visibility: none;
+      width: 15px;
+      height: 15px;
+    }
+  }
+
+  .spiner2 {
+    display: table-cell;
+    vertical-align: middle;
+    position: relative;
+    // left: 50%;
+    animation: opacityBounce 2.5s infinite linear;
+    animation-delay: 0.5s;
+  }
+
+  .dot2 {
+    // border-radius: 100%;
+    // border: 1px solid #000;
+    // background: black;
+    width: 20px;
+    height: 20px;
+    // animation: straightLine 2.5s infinite linear;
+    animation: xAxis 2.5s infinite cubic-bezier(0.02, 0.01, 0.21, 1);
+    animation-delay: 0.5s;
+  }
+
+  .dot2::after {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    background-color: map-get($colors, 'primary');
+    animation: yAxis 2.5s infinite cubic-bezier(0.3, 0.27, 0.07, 1.64);
+    animation-delay: 0.5s;
+  }
+
+
+  .spiner3 {
+    display: table-cell;
+    vertical-align: middle;
+    position: relative;
+    // left: 50%;
+    animation: opacityBounce 2.5s infinite linear;
+    animation-delay: 1s;
+  }
+
+  .dot3 {
+    // border-radius: 100%;
+    // border: 1px solid #000;
+    // background: black;
+    width: 20px;
+    height: 20px;
+    // animation: straightLine 2.5s infinite linear;
+    animation: xAxis 2.5s infinite cubic-bezier(0.02, 0.01, 0.21, 1);
+    animation-delay: 1s;
+  }
+
+  .dot3::after {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    background-color: map-get($colors, 'primary');
+    animation: yAxis 2.5s infinite cubic-bezier(0.3, 0.27, 0.07, 1.64);
+    animation-delay: 1s;
+  }
 }
