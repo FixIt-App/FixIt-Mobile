@@ -7,27 +7,25 @@ page-find-work {
     font-weight: bold;
   }
   ion-slides {
-    height: 30%;
-    .swiper-slide {
-      width: 33% !important;
-      height: 80% !important;
-      .slide-zoom { 
-        height: 100%;
-      }
-      ion-card {
+    height: 200px;
+    .details {
+      text-align: left;
+      padding: 0px 10px;
+    }
+    .cover {
+      height: 150px;
+      
+      .cover-image-container {
         height: 100% !important;
         background-size: cover;
         background-repeat: no-repeat;
         background-position: 50% 50%;
-        .options {
-          position: absolute;
-          text-align: left;
-          top: 100%;
-          width: 100%;
-          background-color: white;
-          height: 50px;
-        }
       }
+    }
+
+    .swiper-pagination-progress 
+    .swiper-pagination-progressbar {
+      background: map-get($colors, 'primary');
     }
   }
 }

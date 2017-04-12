@@ -12,11 +12,16 @@
   <!--<ion-list>-->
 
     <div class="class-title">Trending...</div>
-    <ion-slides slides>
-      <ion-slide *ngFor="let work of works">
-        <ion-card (click)="goToNextStep(work)" [ngStyle]="{'background-image':'url(' + work.icon + ')'}">
-          <div class="options">
-              {{ work.name }}  
+    <ion-slides #slides>
+      <ion-slide *ngFor="let work of works" >
+        <ion-card (click)="goToNextStep(work)">
+          <div class="cover">
+            <div class="cover-image-container" [ngStyle]="{'background-image':'url(' + work.icon + ')'}">
+            </div>
+          </div>
+          
+          <div class="details">
+              <h2>{{ work.name }}</h2>
               <p>
               Desde: {{ 50000 | currency:'usd':true:'4.0' }}
               </p>
@@ -24,11 +29,16 @@
         </ion-card>
       </ion-slide>
     </ion-slides>
-    <div class="class-title">Otro</div>
-    <ion-slides slides>
-      <ion-slide *ngFor="let work of works">
-        <ion-card (click)="goToNextStep(work)" [ngStyle]="{'background-image':'url(' + work.icon + ')'}">
-          <div class="options">
+    <div class="class-title">Otra Categoría</div>
+      <ion-slides #slides>
+      <ion-slide *ngFor="let work of works" >
+        <ion-card (click)="goToNextStep(work)">
+          <div class="cover">
+            <div class="cover-image-container" [ngStyle]="{'background-image':'url(' + work.icon + ')'}">
+            </div>
+          </div>
+          
+          <div class="details">
               {{ work.name }}  
               <p>
               Desde: {{ 50000 | currency:'usd':true:'4.0' }}

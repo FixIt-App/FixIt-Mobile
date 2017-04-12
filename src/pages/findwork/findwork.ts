@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NavController, Slides } from 'ionic-angular';
 import { WorkTypeService } from '../../providers/wortktype-service'
 import { SchedulePage } from '../schedule/schedule'
 import { UserDataService } from '../../providers/user-data-service';
@@ -17,6 +17,7 @@ export class FindWorkPage implements OnInit {
   works: WorkType[] = null;
   customer: Customer;
   work: Work;
+  @ViewChild(Slides) slides: Slides;
 
   constructor(private navController: NavController,
               private workTypeService: WorkTypeService,
@@ -26,6 +27,12 @@ export class FindWorkPage implements OnInit {
   }
 
   ngOnInit(){
+    this.slides.slidesPerView = 3;
+    this.slides.pager = true;
+    this.slides.paginationType = 'progress';
+    this.slides.freeMode = true;
+
+    // this.slides.loop = true
     this.customer = this.userDataService.getCustomer();
     this.workTypeService.getWorkTypes().subscribe(
       works => {
