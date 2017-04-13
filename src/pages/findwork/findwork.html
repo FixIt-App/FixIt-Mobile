@@ -10,46 +10,27 @@
 
 <ion-content>
   <!--<ion-list>-->
-
-    <div class="class-title">Trending...</div>
-    <ion-slides #slides>
-      <ion-slide *ngFor="let work of works" >
-        <ion-card (click)="goToNextStep(work)">
+  <div class="category" *ngFor="let category of categories">
+    <div class="class-title">{{category.name}}</div>
+    <ion-slides>
+      <ion-slide *ngFor="let worktype of category.worktypes" >
+        <ion-card (click)="goToNextStep(worktype)">
           <div class="cover">
-            <div class="cover-image-container" [ngStyle]="{'background-image':'url(' + work.icon + ')'}">
+            <div class="cover-image-container" [ngStyle]="{'background-image':'url(' + worktype.icon + ')'}">
             </div>
           </div>
           
           <div class="details">
-              <h2>{{ work.name }}</h2>
-              <p>
-              Desde: {{ 50000 | currency:'usd':true:'4.0' }}
+              <h2>{{ worktype.name }}</h2>
+              <p *ngIf="worktype.price_type == 'STANDARIZED' ">
+                {{ worktype.price | currency:'usd':true:'4.0' }}
+              </p>
+              <p *ngIf="worktype.price_type == 'NOT_STANDARIZED' ">
+                Desde: {{ worktype.price | currency:'usd':true:'4.0' }}
               </p>
           </div>
         </ion-card>
       </ion-slide>
     </ion-slides>
-    <div class="class-title">Otra Categoría</div>
-      <ion-slides #slides>
-      <ion-slide *ngFor="let work of works" >
-        <ion-card (click)="goToNextStep(work)">
-          <div class="cover">
-            <div class="cover-image-container" [ngStyle]="{'background-image':'url(' + work.icon + ')'}">
-            </div>
-          </div>
-          
-          <div class="details">
-              {{ work.name }}  
-              <p>
-              Desde: {{ 50000 | currency:'usd':true:'4.0' }}
-              </p>
-          </div>
-        </ion-card>
-      </ion-slide>
-    </ion-slides>
-    <br>
-    <button ion-button round block outline icon-right (click)="nonStandardWork()"> 
-      ¿Otro tipo de trabajo?
-      <ion-icon name="send"></ion-icon>
-    </button>
+  </div>
 </ion-content> 

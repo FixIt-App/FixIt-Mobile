@@ -8,15 +8,27 @@ page-find-work {
   }
   ion-slides {
     height: 200px;
+    .swiper-slide {
+      width: 31% !important;
+    }
     .details {
       text-align: left;
       padding: 0px 10px;
+      p {
+        font-size: 1.2rem;
+      }
+    }
+    .slide-zoom {
+      height: 100%;
+    }
+    .card {
+      height: 90%;
     }
     .cover {
-      height: 150px;
+      height: 75%;
       
       .cover-image-container {
-        height: 100% !important;
+        height: 100%;
         background-size: cover;
         background-repeat: no-repeat;
         background-position: 50% 50%;

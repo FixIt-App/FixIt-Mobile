@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewChildren, QueryList } from '@angular/core';
 import { NavController, Slides } from 'ionic-angular';
 import { WorkTypeService } from '../../providers/wortktype-service'
 import { SchedulePage } from '../schedule/schedule'
 import { UserDataService } from '../../providers/user-data-service';
 
+import { Category } from '../../models/category'
 import { WorkType } from '../../models/worktype'
 import { Customer } from '../../models/user';
 import { Work } from '../../models/work';
@@ -13,11 +14,12 @@ import { Work } from '../../models/work';
   templateUrl: 'findwork.html'
 })
 export class FindWorkPage implements OnInit {
-
-  works: WorkType[] = null;
+  categories: Category[];
   customer: Customer;
   work: Work;
-  @ViewChild(Slides) slides: Slides;
+
+  // @ViewChild(Slides) slides: Slides;
+  @ViewChildren(Slides) slides: QueryList<Slides>;
 
   constructor(private navController: NavController,
               private workTypeService: WorkTypeService,
@@ -27,20 +29,36 @@ export class FindWorkPage implements OnInit {
   }
 
   ngOnInit(){
-    this.slides.slidesPerView = 3;
-    this.slides.pager = true;
-    this.slides.paginationType = 'progress';
-    this.slides.freeMode = true;
-
-    // this.slides.loop = true
     this.customer = this.userDataService.getCustomer();
     this.workTypeService.getWorkTypes().subscribe(
-      works => {
-          this.works = works;
+      categories => {
+          this.categories = categories;
+          this.slides.changes
+          // this.sleep(700).then(() => {
+            this.initializeSlides();
+          // });
+          
       },
       error => {
           console.log(error);
       });
+  }
+
+  initializeSlides() {
+    // console.log(this.slides.length);
+    this.slides.changes.subscribe(
+      (slides: QueryList<Slides>) => {
+        // console.log(slide);
+        slides.map(
+          (slide) => {
+            slide.slidesPerView = 3;
+            slide.pager = true;
+            slide.paginationType = 'progress';
+            slide.freeMode = true;
+          });
+      }
+    )
+
   }
 
   goToNextStep(selectedWork: WorkType){
@@ -56,11 +74,17 @@ export class FindWorkPage implements OnInit {
       id: 1,
       name: 'Trabajo no estándar',
       description: '',
-      icon: ''
+      icon: '',
+      price_type: '',
+      price: -1
     }
     this.navController.push('WorkDescriptionPage', {
       work: this.work
     });
   }
+
+  sleep (time) {
+      return new Promise((resolve) => setTimeout(resolve, time));
+    }
     
 }
