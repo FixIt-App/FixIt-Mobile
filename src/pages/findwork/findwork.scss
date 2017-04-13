@@ -1,5 +1,43 @@
 page-find-work {
-  ion-card {
-    box-shadow: none !important;
+  .class-title {
+    font-size: 2rem;
+    color: map-get($colors, 'primary');
+    margin: 13px 8px 13px 0;
+    padding-left: 16px;
+    font-weight: bold;
+  }
+  ion-slides {
+    height: 200px;
+    .swiper-slide {
+      width: 31% !important;
+    }
+    .details {
+      text-align: left;
+      padding: 0px 10px;
+      p {
+        font-size: 1.2rem;
+      }
+    }
+    .slide-zoom {
+      height: 100%;
+    }
+    .card {
+      height: 90%;
+    }
+    .cover {
+      height: 75%;
+      
+      .cover-image-container {
+        height: 100%;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+      }
+    }
+
+    .swiper-pagination-progress 
+    .swiper-pagination-progressbar {
+      background: map-get($colors, 'primary');
+    }
   }
 }

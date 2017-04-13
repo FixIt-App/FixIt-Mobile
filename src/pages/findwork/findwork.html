@@ -9,16 +9,28 @@
 </ion-header>
 
 <ion-content>
-
-<ion-card *ngFor="let work of works" (click)="goToNextStep(work)">
-  <img src="{{work.icon}}" />
-  <ion-card-content>
-    <ion-card-title>
-    {{ work.name }}  
-    </ion-card-title>
-    <p>
-    {{ work.description }}
-    </p>
-  </ion-card-content>
-  </ion-card>
+  <!--<ion-list>-->
+  <div class="category" *ngFor="let category of categories">
+    <div class="class-title">{{category.name}}</div>
+    <ion-slides>
+      <ion-slide *ngFor="let worktype of category.worktypes" >
+        <ion-card (click)="goToNextStep(worktype)">
+          <div class="cover">
+            <div class="cover-image-container" [ngStyle]="{'background-image':'url(' + worktype.icon + ')'}">
+            </div>
+          </div>
+          
+          <div class="details">
+              <h2>{{ worktype.name }}</h2>
+              <p *ngIf="worktype.price_type == 'STANDARIZED' ">
+                {{ worktype.price | currency:'usd':true:'4.0' }}
+              </p>
+              <p *ngIf="worktype.price_type == 'NOT_STANDARIZED' ">
+                Desde: {{ worktype.price | currency:'usd':true:'4.0' }}
+              </p>
+          </div>
+        </ion-card>
+      </ion-slide>
+    </ion-slides>
+  </div>
 </ion-content> 
