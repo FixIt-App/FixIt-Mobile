@@ -1,9 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'format-time',
+  name: 'formatTime',
 })
-export class FormatTime implements PipeTransform {
+export class FormatTimePipe implements PipeTransform {
   /**
    * Format the hour from a date.
    */

@@ -16,17 +16,17 @@
     <div id="address-review" class="review">
       <ion-icon ios="ios-pin" md="md-pin"></ion-icon>
       <label class="item item-input">
-        <span class="input-label">Cra 7 # 51 - 32</span>
+        <span class="input-label">{{ work.address.address }}</span>
       </label>
     </div>
     <div id="date-review" class="review">
       <ion-icon ios="ios-calendar" md="md-calendar"></ion-icon>
       <label class="item item-input">
-        <span class="input-label">{{dayOfWeek}}, {{work.date.getDate()}} de {{month}}</span>
+        <span class="input-label">{{ work.date | formatDayOfWeek }}, {{work.date.getDate()}} de {{ work.date | formatMonth }}</span>
       </label>
       <ion-icon ios="ios-clock" md="md-clock"></ion-icon>
       <label class="item item-input">
-        <span class="input-label">{{work.date | date:'shortTime'}}</span>
+        <span class="input-label">{{ work.date | formatTime }}</span>
       </label>
     </div>
     <div id="address-review" class="review">
