@@ -34,13 +34,15 @@ export class Customer extends User {
     confirmations: Confirmation[];
 
     constructor(data: any) {
+        console.log(data);
         super(data);
         this.idCustomer = data.id;
         this.city = data.city;
         this.confirmations = [];
-        for(let rawConf of data.confirmations) {
-            this.confirmations.push(new Confirmation(rawConf));
-        }
+        if(data.confirmations)
+            for(let rawConf of data.confirmations) {
+                this.confirmations.push(new Confirmation(rawConf));
+            }
     }
 
     export(): any {

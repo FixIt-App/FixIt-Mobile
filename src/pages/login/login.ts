@@ -69,9 +69,10 @@ export class LoginPage {
 		this.authService.getAuthCustomer().subscribe(
 			customer => {
 				this.events.publish('customer:logged', customer);
+				console.log(customer);
 				let confirmSMS = customer.confirmations.find(conf => conf.confirmation_type == 'SMS');
 				console.log(confirmSMS);
-				if(!confirmSMS || !confirmSMS.state) {
+				if(confirmSMS && !confirmSMS.state) {
 					console.log('ir a confirmar sms');
 					this.navController.setRoot(CreateUserPage, {
 						isConfirmingSMS: true,
