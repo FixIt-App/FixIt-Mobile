@@ -2,31 +2,32 @@
   <h1>Gracias!</h1>
   <h2>Estamos buscando el mejor trabajador para ti, pronto recibirás noticias del trabajador que te atenderá</h2>
   <div id="order-review">
-    <div id="work-review" class="review">
+    <div class="review">
       <label class="item item-input">
         <span class="input-label">Ficha técnica</span>
       </label>
     </div>  
-    <div id="work-review" class="review">
+    <div class="review">
       <ion-icon ios="ios-construct" md="md-construct"></ion-icon>
       <label class="item item-input">
         <span class="input-label">{{work.workType.name}}</span>
       </label>
     </div>  
-    <div id="address-review" class="review">
+    <div class="review">
       <ion-icon ios="ios-pin" md="md-pin"></ion-icon>
       <label class="item item-input">
         <span class="input-label">{{ work.address.address }}</span>
       </label>
     </div>
-    <div id="date-review" class="review">
+    <div class="review">
       <ion-icon ios="ios-calendar" md="md-calendar"></ion-icon>
       <label class="item item-input">
         <span class="input-label">{{ work.date | formatDayOfWeek }}, {{work.date.getDate()}} de {{ work.date | formatMonth }}</span>
       </label>
       <ion-icon ios="ios-clock" md="md-clock"></ion-icon>
       <label class="item item-input">
-        <span class="input-label">{{ work.date | formatTime }}</span>
+        <span *ngIf="!work.needItNow" class="input-label">{{ work.date | formatTime }}</span>
+        <span *ngIf="work.needItNow" class="input-label  needItNow">Ahora mismo</span>
       </label>
     </div>
     <div id="address-review" class="review">

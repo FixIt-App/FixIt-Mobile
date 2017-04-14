@@ -8,6 +8,7 @@ export class Work {
     description : string;
     address: Address;
     images: number[];
+    needItNow: boolean;
 
     constructor(data: any) {
         this.id = data.id;
@@ -16,6 +17,7 @@ export class Work {
         this.description = data.description;
         this.address = data.address;
         this.images = data.address;
+        this.needItNow = false;
     }
 
     export(): any {
@@ -25,6 +27,7 @@ export class Work {
         obj.description = this.description;
         obj.addressid = this.address.id;
         obj.images = this.images;
+        obj.needItNow = this.needItNow;
         return obj
     }
 }

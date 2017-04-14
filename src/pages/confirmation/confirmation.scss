@@ -29,6 +29,10 @@ page-confirmation {
                 display: flex;
                 flex-direction: row;
                 padding: 3vmin 3vmin 3vmin 5vmin;
+
+                .needItNow{
+                    color: map-get($colors, 'danger');
+                }
             }
 
             .review:first-child{
