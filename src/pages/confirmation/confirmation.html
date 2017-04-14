@@ -1,0 +1,39 @@
+<ion-content padding>
+  <h1>Gracias!</h1>
+  <h2>Estamos buscando el mejor trabajador para ti, pronto recibirás noticias del trabajador que te atenderá</h2>
+  <div id="order-review">
+    <div id="work-review" class="review">
+      <label class="item item-input">
+        <span class="input-label">Ficha técnica</span>
+      </label>
+    </div>  
+    <div id="work-review" class="review">
+      <ion-icon ios="ios-construct" md="md-construct"></ion-icon>
+      <label class="item item-input">
+        <span class="input-label">{{work.workType.name}}</span>
+      </label>
+    </div>  
+    <div id="address-review" class="review">
+      <ion-icon ios="ios-pin" md="md-pin"></ion-icon>
+      <label class="item item-input">
+        <span class="input-label">Cra 7 # 51 - 32</span>
+      </label>
+    </div>
+    <div id="date-review" class="review">
+      <ion-icon ios="ios-calendar" md="md-calendar"></ion-icon>
+      <label class="item item-input">
+        <span class="input-label">{{dayOfWeek}}, {{work.date.getDate()}} de {{month}}</span>
+      </label>
+      <ion-icon ios="ios-clock" md="md-clock"></ion-icon>
+      <label class="item item-input">
+        <span class="input-label">{{work.date | date:'shortTime'}}</span>
+      </label>
+    </div>
+    <div id="address-review" class="review">
+      <button ion-button>
+        <ion-icon ios="ios-add" md="md-add"></ion-icon>
+        Añade detalles
+      </button>
+    </div>
+  </div>
+</ion-content>
