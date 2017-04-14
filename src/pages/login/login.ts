@@ -8,6 +8,7 @@ import { CreateUserPage } from '../create-user/create-user'
 import { AuthService } from '../../providers/auth-service';
 import { UserDataService } from '../../providers/user-data-service';
 import { SERVER_URL } from '../../providers/services.util';
+import { ConfirmationService } from '../../providers/confirmation-service';
 
 @Component({
   selector: 'page-login',
@@ -23,7 +24,8 @@ export class LoginPage {
 							private authService: AuthService,
 							public alertCtrl: AlertController,
 							public events: Events,
-							public userDataService: UserDataService)
+							public userDataService: UserDataService,
+							public confirmationService: ConfirmationService)
 	{
 		this.authenticatingUser = true;
 	}
@@ -55,7 +57,7 @@ export class LoginPage {
 						msg = "Las credenciales ingresadas no son correctas!";
 				}
 				var alert = this.alertCtrl.create({
-						title: 'Error al inicar sesión',
+						title: 'Error al iniciar sesión',
 						subTitle: msg,
 						buttons: ['OK']
 				});
@@ -67,9 +69,19 @@ export class LoginPage {
 		this.authService.getAuthCustomer().subscribe(
 			customer => {
 				this.events.publish('customer:logged', customer);
-				this.userDataService.setCustomer(customer);
-				console.log(customer);
-				this.navController.setRoot(FindWorkPage);
+				let confirmSMS = customer.confirmations.find(conf => conf.confirmation_type == 'SMS');
+				console.log(confirmSMS);
+				if(!confirmSMS || !confirmSMS.state) {
+					console.log('ir a confirmar sms');
+					this.navController.setRoot(CreateUserPage, {
+						isConfirmingSMS: true,
+						customer: customer
+					})
+				} else {
+					this.userDataService.setCustomer(customer);
+					console.log(customer);
+					this.navController.setRoot(FindWorkPage);
+				}
 			},  
 			error => {
 				this.authenticatingUser = false;
@@ -79,7 +91,9 @@ export class LoginPage {
 	}
 
 	signUp(){
-		this.navController.push(CreateUserPage)
+		this.navController.push(CreateUserPage, {
+			CreateUserPage: false
+		})
 	}
 }
 
