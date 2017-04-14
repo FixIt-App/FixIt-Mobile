@@ -1,3 +1,5 @@
+import { Confirmation } from './confirmation';
+
 export class User {
     username: string;
     password: string;
@@ -29,10 +31,18 @@ export class User {
 export class Customer extends User {
     idCustomer: number;
     city: string;
+    confirmations: Confirmation[];
+
     constructor(data: any) {
+        console.log(data);
         super(data);
         this.idCustomer = data.id;
         this.city = data.city;
+        this.confirmations = [];
+        if(data.confirmations)
+            for(let rawConf of data.confirmations) {
+                this.confirmations.push(new Confirmation(rawConf));
+            }
     }
 
     export(): any {

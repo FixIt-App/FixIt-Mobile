@@ -35,7 +35,7 @@ export class AuthService {
                                 });
         var options = new RequestOptions({ headers: headers });
         return this.http.get(authCustomerUrl, options)
-                        .map(response => new Customer(response.json()))
+                        .map(response => { console.log(response); return new Customer(response.json())})
                         .catch(this.handleError)
     }
 

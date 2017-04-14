@@ -1,12 +1,13 @@
 import { Component } from '@angular/core'
-import { NavController } from 'ionic-angular'
+import { NavController, Events, NavParams } from 'ionic-angular'
 import { AlertController, ModalController } from 'ionic-angular'
-
-import { LoginPage } from '../login/login'
 
 import { UserDataService } from '../../providers/user-data-service'
 import { Customer } from '../../models/user'
 import { CountryCodeSelectorPage } from '../country-code-selector/country-code-selector'
+import { FindWorkPage } from '../findwork/findwork';
+import { ConfirmationService } from '../../providers/confirmation-service';
+import { AuthService } from '../../providers/auth-service';
 
 @Component({
     selector: 'page-create-user',
@@ -26,32 +27,34 @@ export class CreateUserPage {
     "name": "Colombia",
   };
   phone: number;
+  isConfirmingSMS: boolean;
+  smsCode: number;
 
   constructor(private userService: UserDataService,
+              private navParams: NavParams,
               public alertCtrl: AlertController,
               private navController: NavController,
-              private modalCtrl: ModalController)
+              private modalCtrl: ModalController,
+              private confirmationService: ConfirmationService,
+              private authService: AuthService,
+              public events: Events,
+              public userDataService: UserDataService)
   {
-    this.customer = new Customer({});
+    if(this.navParams.get('customer'))
+      this.customer = this.navParams.get('customer');
+    else
+      this.customer = new Customer({});
+    this.isConfirmingSMS = this.navParams.get('isConfirmingSMS');
+    console.log('entre a create customer');
   }
 
-  create(){
+  create() {
     this.customer.username = this.customer.email;
     this.customer.phone = this.selectedCountry.countryCallingCodes[0] + this.phone;
 
     this.userService.saveCustomer(this.customer)
       .subscribe(customer => {
-        var alert = this.alertCtrl.create({
-          title: 'Éxito',
-          subTitle: 'Usuario creado correctamente',
-          buttons: ['OK']
-        });
-
-        alert.present().then(
-          res =>{
-            this.navController.setRoot(LoginPage)
-          });
-          
+        this.isConfirmingSMS = true;
       },
       error => {
         var msg = 'No se pudo crear el usuario'
@@ -64,12 +67,71 @@ export class CreateUserPage {
           subTitle: msg,
           buttons: ['OK']
         });
-
+        //todo (a-santamaria): revisar tipos de errores
         alert.present().then(
           err => {
             this.customer.username = ""
           });
       })
+  }
+
+  confirmSMS() {
+    if(this.smsCode) {
+      if(!this.customer.password) {
+        this.confirmationService.confirmSMS(this.smsCode).subscribe(
+          (status) => {
+            console.log(status);
+            if(status == 200) {
+              this.getAuthenticatedCustomer();
+            }
+          },
+          (error) => {
+            console.log(error);
+          });
+      }else {
+        this.authService.login(this.customer.username, this.customer.password).subscribe(
+          token => {
+            console.log(token);
+            localStorage.setItem('token', token.token);
+            this.authService.reloadToken();
+            this.confirmationService.confirmSMS(this.smsCode).subscribe(
+            (status) => {
+              console.log(status);
+              if(status == 200) {
+                this.getAuthenticatedCustomer();
+              }
+            },
+            (error) => {
+              console.log(error);
+            });
+          },
+          error => {
+            console.log(error);
+          });
+      }
+    }
+  }
+
+  getAuthenticatedCustomer() {
+		this.authService.getAuthCustomer().subscribe(
+			customer => {
+				this.events.publish('customer:logged', customer);
+				this.userDataService.setCustomer(customer);
+				console.log(customer);
+				this.navController.setRoot(FindWorkPage);
+			},  
+			error => {
+				
+			}
+		);
+			
+	}
+
+  sendCodeAgain() {
+    this.confirmationService.resendSMSCode().subscribe(
+      data => { console.log(data) },
+      error => { console.log(error) }
+    );
   }
 
   goBack() {

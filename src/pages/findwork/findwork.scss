@@ -10,13 +10,7 @@ page-find-work {
     height: 200px;
     .swiper-slide {
       width: 31% !important;
-    }
-    .details {
-      text-align: left;
-      padding: 0px 10px;
-      p {
-        font-size: 1.2rem;
-      }
+      min-width: 135px;
     }
     .slide-zoom {
       height: 100%;
@@ -25,7 +19,7 @@ page-find-work {
       height: 90%;
     }
     .cover {
-      height: 75%;
+      height: 65%;
       
       .cover-image-container {
         height: 100%;
@@ -38,6 +32,24 @@ page-find-work {
     .swiper-pagination-progress 
     .swiper-pagination-progressbar {
       background: map-get($colors, 'primary');
+    }
+
+    .row-bottom {
+      position: absolute;
+      bottom: 10px;
+      left: 15px;
+    }
+
+    .work-name {
+      height: calc(35% - 1.4rem - 10px);
+      text-align: left;
+      display: flex;
+        margin: 0px 5px;
+      align-items: center;
+      .name {
+        color: map-get($colors, 'primary');
+        font-weight: 500;
+      }
     }
   }
 }
