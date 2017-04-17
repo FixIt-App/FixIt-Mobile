@@ -3,7 +3,6 @@ import { Injectable }    from '@angular/core';
 
 import { Headers, Http, RequestOptions } from '@angular/http'
 
-import { WorkType } from '../models/worktype';
 import { Category } from '../models/category';
 import { SERVER_URL } from './services.util'
 
