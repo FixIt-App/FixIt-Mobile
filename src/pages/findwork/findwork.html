@@ -20,15 +20,17 @@
             </div>
           </div>
           
-          <div class="details">
-              <h2>{{ worktype.name }}</h2>
+            <ion-row class="work-name">
+              <div class="name"> {{ worktype.name }} </div>
+            </ion-row>
+            <ion-row class="row-bottom">
               <p *ngIf="worktype.price_type == 'STANDARIZED' ">
                 {{ worktype.price | currency:'usd':true:'4.0' }}
               </p>
               <p *ngIf="worktype.price_type == 'NOT_STANDARIZED' ">
                 Desde: {{ worktype.price | currency:'usd':true:'4.0' }}
               </p>
-          </div>
+            </ion-row>
         </ion-card>
       </ion-slide>
     </ion-slides>

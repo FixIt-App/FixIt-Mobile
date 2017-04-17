@@ -2,6 +2,9 @@ page-create-user {
   ion-content {
     background-color: map-get($colors, 'primary') !important;
   }
+  .confirmText {
+    color: #f1f1f1;
+  }
   form {
     padding: 20px;
     .item {
