@@ -42,7 +42,22 @@ export class WorkService {
       console.log(body);
       var options = new RequestOptions({ headers: headers });
       return this.http.post(createWorkUrl, body, options)
-                      .map(response => response.json())
+                      .map(response => new Work(response.json()))
+                      .catch(this.handleError)
+  }
+
+  addDetailsWork(work: Work): Observable<any> {
+     let createWorkUrl: string = `${SERVER_URL}/api/work/${work.id}/`;
+     console.log(createWorkUrl);
+      var headers = new Headers({ 'Content-Type': 'application/json', 
+                                  'Accept': 'application/json',
+                                  'Authorization': `Token ${this.token}`
+                              });
+      var body = JSON.stringify(work.export());
+      console.log(body);
+      var options = new RequestOptions({ headers: headers });
+      return this.http.put(createWorkUrl, body, options)
+                      .map(response => new Work(response.json()))
                       .catch(this.handleError)
   }
 

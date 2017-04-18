@@ -27,4 +27,10 @@ export class ConfirmationPage {
   formatAMPM(date) {
     
   }
+
+  goToWorkDescription() {
+    this.navCtrl.setRoot('WorkDescriptionPage', {
+      work: this.work
+    });
+  }
 }

@@ -35,6 +35,7 @@ export class WorkDescriptionPage {
               private workService: WorkService)
   {
     this.work = navParams.get('work');
+    console.log(this.work);
     this.images = [];
     this.currId = 0;
     this.form = this.formBuilder.group({
@@ -139,9 +140,40 @@ export class WorkDescriptionPage {
     } else {
       this.work.description = this.description.value;
       this.work.images = this.images.map(image => image.idServer);
-      this.navCtrl.push(SchedulePage, {
-        work: this.work
-      })
+      if(!this.work.id) {
+        //not created in server yet
+        this.navCtrl.push(SchedulePage, {
+          work: this.work
+        });
+      } else {
+        //adding details
+        this.workService.addDetailsWork(this.work).subscribe(
+          (work) => {
+            this.work = work;
+            let toast = this.toastCtrl.create({
+              message: 'Los datalles del trabajo se actualizaron exitosamente.',
+              duration: 3000,
+              showCloseButton: true,
+              closeButtonText: 'Cerrar'
+            });
+            toast.present();
+            if(this.navCtrl.parent == null) {
+              this.navCtrl.setRoot('NextServicesPage');
+            } else {
+              this.navCtrl.pop();
+            }
+          },
+          (error) => {
+            let toast = this.toastCtrl.create({
+              message: 'Error. Por favor intentar mas tarde',
+              duration: 3000,
+              showCloseButton: true,
+              closeButtonText: 'Cerrar'
+            });
+            toast.present();
+          }
+        )
+      }
     }
   }
 

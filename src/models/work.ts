@@ -39,7 +39,10 @@ export class Work {
         obj.date = this.date;
         obj.description = this.description;
         obj.addressid = this.address.id;
-        obj.images = this.images;
+        if(this.images)
+            obj.images = this.images;
+        else
+            obj.images = [];
         obj.needItNow = this.needItNow;
         return obj
     }

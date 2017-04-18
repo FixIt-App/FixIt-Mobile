@@ -24,6 +24,7 @@ export class MyApp {
   {
     // menu navigation pages
     this.pages = [
+      { title: 'Pedir trabajo', component: FindWorkPage },
       { title: 'Próximos servicios', component: 'NextServicesPage' },
       { title: 'Historial servicios', component: 'ServiceHistoricalPage' },
       { title: 'Configuraciones', component: FindWorkPage },
@@ -46,8 +47,12 @@ export class MyApp {
     if(page.title == 'Cerrar sesión') {
       localStorage.clear();
       this.nav.setRoot(LoginPage);
-    } else
+    } else if(page.title == 'Pedir trabajo') {
+      if(this.nav.getActive() != page.component)
+        this.nav.setRoot(page.component);
+    } else {
       this.nav.push(page.component);
+    }
   }
 
   listenToCustomerLogged() {

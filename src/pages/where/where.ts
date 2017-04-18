@@ -58,8 +58,12 @@ export class WherePage {
       this.work.address = this.selectedAddress;
 
       this.workService.createWork(this.work).subscribe(
-        (data) => {
-          console.log(data);
+        (work) => {
+          //TODO (a-santamaria): el need it now deberia guardarse en el servidor
+          let needItNow = this.work.needItNow;
+          this.work = work;
+          this.work.needItNow = needItNow;
+          
           this.navController.push('ConfirmationPage', {
             work: this.work
           });
