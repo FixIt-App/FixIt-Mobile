@@ -27,6 +27,8 @@ export class WherePage {
                 private workService: WorkService)
     {
       this.work = this.navParams.get('work');
+      console.log('estoy en where');
+      console.log(this.work);
       this.addresses = [];
     }
 
@@ -61,14 +63,9 @@ export class WherePage {
       this.workService.createWork(this.work).subscribe(
         (data) => {
           console.log(data);
-          //TODO fabka: acá llamar la pagina de finalizacion
-          let toast = this.toastCtrl.create({
-            message: 'Trabajo creado exitosamente',
-            duration: 3000,
-            showCloseButton: true,
-            closeButtonText: 'Cerrar'
+          this.navController.push('ConfirmationPage', {
+            work: this.work
           });
-          toast.present();
         },
         (error) => {
           console.log(error);

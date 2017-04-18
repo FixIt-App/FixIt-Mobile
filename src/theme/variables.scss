@@ -24,15 +24,26 @@ $font-path: "../assets/fonts";
 // The "primary" color is the only required color in the map.
 
 $colors: (
+  slipknot:     #2F3333,
+  korn:         #42464C,
+  metallica:    #277467,
+  iron-maiden:  #5EA099,
+  guns-n-roses: #5FA9A0,
+  ac-dc:        #7EB6B1,
+  aerosmith:    #9AA52D,
+  pearl-jam:    #AAB24A,
+  cranberries:  #A2BD31,
+  oasis:        #C6D36B,
+  radiohead:    #526B76,
+  nirvana:      #8C9FA9,
+  blur:         #CDD5D9,
+
   primary:     #12A19B,
   secondary:   #93C120,
   danger:      #f53d3d,
   warning:     #f5ad3d,
   light:       #f4f4f4,
-  dark:        #222,
-  primary-dark:#04867f,
-  light-green: #5BC2BC,
-  dark-blue:   #4F5B78
+  dark:        #222
 );
 
 

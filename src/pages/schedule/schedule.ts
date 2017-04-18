@@ -34,6 +34,7 @@ export class SchedulePage {
 
   nextStepNow() {
     this.work.date = new Date();
+    this.work.needItNow = true;
     console.log(this.work);
     this.navController.push(WherePage, {
         work: this.work
