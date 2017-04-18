@@ -1,0 +1,42 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Agenda</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row *ngFor="let work of works" class="row-work">
+      <ion-col center text-center col-3 class="card-left-today" *ngIf="isToday(work.date)">
+       <ion-icon name="alert"></ion-icon>
+        <div class="title1">Ahora</div>
+      </ion-col>
+      <ion-col center text-center col-3 class="card-left-tomorrow" *ngIf="isTomorrow(work.date)">
+        <div class="title1">Mañ</div>
+      </ion-col>
+      <ion-col center text-center col-3 class="card-left" *ngIf="!isTomorrow(work.date) && !isToday(work.date)">
+        <div class="title2">{{ work.date | date:'MMM' }}</div>
+        <div class="title1">{{ work.date | date:'dd' }}</div>
+        <div class="title3">{{ work.date | date:'shortTime' }}</div>
+      </ion-col>
+      <ion-col align-self-center col-9 class="card-right">
+        <ion-row>
+          <ion-icon name="clipboard"></ion-icon>
+          {{ work.description }}
+        </ion-row>
+        <ion-row>
+          <ion-icon name="person"></ion-icon>
+         <span *ngIf="work.worker"> {{ work.worker.first_name }} {{ work.worker.last_name }} </span>
+         <span *ngIf="!work.worker"> Por asignar... </span>
+        </ion-row>
+        <ion-row>
+          <ion-icon name="hammer" isActive="true"></ion-icon>
+          {{ work.workType.name }}
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

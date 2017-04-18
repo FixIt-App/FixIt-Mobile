@@ -46,24 +46,31 @@ export class WorkService {
                       .catch(this.handleError)
   }
 
-  getMyWorks(): Observable<Work[]> {
+  getMyWorks(states: string[] = []): Observable<Work[]> {
     let myWorksUrl: string = `${SERVER_URL}/api/myworks/`;
-      var headers = new Headers({ 'Content-Type': 'application/json', 
-                                  'Accept': 'application/json',
-                                  'Authorization': `Token ${this.token}`
-                              });
-      var options = new RequestOptions({ headers: headers });
-      return this.http.get(myWorksUrl, options)
-                      .map(response => this.extractWorks(response.json()))
-                      .catch(this.handleError)
+    if(states.length > 0) {
+      myWorksUrl += '?state=';
+      let first = true;
+      for(let state of states) {
+        if(!first) myWorksUrl += ',';
+        first = false;
+        myWorksUrl += state;
+      }
+    }
+    console.log(myWorksUrl);
+    var headers = new Headers({ 'Content-Type': 'application/json', 
+                                'Accept': 'application/json',
+                                'Authorization': `Token ${this.token}`
+                            });
+    var options = new RequestOptions({ headers: headers });
+    return this.http.get(myWorksUrl, options)
+                    .map(response => this.extractWorks(response.json()))
+                    .catch(this.handleError)
   }
 
   private extractWorks(rawWorks: any): Observable<Work[]> {
     return rawWorks.map(rawWork => {
-      rawWork.address = new Address(rawWork.address);
-      rawWork.worktype = new WorkType(rawWork.worktype);
-      //TODO (a-santamaria): guardar tambien el url de la imagen
-      rawWork.images = rawWork.images.map(image => image.id);
+      console.log(rawWork);
       return new Work(rawWork);
     }) 
   }

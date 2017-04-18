@@ -6,10 +6,10 @@ import { WorkService } from '../../providers/work-service';
 
 @IonicPage()
 @Component({
-  selector: 'page-next-services',
-  templateUrl: 'next-services.html'
+  selector: 'page-service-historical',
+  templateUrl: 'service-historical.html'
 })
-export class NextServicesPage {
+export class ServiceHistoricalPage {
 
   works: Work[];
   today: Date;
@@ -24,9 +24,10 @@ export class NextServicesPage {
   }
 
   ionViewDidLoad() {
-    this.workService.getMyWorks(['ORDERED', 'SCHEDULED']).subscribe(
+    this.workService.getMyWorks(['FINISHED']).subscribe(
       (works) => {
         this.works = works;
+        console.log(this.works);
         this.works.reverse();
       },
       (error) => {

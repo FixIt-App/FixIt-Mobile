@@ -1,5 +1,6 @@
 import { WorkType } from './worktype';
 import { Address } from './address';
+import { Worker } from './worker';
 
 export class Work {
     id: number;
@@ -8,7 +9,9 @@ export class Work {
     description : string;
     address: Address;
     images: number[];
+    imagesUrl: string[];
     needItNow: boolean;
+    worker: Worker;
 
     constructor(data: any) {
         this.id = data.id;
@@ -18,6 +21,16 @@ export class Work {
         this.address = data.address;
         this.images = data.address;
         this.needItNow = false;
+        if(data.address)
+            this.address = new Address(data.address);
+        if(data.worktype)
+            this.workType = new WorkType(data.worktype);
+        if(data.images) {
+            this.images = data.images.map(image => image.id);
+            this.imagesUrl = data.images.map(image => image.image);
+        }
+        if(data.worker)
+            this.worker = new Worker(data.worker);
     }
 
     export(): any {

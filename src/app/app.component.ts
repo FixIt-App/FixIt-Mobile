@@ -25,7 +25,7 @@ export class MyApp {
     // menu navigation pages
     this.pages = [
       { title: 'Próximos servicios', component: 'NextServicesPage' },
-      { title: 'Historial servicios', component: FindWorkPage },
+      { title: 'Historial servicios', component: 'ServiceHistoricalPage' },
       { title: 'Configuraciones', component: FindWorkPage },
       { title: 'Cerrar sesión', component: null }
     ];
