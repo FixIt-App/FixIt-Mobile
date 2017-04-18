@@ -59,23 +59,16 @@ export class FindWorkPage implements OnInit {
 
   goToNextStep(selectedWork: WorkType){
     this.work.workType = selectedWork;
-    this.navController.push(SchedulePage, {
-      work: this.work
-    });
+    console.log(this.work);
+    if(this.work.workType.price_type == 'STANDARIZED') {
+      this.navController.push(SchedulePage, {
+        work: this.work
+      });
+    } else {
+      this.navController.push('WorkDescriptionPage', {
+        work: this.work
+      });
+    }
   }
 
-  nonStandardWork() {
-    //TODO (a-santamaria): set real non standard work type
-    this.work.workType = {
-      id: 1,
-      name: 'Trabajo no estándar',
-      description: '',
-      icon: '',
-      price_type: '',
-      price: -1
-    }
-    this.navController.push('WorkDescriptionPage', {
-      work: this.work
-    });
-  }
 }
