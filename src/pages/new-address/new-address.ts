@@ -98,8 +98,15 @@ export class NewAddressPage {
       this.currentMarker.setMap(null);
     this.currentMarker = new google.maps.Marker({
       position: position,
-      map: this.map
+      map: this.map,
+      draggable:true,
     });
+
+    // google.maps.event.addListener(this.currentMarker, 'dragend', 
+    //   (event) => {
+    //     console.log('dragend');
+    //     console.log(event.latLng);
+    // });
   }
 
   setMarkerIcon() {
@@ -270,7 +277,9 @@ export class NewAddressPage {
         name: shortName,
         address: this.address.value + ' ' + this.address2.value,
         city: city,
-        country: country
+        country: country,
+        latitude: this.currentMarker.getPosition().lat(),
+        longitude: this.currentMarker.getPosition().lng()
       })).subscribe(
         (newAddress) => {
           console.log(newAddress);
