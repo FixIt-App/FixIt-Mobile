@@ -32,12 +32,8 @@ export class FindWorkPage implements OnInit {
     this.customer = this.userDataService.getCustomer();
     this.workTypeService.getWorkTypes().subscribe(
       categories => {
-          this.categories = categories;
-          this.slides.changes
-          // this.sleep(700).then(() => {
-            this.initializeSlides();
-          // });
-          
+          this.categories = categories.reverse();
+          this.initializeSlides();
       },
       error => {
           console.log(error);
@@ -48,13 +44,13 @@ export class FindWorkPage implements OnInit {
     // console.log(this.slides.length);
     this.slides.changes.subscribe(
       (slides: QueryList<Slides>) => {
-        // console.log(slide);
+        console.log(slides);
         slides.map(
           (slide) => {
             slide.slidesPerView = 3;
             slide.pager = true;
-            slide.paginationType = 'progress';
-            slide.freeMode = true;
+            slide.paginationType = 'bullets';
+            // slide.freeMode = true;
           });
       }
     )
@@ -82,9 +78,4 @@ export class FindWorkPage implements OnInit {
       work: this.work
     });
   }
-
-  sleep (time) {
-      return new Promise((resolve) => setTimeout(resolve, time));
-    }
-    
 }
