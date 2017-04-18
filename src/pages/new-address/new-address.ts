@@ -1,9 +1,10 @@
 import { Component, ViewChild, ElementRef, NgZone } from '@angular/core';
-import { NavController, NavParams, ViewController, AlertController, ToastController, LoadingController, IonicPage } from 'ionic-angular';
+import { NavController, NavParams, ViewController, AlertController, ToastController, LoadingController, IonicPage, Loading } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 
 import { AddressService } from '../../providers/address-service';
 import { Address } from '../../models/address';
+import { Geolocation } from 'ionic-native'
 
 declare var google;
 
@@ -39,6 +40,7 @@ export class NewAddressPage {
   submitAttempt: boolean;
   city: string;
   country: string;
+  loader: Loading;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
@@ -65,11 +67,11 @@ export class NewAddressPage {
     this.form.valueChanges
              .debounceTime(600)
              .distinctUntilChanged()
-             .skip(1)
              .subscribe(() => this.getLocByAddres());
   }
 
   ionViewDidLoad() {
+    this.presentLoader();
     this.loadMap();
   }
 
@@ -87,6 +89,7 @@ export class NewAddressPage {
         }
         this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
         this.mapLoaded = true;
+        this.loader.dismiss();
       });
   }
 
@@ -95,8 +98,15 @@ export class NewAddressPage {
       this.currentMarker.setMap(null);
     this.currentMarker = new google.maps.Marker({
       position: position,
-      map: this.map
+      map: this.map,
+      draggable:true,
     });
+
+    // google.maps.event.addListener(this.currentMarker, 'dragend', 
+    //   (event) => {
+    //     console.log('dragend');
+    //     console.log(event.latLng);
+    // });
   }
 
   setMarkerIcon() {
@@ -137,6 +147,8 @@ export class NewAddressPage {
     if (navigator.geolocation) {
         let latlng = new google.maps.LatLng(lat, lng);
         let request = { latLng: latlng };
+        this.map.panTo(latlng);
+        // this.setMarker(latlng);
         this.geocoder.geocode(request,
           (results, status) => {
             if (status == google.maps.GeocoderStatus.OK) {
@@ -166,9 +178,17 @@ export class NewAddressPage {
   }
 
   centerToLocation() {
-      this.map.panTo(this.center);
-      // console.log(this.center);
-      this.getGeocode(this.center.lat(), this.center.lng());
+    this.presentLoader();
+    Geolocation.getCurrentPosition().then(
+      (position) => {
+        console.log(position);
+        this.getGeocode(position.coords.latitude, position.coords.longitude);
+        this.loader.dismiss();
+      },
+      (error) => {
+        console.log('error');
+      }
+    )
   }
 
   addInfoWindow(marker, content) {
@@ -257,7 +277,9 @@ export class NewAddressPage {
         name: shortName,
         address: this.address.value + ' ' + this.address2.value,
         city: city,
-        country: country
+        country: country,
+        latitude: this.currentMarker.getPosition().lat(),
+        longitude: this.currentMarker.getPosition().lng()
       })).subscribe(
         (newAddress) => {
           console.log(newAddress);
@@ -280,4 +302,16 @@ export class NewAddressPage {
     this.viewCtrl.dismiss();
   }
 
+  presentLoader() {
+    this.loader = this.loadingCtrl.create({
+      spinner: 'hide',
+      content: `
+       <div class="spinner">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+      </div>`,
+    });
+    this.loader.present();
+  }
 }

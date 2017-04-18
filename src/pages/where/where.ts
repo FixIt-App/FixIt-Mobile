@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController, ModalController, ToastController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, Loading, ModalController, ToastController } from 'ionic-angular';
 import { DatePicker } from 'ionic-native';
 
 import { Work } from '../../models/work'
@@ -17,7 +17,8 @@ export class WherePage {
     addresses: Address[];
     selectedAddress: Address;
     work: Work;
-    
+    loader: Loading;
+
     constructor(private navController: NavController,
                 private navParams: NavParams,
                 private loadingCtrl: LoadingController,
@@ -35,8 +36,6 @@ export class WherePage {
     ionViewDidLoad() {
       console.log('voy a llamar service');
 
-      let loader = this.loadingCtrl.create({content: "Please wait..."});
-      loader.present();
       this.addressService.getCustomerAddresses().subscribe(
         data => {
           console.log('acabe');
@@ -48,11 +47,9 @@ export class WherePage {
           } else {
             this.newAddress();
           }
-          loader.dismiss();
         },
         error => {
           console.log(error);
-          loader.dismiss();
         }
       )
     }

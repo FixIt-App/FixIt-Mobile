@@ -48,3 +48,17 @@
   margin: 10px 0px;
   color: rgba(0, 0, 0, 0.7);
 }
+
+ion-backdrop {
+  opacity: 0 !important;
+}
+
+.loading-md .loading-wrapper {
+  background: none;
+  box-shadow: none;
+}
+
+.loading-ios .loading-wrapper {
+  background: none;
+  box-shadow: none;
+}
