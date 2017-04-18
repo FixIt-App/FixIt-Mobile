@@ -1,9 +1,14 @@
   <ion-content>
-    <div *ngIf="authenticatingUser">
-        <h1>//TODO (fabka): poner loading mientras se intenta autenticar</h1>
+    <div class="dad" *ngIf="authenticatingUser">
+        <img src="assets/fixit-home.png" class="home-icon">
+        <div class="spinner">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </div>
     </div>
     <span *ngIf="!authenticatingUser">
-        <img src="images/fix-it.jpg" />
+        <img src="assets/fix-it.jpg" class="logo-fixit"/>
         
         <form>
             <ion-item>

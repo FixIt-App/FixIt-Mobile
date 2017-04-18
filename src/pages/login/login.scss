@@ -1,8 +1,10 @@
 page-login {
   ion-content {
-    background-color: map-get($colors, 'primary') !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
-  img {
+  .logo-fixit {
     height: 150px; 
     width: auto; 
     display: block; 
