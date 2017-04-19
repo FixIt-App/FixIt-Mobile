@@ -60,7 +60,7 @@ export class FindWorkPage implements OnInit {
   goToNextStep(selectedWork: WorkType){
     this.work.workType = selectedWork;
     console.log(this.work);
-    if(this.work.workType.price_type == 'STANDARIZED') {
+    if(this.work.workType.price_type != 'UNKNOWN') {
       this.navController.push(SchedulePage, {
         work: this.work
       });
