@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { DatePicker } from 'ionic-native';
-
+import { DatePicker } from '@ionic-native/date-picker';
 import { Work } from '../../models/work'
 import { WherePage } from '../where/where'
 
@@ -17,7 +16,8 @@ export class SchedulePage {
   today: Date;
 
   constructor(private navController: NavController,
-              private navParams: NavParams)
+              private navParams: NavParams,
+              private datePicker: DatePicker)
   {
     this.work = navParams.get('work')
     this.today = new Date();
@@ -45,11 +45,11 @@ export class SchedulePage {
     let options = {
       date: new Date(),
       mode: 'datetime',
-      androidTheme: DatePicker.ANDROID_THEMES.THEME_HOLO_LIGHT,
+      androidTheme: this.datePicker.ANDROID_THEMES.THEME_HOLO_LIGHT,
       minDate: new Date()
     }
 
-    DatePicker.show(options).then(
+    this.datePicker.show(options).then(
       date => {
           this.work.date = date;
           this.navController.push(WherePage, {

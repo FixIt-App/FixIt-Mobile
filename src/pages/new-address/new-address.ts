@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/fo
 
 import { AddressService } from '../../providers/address-service';
 import { Address } from '../../models/address';
-import { Geolocation } from 'ionic-native'
+import { Geolocation } from '@ionic-native/geolocation'
 
 declare var google;
 

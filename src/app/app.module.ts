@@ -3,6 +3,7 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
+import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { FindWorkPage } from '../pages/findwork/findwork'
 import { LoginPage } from '../pages/login/login'
@@ -45,6 +46,7 @@ import { ConfirmationService } from '../providers/confirmation-service';
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    SplashScreen,
     WorkTypeService,
     AuthService,
     AddressService,

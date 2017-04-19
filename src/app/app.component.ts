@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Platform, MenuController, Nav, Events } from 'ionic-angular';
-import { StatusBar, Splashscreen } from 'ionic-native';
+import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { LoginPage } from '../pages/login/login';
 import { FindWorkPage } from '../pages/findwork/findwork';
@@ -20,7 +20,8 @@ export class MyApp {
 
   constructor(public platform: Platform,
               public menu: MenuController,
-              public events: Events)
+              public events: Events,
+              public splashScreen: SplashScreen)
   {
     // menu navigation pages
     this.pages = [
@@ -38,8 +39,8 @@ export class MyApp {
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      StatusBar.styleDefault();
-      Splashscreen.hide();
+      //StatusBar.styleDefault();
+      this.splashScreen.hide();
     });
   }
   
