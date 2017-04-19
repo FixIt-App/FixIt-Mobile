@@ -50,7 +50,8 @@ export class NewAddressPage {
               private formBuilder: FormBuilder,
               private viewCtrl: ViewController,
               private ngZone: NgZone,
-              private addressService: AddressService)
+              private addressService: AddressService,
+              private geoLocation: Geolocation)
   {
     this.form = this.formBuilder.group({
         address:   ['', Validators.compose([Validators.required])],
@@ -179,7 +180,7 @@ export class NewAddressPage {
 
   centerToLocation() {
     this.presentLoader();
-    Geolocation.getCurrentPosition().then(
+    this.geoLocation.getCurrentPosition().then(
       (position) => {
         console.log(position);
         this.getGeocode(position.coords.latitude, position.coords.longitude);

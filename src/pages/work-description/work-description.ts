@@ -32,7 +32,8 @@ export class WorkDescriptionPage {
               public alertCtrl: AlertController,
               public toastCtrl: ToastController,
               private formBuilder: FormBuilder,
-              private workService: WorkService)
+              private workService: WorkService,
+              private camera: Camera)
   {
     this.work = navParams.get('work');
     console.log(this.work);
@@ -56,9 +57,9 @@ export class WorkDescriptionPage {
 
     let options = {
         quality: 100,
-        destinationType: Camera.DestinationType.DATA_URL,
-        sourceType: Camera.PictureSourceType.CAMERA,
-        encodingType: Camera.EncodingType.PNG,
+        destinationType: this.camera.DestinationType.DATA_URL,
+        sourceType: this.camera.PictureSourceType.CAMERA,
+        encodingType: this.camera.EncodingType.PNG,
         targetWidth: 1000,
         targetHeight: 1000,
         correctOrientation: true,
@@ -66,11 +67,11 @@ export class WorkDescriptionPage {
       };
 
     if(type == 'gallery') {
-      options.sourceType = Camera.PictureSourceType.SAVEDPHOTOALBUM;
+      options.sourceType = this.camera.PictureSourceType.SAVEDPHOTOALBUM;
       options.correctOrientation = false;
     }
 
-    Camera.getPicture(options).then(
+    this.camera.getPicture(options).then(
       (base64Img) => {
         console.log('voy a llamar');
         console.log(this.images.length);
