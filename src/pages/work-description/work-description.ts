@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, ToastController, IonicPage } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
-import { Camera } from 'ionic-native';
+import { Camera } from '@ionic-native/camera';
 
 import { SchedulePage } from '../schedule/schedule';
 

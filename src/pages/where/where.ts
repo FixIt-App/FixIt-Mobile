@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, LoadingController, Loading, ModalController, ToastController } from 'ionic-angular';
-import { DatePicker } from 'ionic-native';
+import { DatePicker } from '@ionic-native/date-picker';
 
 import { Work } from '../../models/work'
 import { Address } from '../../models/address';
@@ -25,7 +25,8 @@ export class WherePage {
                 private toastCtrl: ToastController,
                 private addressService: AddressService,
                 private modalCtrl: ModalController,
-                private workService: WorkService)
+                private workService: WorkService,
+                private datePicker: DatePicker)
     {
       this.work = this.navParams.get('work');
       console.log('estoy en where');
@@ -99,11 +100,11 @@ export class WherePage {
       let options = {
           date: this.work.date,
           mode: 'datetime',
-          androidTheme: DatePicker.ANDROID_THEMES.THEME_HOLO_LIGHT,
+          androidTheme: this.datePicker.ANDROID_THEMES.THEME_HOLO_LIGHT,
           minDate: new Date()
         }
 
-        DatePicker.show(options).then(
+        this.datePicker.show(options).then(
           date => {
             this.work.date = date;
           },
