@@ -68,11 +68,6 @@ ion-backdrop {
 }
 
 // for autohide header on scroll
-.scroll-content{
-  top:-70px !important;
-  padding-top: 60px !important;
-}
-
 .hide-header{
   transition : top 0.25s ease;
   top: -70px;
