@@ -1,25 +1,92 @@
 <ion-header>
   <ion-navbar>
     <ion-title>FixIt</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-right disabled *ngIf="!work.date || !selectedAddress" (click)="sendWork()">
+         Pedir trabajo
+        <ion-icon name="send"></ion-icon>
+      </button>
+       <button ion-button icon-right *ngIf="work.date && selectedAddress" (click)="sendWork()">
+         Pedir trabajo
+        <ion-icon name="send"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
+  <ion-grid>
+    <ion-row class="row-cover">
 
-  <ion-card>
-    <ion-card-content>
+      <ion-col col-4>
+        <ion-card>
+          <div class="cover">
+            <div class="cover-image-container" [ngStyle]="{'background-image':'url(' + work.workType.icon + ')'}">
+            </div>
+          </div>
+        </ion-card>
+      </ion-col>
 
-        <ion-card-title class="center-text">
-            Servicio de {{ work.workType.name }}
-        </ion-card-title>
+      <ion-col col-8>
+        <div class="title-cover">{{ work.workType.name }}</div>
 
-        <button class="agendarBtn" color="danger" ion-button type="button" block (click)="nextStepNow()">Lo necesito para ya</button>
+        <div class="sub-title-cover" *ngIf="work.workType.price_type == 'STANDARIZED' ">
+          {{ work.workType.price | currency:'usd':true:'4.0' }}
+        </div>
+        <div class="sub-title-cover" *ngIf="work.workType.price_type == 'NOT_STANDARIZED' ">
+          Desde: {{ work.workType.price | currency:'usd':true:'4.0' }}
+        </div>
 
-        <ion-card-header>
-        Agendar una cita
-        </ion-card-header>
-        <button ion-button class="agendarBtn" block (click)="makeDate()">Agendar Cita</button>
+      </ion-col>
 
-    </ion-card-content>
-  </ion-card>
+    </ion-row>
+
+    <ion-row *ngIf="!work.date">
+      <ion-col>
+        <button ion-button block outline color="guns-n-roses" (click)="makeDate()">Agendar Cita</button>
+      </ion-col>
+      <ion-col>
+        <button ion-button block color="guns-n-roses" (click)="needItNow()">Lo necesito ya</button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="work.date">
+      <ion-col>
+        <button ion-button icon-left color="guns-n-roses" (click)="editDate()" block>
+          <ion-icon name="create"></ion-icon> 
+          <span *ngIf="!work.needItNow">{{ work.date | date:'medium'  }}</span>
+          <span *ngIf="work.needItNow"> Lo Necesito ya: {{ work.date | date:'medium'  }} </span>
+        </button>  
+      </ion-col>
+    </ion-row>
+
+    <hr style="width: 95%; margin: 15px auto;">
+
+    <ion-row class="row-where">
+      <div class="title">¿Dónde enviamos tu servicio?</div>
+    </ion-row>
+
+    <ion-row class="row-where" *ngIf="selectedAddress">
+      <ion-col col-10>
+        <ion-select [(ngModel)]="selectedAddress">
+          <ion-option *ngFor="let address of addresses" [value]="address">
+            {{ address.name }}: {{ address.address }}
+          </ion-option>
+        </ion-select>
+      </ion-col>
+      <ion-col col-2>
+        <button ion-button icon-only round color="guns-n-roses" (click)="newAddress()" block>
+          <ion-icon name="add"></ion-icon>
+        </button>  
+      </ion-col>
+    </ion-row>
+
+     <ion-row class="row-where" *ngIf="!selectedAddress">
+       <ion-col>
+        <button ion-button icon-left block color="guns-n-roses" (click)="newAddress()" block>
+          <ion-icon name="add"></ion-icon> Agregar Dirección
+        </button>  
+       </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

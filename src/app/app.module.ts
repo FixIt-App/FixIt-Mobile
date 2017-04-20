@@ -11,7 +11,6 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { FindWorkPage } from '../pages/findwork/findwork'
 import { LoginPage } from '../pages/login/login'
 import { SchedulePage } from '../pages/schedule/schedule'
-import { WherePage  } from '../pages/where/where'
 import { CreateUserPage } from '../pages/create-user/create-user'
 import { CountryCodeSelectorPage } from '../pages/country-code-selector/country-code-selector'
 
@@ -28,7 +27,6 @@ import { ConfirmationService } from '../providers/confirmation-service';
     FindWorkPage,
     LoginPage,
     SchedulePage,
-    WherePage,
     CreateUserPage,
     CountryCodeSelectorPage
   ],
@@ -43,7 +41,6 @@ import { ConfirmationService } from '../providers/confirmation-service';
     FindWorkPage,
     LoginPage,
     SchedulePage,
-    WherePage,
     CreateUserPage,
     CountryCodeSelectorPage
   ],

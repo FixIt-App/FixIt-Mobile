@@ -11,7 +11,7 @@
 <ion-content>
 
   <div class="category" *ngFor="let category of categories">
-    <div class="class-title">{{category.name}}</div>
+    <div class="title">{{category.name}}</div>
     <ion-slides>
       <ion-slide *ngFor="let worktype of category.worktypes" >
         <ion-card (click)="goToNextStep(worktype)">

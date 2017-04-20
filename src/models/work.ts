@@ -16,7 +16,8 @@ export class Work {
     constructor(data: any) {
         this.id = data.id;
         this.workType = data.worktype;
-        this.date = new Date(data.time);
+        if(data.time)
+            this.date = new Date(data.time);
         this.description = data.description;
         this.address = data.address;
         this.images = data.address;
