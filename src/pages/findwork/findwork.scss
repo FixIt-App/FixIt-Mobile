@@ -46,13 +46,16 @@ page-find-work {
       position: relative;
       bottom: 4px;
       left: 7px;
+      p {
+        font-size: 3.2vw;
+      }
     }
 
     .work-name {
       height: calc(35% - 1.4rem - 10px);
       text-align: left;
       display: flex;
-        margin: 0px 5px;
+      margin: 0px 5px;
       align-items: center;
       .name {
         color: map-get($colors, 'primary');
