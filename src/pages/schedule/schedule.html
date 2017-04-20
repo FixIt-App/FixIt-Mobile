@@ -2,7 +2,11 @@
   <ion-navbar>
     <ion-title>FixIt</ion-title>
     <ion-buttons end>
-      <button ion-button icon-right clear color="light" (click)="sendWork()">
+      <button ion-button icon-right disabled *ngIf="!work.date || !selectedAddress" (click)="sendWork()">
+         Pedir trabajo
+        <ion-icon name="send"></ion-icon>
+      </button>
+       <button ion-button icon-right *ngIf="work.date && selectedAddress" (click)="sendWork()">
          Pedir trabajo
         <ion-icon name="send"></ion-icon>
       </button>
@@ -37,21 +41,32 @@
 
     </ion-row>
 
-    <ion-row>
+    <ion-row *ngIf="!work.date">
       <ion-col>
-        <button ion-button block outline (click)="makeDate()">Agendar Cita</button>
+        <button ion-button block outline color="guns-n-roses" (click)="makeDate()">Agendar Cita</button>
       </ion-col>
       <ion-col>
-        <button ion-button block (click)="nextStepNow()">Lo necesito ya</button>
+        <button ion-button block color="guns-n-roses" (click)="needItNow()">Lo necesito ya</button>
       </ion-col>
     </ion-row>
-    <hr style="width: 95%">
+
+    <ion-row *ngIf="work.date">
+      <ion-col>
+        <button ion-button icon-left color="guns-n-roses" (click)="editDate()" block>
+          <ion-icon name="create"></ion-icon> 
+          <span *ngIf="!work.needItNow">{{ work.date | date:'medium'  }}</span>
+          <span *ngIf="work.needItNow"> Lo Necesito ya: {{ work.date | date:'medium'  }} </span>
+        </button>  
+      </ion-col>
+    </ion-row>
+
+    <hr style="width: 95%; margin: 15px auto;">
 
     <ion-row class="row-where">
       <div class="title">¿Dónde enviamos tu servicio?</div>
     </ion-row>
 
-    <ion-row class="row-where">
+    <ion-row class="row-where" *ngIf="selectedAddress">
       <ion-col col-10>
         <ion-select [(ngModel)]="selectedAddress">
           <ion-option *ngFor="let address of addresses" [value]="address">
@@ -60,26 +75,18 @@
         </ion-select>
       </ion-col>
       <ion-col col-2>
-        <button ion-button icon-only round class="nuevaDirBtn" (click)="newAddress()" block>
+        <button ion-button icon-only round color="guns-n-roses" (click)="newAddress()" block>
           <ion-icon name="add"></ion-icon>
         </button>  
       </ion-col>
     </ion-row>
+
+     <ion-row class="row-where" *ngIf="!selectedAddress">
+       <ion-col>
+        <button ion-button icon-left block color="guns-n-roses" (click)="newAddress()" block>
+          <ion-icon name="add"></ion-icon> Agregar Dirección
+        </button>  
+       </ion-col>
+    </ion-row>
   </ion-grid>
-  <!--<ion-card>
-    <ion-card-content>
-
-        <ion-card-title class="center-text">
-            Servicio de {{ work.workType.name }}
-        </ion-card-title>
-
-        <button class="agendarBtn" color="danger" ion-button type="button" block (click)="nextStepNow()">Lo necesito para ya</button>
-
-        <ion-card-header>
-        Agendar una cita
-        </ion-card-header>
-        <button ion-button class="agendarBtn" block (click)="makeDate()">Agendar Cita</button>
-
-    </ion-card-content>
-  </ion-card>-->
 </ion-content>
