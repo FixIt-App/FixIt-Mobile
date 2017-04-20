@@ -12,10 +12,12 @@ export class Work {
     imagesUrl: string[];
     needItNow: boolean;
     worker: Worker;
+    state: string;
 
     constructor(data: any) {
         this.id = data.id;
         this.workType = data.worktype;
+        this.state = data.state;
         if(data.time)
             this.date = new Date(data.time);
         this.description = data.description;

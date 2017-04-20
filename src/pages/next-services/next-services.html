@@ -12,7 +12,7 @@
 
 <ion-content padding>
   <ion-grid>
-    <ion-row *ngFor="let work of works" class="row-work">
+    <ion-row *ngFor="let work of works" class="row-work" (click)="goToDetails(work)">
       <ion-col center text-center col-3 class="card-left-today" *ngIf="isToday(work.date)">
        <ion-icon name="alert"></ion-icon>
         <div class="title1">Ahora</div>
@@ -28,7 +28,7 @@
       <ion-col align-self-center col-9 class="card-right">
         <ion-row>
           <ion-icon name="clipboard"></ion-icon>
-          {{ work.description }}
+          {{ work.workType.name }}
         </ion-row>
         <ion-row>
           <ion-icon name="person"></ion-icon>

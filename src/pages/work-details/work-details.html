@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Fixit</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <div class="work-title">
+        <ion-icon name="hammer"></ion-icon>
+        {{ work.workType.name }}
+      </div>
+    </ion-row>
+
+    <ion-row>
+      <div class="work-sub-title">
+        <span *ngIf="work.state == 'ORDERED'"> Asignando </span>
+        <span *ngIf="work.state == 'SCHEDULED'"> Programado </span>
+      </div>
+    </ion-row>
+
+    <hr style="width: 95%; margin: 15px auto;">
+
+    <ion-row>
+      <ion-col col-6 class="avatar">
+        <img src="http://ionicframework.com/dist/preview-app/www/assets/img/avatar-ts-woody.png">
+      </ion-col>
+      <ion-col col-6 class="avatar">
+        Por asignar
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col col-6 offset-3>
+        <button ion-button outline icon-left>
+          <ion-icon name="call"></ion-icon>
+          Contactar
+        </button>
+      </ion-col>
+    </ion-row>
+
+    <hr style="width: 95%; margin: 15px auto;">
+
+    <ion-row>
+      <ion-col col-6 id="row-left">
+        <button ion-button block clear>
+          <div>
+            <ion-icon class="icon-top" name='add-circle'></ion-icon>
+            <br>
+            <label>Descripción</label>
+          </div>
+        </button>
+      </ion-col>
+      <ion-col col-6 id="row-right">
+        <button ion-button block clear>
+          <div>
+            <ion-icon class="icon-top" name="close-circle"></ion-icon>
+            <br>
+            <label>Cancelar</label>
+          </div>
+        </button>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+</ion-content>

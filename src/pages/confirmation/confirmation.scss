@@ -1,6 +1,6 @@
 page-confirmation {
     ion-content {
-        background-color: map-get($colors, 'primary') !important;
+        background-color: color($colors, primary) !important;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -20,7 +20,7 @@ page-confirmation {
         }
         
         #order-review{
-            background-color: map-get($colors, 'light');
+            background-color: color($colors, light);
             border-radius: 25px 25px 25px 25px;
             margin: 10vmin 2vmin 0 2vmin;
             font-size: 4vmin;
@@ -31,7 +31,7 @@ page-confirmation {
                 padding: 3vmin 3vmin 3vmin 5vmin;
 
                 .needItNow{
-                    color: map-get($colors, 'danger');
+                    color: color($colors, danger);
                 }
             }
 
@@ -40,7 +40,7 @@ page-confirmation {
                 font-size: 5vmin; 
                 border-radius: 25px 25px 0 0;
                 margin-bottom: 5vmin;
-                background-color: map-get($colors, 'secondary');
+                background-color: color($colors, secondary);
 
                 ion-icon{
                     margin: 0 2vmin 0 2vmin;
@@ -62,7 +62,7 @@ page-confirmation {
                 button{
                     margin-top: 3vmin;
                     border-radius: 10px 10px 10px 10px;
-                    background-color: map-get($colors, 'secondary');
+                    background-color: color($colors, 'secondary');
                 }
             }
         }

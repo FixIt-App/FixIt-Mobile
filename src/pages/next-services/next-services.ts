@@ -69,6 +69,12 @@ export class NextServicesPage {
     return false;
   }
 
+  goToDetails(work: Work) {
+    this.navCtrl.push('WorkDetailsPage', {
+      work: work
+    });
+  }
+
   listenToScroll() {
     this.ionScroll = this.myElement.nativeElement.getElementsByClassName('scroll-content')[0];
     console.log(this.ionScroll)
