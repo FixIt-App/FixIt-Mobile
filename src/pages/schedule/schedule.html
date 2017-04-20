@@ -1,12 +1,72 @@
 <ion-header>
   <ion-navbar>
     <ion-title>FixIt</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-right clear color="light" (click)="sendWork()">
+         Pedir trabajo
+        <ion-icon name="send"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
+  <ion-grid>
+    <ion-row class="row-cover">
 
-  <ion-card>
+      <ion-col col-4>
+        <ion-card>
+          <div class="cover">
+            <div class="cover-image-container" [ngStyle]="{'background-image':'url(' + work.workType.icon + ')'}">
+            </div>
+          </div>
+        </ion-card>
+      </ion-col>
+
+      <ion-col col-8>
+        <div class="title-cover">{{ work.workType.name }}</div>
+
+        <div class="sub-title-cover" *ngIf="work.workType.price_type == 'STANDARIZED' ">
+          {{ work.workType.price | currency:'usd':true:'4.0' }}
+        </div>
+        <div class="sub-title-cover" *ngIf="work.workType.price_type == 'NOT_STANDARIZED' ">
+          Desde: {{ work.workType.price | currency:'usd':true:'4.0' }}
+        </div>
+
+      </ion-col>
+
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <button ion-button block outline (click)="makeDate()">Agendar Cita</button>
+      </ion-col>
+      <ion-col>
+        <button ion-button block (click)="nextStepNow()">Lo necesito ya</button>
+      </ion-col>
+    </ion-row>
+    <hr style="width: 95%">
+
+    <ion-row class="row-where">
+      <div class="title">¿Dónde enviamos tu servicio?</div>
+    </ion-row>
+
+    <ion-row class="row-where">
+      <ion-col col-10>
+        <ion-select [(ngModel)]="selectedAddress">
+          <ion-option *ngFor="let address of addresses" [value]="address">
+            {{ address.name }}: {{ address.address }}
+          </ion-option>
+        </ion-select>
+      </ion-col>
+      <ion-col col-2>
+        <button ion-button icon-only round class="nuevaDirBtn" (click)="newAddress()" block>
+          <ion-icon name="add"></ion-icon>
+        </button>  
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <!--<ion-card>
     <ion-card-content>
 
         <ion-card-title class="center-text">
@@ -21,5 +81,5 @@
         <button ion-button class="agendarBtn" block (click)="makeDate()">Agendar Cita</button>
 
     </ion-card-content>
-  </ion-card>
+  </ion-card>-->
 </ion-content>

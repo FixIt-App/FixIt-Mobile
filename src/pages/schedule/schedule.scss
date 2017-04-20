@@ -9,4 +9,53 @@ page-schedule {
     font-size: 13px;
     font-weight: 700;
   }
+  .row-where {
+    .title {
+      font-size: 2.5rem;
+      color: map-get($colors, 'primary');
+      margin: 25px 0px;
+      font-weight: bold;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    ion-select {
+      max-width: 100%;
+      color: map-get($colors, 'korn');
+      font-size: large;
+      border-style: solid;
+      border-color: #12a19b;
+      border-width: 2px;
+      border-radius: 5px;
+    }
+  }
+  .row-cover {
+    height: 200px;
+    ion-card {
+      height: 80%;
+    }
+    .title-cover {
+      font-size: 2.5rem;
+      color: map-get($colors, 'primary');
+      margin: 13px 8px 13px 0;
+      padding-left: 16px;
+      font-weight: bold;
+    }
+    .sub-title-cover {
+      font-size: 1.5rem;
+      color: map-get($colors, 'korn');
+      margin: 13px 8px 13px 0;
+      padding-left: 16px;
+      font-weight: bold;
+    }
+    .cover {
+        height: 100%;
+        
+        .cover-image-container {
+          height: 100%;
+          background-size: cover;
+          background-repeat: no-repeat;
+          background-position: 50% 50%;
+        }
+      }
+    }
 }
