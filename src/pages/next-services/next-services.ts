@@ -42,6 +42,7 @@ export class NextServicesPage {
     this.workService.getMyWorks(['ORDERED', 'SCHEDULED']).subscribe(
       (works) => {
         this.works = works;
+        console.log(this.works);
       },
       (error) => {
 

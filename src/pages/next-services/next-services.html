@@ -32,7 +32,8 @@
         </ion-row>
         <ion-row>
           <ion-icon name="person"></ion-icon>
-          //Todo (): por definir
+          <span *ngIf="work.worker"> {{ work.worker.first_name }}  {{ work.worker.last_name }} </span>
+          <span *ngIf="!work.worker"> Asingando </span>
         </ion-row>
         <ion-row>
           <ion-icon name="hammer" isActive="true"></ion-icon>

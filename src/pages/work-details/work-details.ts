@@ -19,9 +19,19 @@ export class WorkDetailsPage {
     // this.work = navParams.get('work');
     this.work = new Work({
       images: [],
-      state:"ORDERED",
+      state:"SCHEDULED",
       time: new Date("2017-05-01T02:41:00Z"),
-      worker: null,
+      worker: {
+       document_id: "1020787426",
+       email:"",
+       first_name:"Alfredo",
+       id:1,
+       last_name:"Santamaria",
+       phone:"3186017866",
+       profile_pic:"https://test-fixit.s3.amazonaws.com/media/workers/pf2.png",
+       rh:"0+",
+       username:"alfredoWorker"
+      },
       worktype: new WorkType({
         description:"Desde 33,000/hora",
         icon : "https://test-fixit.s3.amazonaws.com/media/electricista.jpg",
