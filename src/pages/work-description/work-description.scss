@@ -1,6 +1,6 @@
 page-work-description {
   ion-textarea {
-    border: dashed 3px map-get($colors, 'primary');
+    border: dashed 3px color($colors, primary);
     font-size: 18px;
     margin-left: 5%;
     margin-right: 5%;

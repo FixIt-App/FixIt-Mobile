@@ -7,8 +7,8 @@ page-schedule {
   }
   .row-where {
     .title {
-      font-size: 2.5rem;
-      color: map-get($colors, 'guns-n-roses');
+      font-size: 6vw;
+      color: color($colors, guns-n-roses);
       margin: 25px 0px;
       font-weight: bold;
       margin-left: auto;
@@ -16,15 +16,15 @@ page-schedule {
     }
     ion-select {
       max-width: 100%;
-      color: map-get($colors, 'korn');
+      color: color($colors, korn);
       border-style: solid;
-      border-color: map-get($colors, 'guns-n-roses');
+      border-color: color($colors, guns-n-roses);
       border-width: 2px;
       border-radius: 5px;
       font-size: medium;
       font-weight: 500;
       .select-icon-inner {
-        color: map-get($colors, 'guns-n-roses') !important;
+        color: color($colors, guns-n-roses) !important;
       }
     }
   }
@@ -34,15 +34,15 @@ page-schedule {
       height: 80%;
     }
     .title-cover {
-      font-size: 2.5rem;
-      color: map-get($colors, 'guns-n-roses');
+      font-size: 6vw;
+      color: color($colors, guns-n-roses);
       margin: 13px 8px 13px 0;
       padding-left: 16px;
       font-weight: bold;
     }
     .sub-title-cover {
-      font-size: 1.5rem;
-      color: map-get($colors, 'korn');
+      font-size: 4vw;
+      color: color($colors, korn);
       margin: 13px 8px 13px 0;
       padding-left: 16px;
       font-weight: bold;

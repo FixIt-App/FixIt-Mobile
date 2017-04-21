@@ -5,8 +5,6 @@ import { Observable } from "rxjs/Observable";
 import { SERVER_URL } from './services.util'
 
 import { Work } from '../models/work';
-import { WorkType } from '../models/worktype';
-import { Address } from '../models/address';
 
 @Injectable()
 export class WorkService {

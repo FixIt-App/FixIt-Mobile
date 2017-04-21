@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams, IonicPage } from 'ionic-angular';
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import { NavController, NavParams, IonicPage, Content } from 'ionic-angular';
 
 import { Work } from '../../models/work'
 import { WorkService } from '../../providers/work-service';
@@ -14,20 +14,35 @@ export class NextServicesPage {
   works: Work[];
   today: Date;
   tomorrow: Date;
+  
+  // for autohide header
+  @ViewChild(Content) content: Content;
+  start = 0;
+  threshold = 100;
+  slideHeaderPrevious = 0;
+  ionScroll:any;
+  showheader:boolean;
+  hideheader:boolean;
+  headercontent:any;
+
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
-              private workService: WorkService)
+              private workService: WorkService,
+              public myElement: ElementRef)
   {
     this.today = new Date();
     this.tomorrow = new Date(this.today.getFullYear(), this.today.getMonth(), 
                               this.today.getDate() + 1);
+    this.showheader = false;
+    this.hideheader = true;
   }
 
   ionViewDidLoad() {
+    this.listenToScroll();
     this.workService.getMyWorks(['ORDERED', 'SCHEDULED']).subscribe(
       (works) => {
         this.works = works;
-        this.works.reverse();
+        console.log(this.works);
       },
       (error) => {
 
@@ -53,6 +68,34 @@ export class NextServicesPage {
       return true;
     }
     return false;
+  }
+
+  goToDetails(work: Work) {
+    this.navCtrl.push('WorkDetailsPage', {
+      work: work
+    });
+  }
+
+  listenToScroll() {
+    this.ionScroll = this.myElement.nativeElement.getElementsByClassName('scroll-content')[0];
+    console.log(this.ionScroll)
+    // On scroll function
+    this.ionScroll.addEventListener("scroll", 
+      () => {
+        console.log('entre a scrol');
+        if(this.ionScroll.scrollTop - this.start > this.threshold) {
+          this.showheader =true;
+          this.hideheader = false;
+        } else {
+          this.showheader =false;
+          this.hideheader = true;
+        }
+        if (this.slideHeaderPrevious >= this.ionScroll.scrollTop - this.start) {
+          this.showheader =false;
+          this.hideheader = true;
+        }
+        this.slideHeaderPrevious = this.ionScroll.scrollTop - this.start;
+      });
   }
 
 }

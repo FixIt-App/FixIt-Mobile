@@ -1,6 +1,6 @@
 page-create-user {
   ion-content {
-    background-color: map-get($colors, 'primary') !important;
+    background-color: color($colors, primary) !important;
   }
   .confirmText {
     color: #f1f1f1;

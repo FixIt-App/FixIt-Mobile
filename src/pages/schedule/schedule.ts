@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, ModalController, ToastController } from 'ionic-angular';
 import { DatePicker } from '@ionic-native/date-picker';
 
-import { WherePage } from '../where/where'
-import { Work } from '../../models/work'
+import { Work } from '../../models/work';
 import { Address } from '../../models/address';
 import { AddressService } from '../../providers/address-service';
 import { WorkService } from '../../providers/work-service';
@@ -41,8 +40,6 @@ export class SchedulePage {
   }
 
   ionViewDidLoad() {
-    console.log('voy a llamar service');
-
     this.addressService.getCustomerAddresses().subscribe(
       data => {
         console.log('acabe');

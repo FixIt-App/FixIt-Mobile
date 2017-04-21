@@ -24,12 +24,12 @@ page-next-services {
 
     .card-left {
       height: 100%;
-      background-color: map-get($colors, 'secondary');
+      background-color: color($colors, secondary);
     }
 
     .card-left-tomorrow {
       height: 100%;
-      background-color: map-get($colors, 'warning');
+      background-color: color($colors, warning);
       padding: 30px 0;
     }
 
@@ -39,7 +39,7 @@ page-next-services {
       ion-icon {
         font-size: 3.2em;
       }
-      background-color: map-get($colors, 'danger');
+      background-color: color($colors, danger);
     }
 
     .card-right {
@@ -52,5 +52,10 @@ page-next-services {
         text-overflow: ellipsis;
       }
     }
+  }
+
+  .scroll-content{
+    top:-70px !important;
+    padding-top: 60px !important;
   }
 }

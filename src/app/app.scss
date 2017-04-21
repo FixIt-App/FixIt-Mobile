@@ -66,3 +66,13 @@ ion-backdrop {
 .bar-button {
   color: #f4f4f4;
 }
+
+// for autohide header on scroll
+.hide-header{
+  transition : top 0.25s ease;
+  top: -70px;
+}
+.show-header{
+  transition : top 0.25s ease;
+  top: 0px;
+}

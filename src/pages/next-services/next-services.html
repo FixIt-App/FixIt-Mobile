@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header [ngClass]="{'hide-header':showheader,'show-header':hideheader}">
 
   <ion-navbar>
     <button ion-button menuToggle>
@@ -12,7 +12,7 @@
 
 <ion-content padding>
   <ion-grid>
-    <ion-row *ngFor="let work of works" class="row-work">
+    <ion-row *ngFor="let work of works" class="row-work" (click)="goToDetails(work)">
       <ion-col center text-center col-3 class="card-left-today" *ngIf="isToday(work.date)">
        <ion-icon name="alert"></ion-icon>
         <div class="title1">Ahora</div>
@@ -28,11 +28,12 @@
       <ion-col align-self-center col-9 class="card-right">
         <ion-row>
           <ion-icon name="clipboard"></ion-icon>
-          {{ work.description }}
+          {{ work.workType.name }}
         </ion-row>
         <ion-row>
           <ion-icon name="person"></ion-icon>
-          //Todo (): por definir
+          <span *ngIf="work.worker"> {{ work.worker.first_name }}  {{ work.worker.last_name }} </span>
+          <span *ngIf="!work.worker"> Asingando </span>
         </ion-row>
         <ion-row>
           <ion-icon name="hammer" isActive="true"></ion-icon>

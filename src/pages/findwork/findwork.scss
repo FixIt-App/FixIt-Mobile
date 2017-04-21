@@ -1,7 +1,7 @@
 page-find-work {
   .title {
     font-size: 2rem;
-    color: map-get($colors, 'primary');
+    color: color($colors, primary);
     margin: 13px 8px 13px 0;
     padding-left: 16px;
     font-weight: bold;
@@ -35,27 +35,30 @@ page-find-work {
 
     .swiper-pagination-progress 
     .swiper-pagination-progressbar {
-      background: map-get($colors, 'primary');
+      background: color($colors, primary);
     }
 
     .swiper-pagination-bullet-active {
-      background: map-get($colors, 'primary');
+      background: color($colors, primary);
     }
 
     .row-bottom {
       position: relative;
       bottom: 4px;
       left: 7px;
+      p {
+        font-size: 3.2vw;
+      }
     }
 
     .work-name {
       height: calc(35% - 1.4rem - 10px);
       text-align: left;
       display: flex;
-        margin: 0px 5px;
+      margin: 0px 5px;
       align-items: center;
       .name {
-        color: map-get($colors, 'primary');
+        color: color($colors, primary);
         font-weight: 500;
       }
     }
@@ -70,5 +73,10 @@ page-find-work {
   .swiper-container-horizontal 
   > .swiper-pagination-bullets {
     bottom: 0px;
+  }
+
+  .scroll-content{
+    top:-70px !important;
+    padding-top: 60px !important;
   }
 }

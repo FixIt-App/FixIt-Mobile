@@ -1,6 +1,5 @@
 export class Worker {
     id: number;
-    name: string;
     document_id: number;
     email: string;
     first_name: string;
@@ -12,7 +11,6 @@ export class Worker {
 
     constructor(data: any) {
       this.id = data.id;
-			this.name = data.name;
 			this.document_id = data.document_id;
 			this.email = data.email;
 			this.first_name = data.first_name;
