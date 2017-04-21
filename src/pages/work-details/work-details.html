@@ -42,7 +42,7 @@
         <p *ngIf="!work.worker"> Por asignar </p>
       </ion-col>
       <ion-col col-6 class="avatar">
-        <button *ngIf="work.worker" ion-button id="qr-button" clear>
+        <button *ngIf="work.worker" ion-button id="qr-button" clear (click)="registerQR()">
           <div>
           <img id="qr-img" src="https://d30y9cdsu7xlg0.cloudfront.net/png/78107-200.png">
           <br>

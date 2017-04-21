@@ -7,6 +7,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { Camera } from '@ionic-native/camera';
 import { DatePicker } from '@ionic-native/date-picker';
 import { Geolocation } from '@ionic-native/geolocation';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
 import { FindWorkPage } from '../pages/findwork/findwork'
 import { LoginPage } from '../pages/login/login'
@@ -50,6 +51,7 @@ import { ConfirmationService } from '../providers/confirmation-service';
     Camera,
     DatePicker,
     Geolocation,
+    BarcodeScanner,
     WorkTypeService,
     AuthService,
     AddressService,
