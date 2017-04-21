@@ -26,6 +26,7 @@ export class WorkDescriptionPage {
 
   form: FormGroup;
   submitAttempt: boolean;
+  textButtonTop: string;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -37,12 +38,28 @@ export class WorkDescriptionPage {
   {
     this.work = navParams.get('work');
     console.log(this.work);
-    this.images = [];
-    this.currId = 0;
     this.form = this.formBuilder.group({
       description:   ['', Validators.compose([Validators.required])],
     });
     this.description = this.form.controls['description'];
+    this.textButtonTop = 'Siguiente';
+    if(this.work.description && this.work.description != '') {
+      this.textButtonTop = 'Editar descripción';
+      this.description.setValue(this.work.description);
+    }
+    this.images = [];
+    this.currId = 0;
+    if(this.work.images) {
+      for(let i = 0; i < this.work.images.length; i++) {
+        this.images.push({
+          src: this.work.imagesUrl[i], 
+          isUploading: false, 
+          idServer: this.work.images[i],
+          id: this.currId++
+        });
+      }
+    }
+    
   }
 
   ionViewDidLoad() {
@@ -158,11 +175,9 @@ export class WorkDescriptionPage {
               closeButtonText: 'Cerrar'
             });
             toast.present();
-            if(this.navCtrl.parent == null) {
-              this.navCtrl.setRoot('NextServicesPage');
-            } else {
-              this.navCtrl.pop();
-            }
+            this.navCtrl.setRoot('WorkDetailsPage', {
+              work: this.work
+            });
           },
           (error) => {
             let toast = this.toastCtrl.create({
