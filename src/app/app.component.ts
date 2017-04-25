@@ -1,12 +1,13 @@
 import { Component, ViewChild } from '@angular/core';
-import { Platform, MenuController, Nav, Events, AlertController } from 'ionic-angular';
+import { Platform, MenuController, Nav, Events, AlertController, LoadingController } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { Push, PushOptions, PushObject } from '@ionic-native/push';
+import { Push, PushOptions, PushObject, NotificationEventResponse } from '@ionic-native/push';
 
 import { LoginPage } from '../pages/login/login';
 import { FindWorkPage } from '../pages/findwork/findwork';
 
 import { Customer } from '../models/user';
+import { DeviceService } from '../providers/device-service';
 
 @Component({
   templateUrl: 'app.html'
@@ -24,7 +25,9 @@ export class MyApp {
               public events: Events,
               public splashScreen: SplashScreen,
               private alertCtrl: AlertController,
-              private push: Push)
+              private push: Push,
+              private deviceService: DeviceService,
+              public loadingCtrl: LoadingController)
   {
     // menu navigation pages
     this.pages = [
@@ -44,7 +47,6 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       //StatusBar.styleDefault();
       this.splashScreen.hide();
-      this.initPushNotification();
     });
   }
 
@@ -72,36 +74,85 @@ export class MyApp {
     windows: {}
     };
     const pushObject: PushObject = this.push.init(options);
-    pushObject.on('notification').subscribe((notification: any) =>{
-    console.log('Received a notification', notification);
-    //Notification Display Section
-    let confirmAlert = this.alertCtrl.create({
-      title: 'New Notification',
-      message: JSON.stringify(notification),
-      buttons: [{
-        text: 'Ignore',
-        role: 'cancel'
-      }, {
-      text: 'View',
-      handler: () => {
-        //TODO: Your logic here
-        //self.nav.push(DetailsPage, {message: data.message});
+    // when a notification arrives
+    pushObject.on('notification').subscribe(
+      (notification: NotificationEventResponse) => {
+        console.log('Received a notification', notification);
+        console.log(notification.additionalData);
+        if(notification.additionalData.foreground) {
+          let confirmAlert = this.alertCtrl.create({
+            title: notification.title,
+            message: notification.message,
+            buttons: [{
+              text: 'Cancelar',
+              role: 'cancel'
+            }, {
+            text: 'Ver',
+            handler: () => {
+              //TODO (a-santamaria): got to work details with work
+              // this.nav.push('WorkDetailsPage', {
+              //   work: 
+              // })
+             
+              }
+            }]
+            });
+          confirmAlert.present();
+        } else {
+          console.log('no foreground');
+          //TODO (a-santamaria): got to work details with work
+          // this.nav.push('WorkDetailsPage', {
+          //   work: 
+          // })
         }
-      }]
       });
-    confirmAlert.present();
-    //
-    });
-    pushObject.on('registration').
-    subscribe((registration: any) => console.log('Device registered', registration));
-    pushObject.on('error').
-    subscribe(error => console.error('Error with Push plugin', error));
+    
+    pushObject.on('registration').subscribe(
+      (registration: any) => {
+        console.log('Device registered', registration)
+        localStorage.setItem('deviceToke', registration.registrationId);
+        let platform_type = 'UNKNOWN';
+        if(this.platform.is('ios')) {
+          platform_type = 'IOS';
+        } else if(this.platform.is('android')) {
+          platform_type = 'ANDROID';
+        }
+        console.log(platform_type);
+        localStorage.setItem('platform', platform_type);
+
+        // register device token in server
+        this.deviceService.registerDevice().subscribe(
+          (data) => { 
+            console.log('register device token status: '+ data.status);
+          },
+          (err) => { 
+            console.log('registre device error: ');
+            console.log(err); 
+          });
+      });
+
+    pushObject.on('error').subscribe(
+      error => console.error('Error with Push plugin', error));
   }
   
   openPage(page) {
     if(page.title == 'Cerrar sesión') {
-      localStorage.clear();
-      this.nav.setRoot(LoginPage);
+      let loader = this.loadingCtrl.create({content: "Cerrando sesión..."});
+      loader.present();
+      this.deviceService.removeDeviceToken().subscribe(
+        (data) => {
+          console.log(data);
+          localStorage.removeItem('token');
+          this.nav.setRoot(LoginPage);
+          loader.dismiss();
+        },
+        (error) => {
+          console.log(error);
+          localStorage.removeItem('token');
+          this.nav.setRoot(LoginPage);
+          loader.dismiss();
+        }
+      );
     } else if(page.title == 'Pedir trabajo') {
       if(this.nav.getActive() != page.component)
         this.nav.setRoot(page.component);
@@ -114,6 +165,10 @@ export class MyApp {
     this.events.subscribe('customer:logged', 
       (customer) => {
         this.customer = customer;
+        this.platform.ready().then(() => {
+          if(this.platform.is('cordova'))
+            this.initPushNotification();
+        });
       });
   }
 }

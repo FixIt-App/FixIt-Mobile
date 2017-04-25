@@ -58,12 +58,10 @@ export class FindWorkPage implements OnInit {
 
   initializeSlides() {
     this.sleep(300).then(() => {
-      console.log('voy a ponerlo en false');
       this.startingSlides = false;
     });
     this.slides.changes.subscribe(
       (slides: QueryList<Slides>) => {
-        console.log(slides);
         slides.map(
           (slide) => {
             slide.slidesPerView = 3;

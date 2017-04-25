@@ -52,8 +52,8 @@ export class CreateUserPage {
     this.customer.username = this.customer.email;
     this.customer.phone = this.selectedCountry.countryCallingCodes[0] + this.phone;
 
-    this.userService.saveCustomer(this.customer)
-      .subscribe(customer => {
+    this.userService.saveCustomer(this.customer).subscribe(
+      customer => {
         this.isConfirmingSMS = true;
       },
       error => {

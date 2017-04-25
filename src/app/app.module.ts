@@ -22,6 +22,7 @@ import { AddressService } from '../providers/address-service'
 import { UserDataService } from '../providers/user-data-service'
 import { WorkService } from '../providers/work-service'
 import { ConfirmationService } from '../providers/confirmation-service';
+import { DeviceService } from '../providers/device-service';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { ConfirmationService } from '../providers/confirmation-service';
     AddressService,
     UserDataService,
     WorkService,
-    ConfirmationService
+    ConfirmationService,
+    DeviceService
   ]
 })
 export class AppModule {}
