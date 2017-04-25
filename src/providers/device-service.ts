@@ -17,7 +17,7 @@ export class DeviceService {
     if(!deviceToken)
       return Observable.create(() => false);
     let platform = localStorage.getItem('platform');
-    let getAddressesUrl: string = `${SERVER_URL}/api/devicetoken/`;
+    let deviceTokenUrl: string = `${SERVER_URL}/api/devicetoken/`;
     var headers = new Headers({ 'Content-Type': 'application/json', 
                                 'Accept': 'application/json',
                                 'Authorization': `Token ${token}`
@@ -29,7 +29,7 @@ export class DeviceService {
     });
     console.log(body);
     var options = new RequestOptions({ headers: headers });
-    return this.http.post(getAddressesUrl, body, options)
+    return this.http.post(deviceTokenUrl, body, options)
                     .map(response => response)
                     .catch(this.handleError)
   }
@@ -37,20 +37,13 @@ export class DeviceService {
   removeDeviceToken() {
     let token = localStorage.getItem('token');
     let deviceToken = localStorage.getItem('deviceToke');
-    let platform = localStorage.getItem('platform');
-    let getAddressesUrl: string = `${SERVER_URL}/api/devicetoken/remove/`;
+    let deviceTokenUrl: string = `${SERVER_URL}/api/devicetoken/${deviceToken}/`;
     var headers = new Headers({ 'Content-Type': 'application/json', 
                                 'Accept': 'application/json',
                                 'Authorization': `Token ${token}`
                             });
-    var body = JSON.stringify({
-      token: deviceToken,
-      platform_type: platform,
-      token_type: "CUSTOMER"
-    });
-    console.log(body);
-    var options = new RequestOptions({ headers: headers, body: body });
-    return this.http.delete(getAddressesUrl, options)
+    var options = new RequestOptions({ headers: headers });
+    return this.http.delete(deviceTokenUrl, options)
                     .map(response => response)
                     .catch(this.handleError)
   }
