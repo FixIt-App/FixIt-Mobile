@@ -4,7 +4,7 @@ page-login {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: color($colors, kiss) !important;
+        background: linear-gradient(-60deg, color($colors, kiss) 64%, #ffffff 64%);
   }
 
   .logo-fixit {
@@ -24,6 +24,9 @@ page-login {
       border-color: color($colors, the-strokes);
       margin: 10px 0 0;
       color: color($colors, cinderella);
+      .top-icon {
+        z-index: 100;
+      }
     }
 
     #login-button{ 

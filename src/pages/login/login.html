@@ -18,15 +18,12 @@
 
             <ion-item>
                 <ion-icon name="lock" item-left></ion-icon>
-                <ion-input placeholder="Contraseña" name="password" [(ngModel)]="password" type="{{inputType}}" ></ion-input>
-                <ion-icon name="eye" *ngIf="inputType=='password'" (click)="togglePassword()" item-right></ion-icon>
-                <ion-icon name="eye-off" *ngIf="inputType=='text'" (click)="togglePassword()" item-right></ion-icon>
+                <ion-input placeholder="Contraseña" name="password" [(ngModel)]="password" [type]="passwordType" ></ion-input>
+                <ion-icon name="eye" *ngIf="passwordType=='password'" class="top-icon" (click)="togglePassword()" item-right></ion-icon>
+                <ion-icon name="eye-off" *ngIf="passwordType=='text'" class="top-icon" (click)="togglePassword()" item-right></ion-icon>
             </ion-item>
             <button id="login-button" ion-button round type="button" full (click)="login()">
                 Inicia Sesión
-            </button>
-            <button id="login-button" ion-button round type="button" full (mousedown)="showPassword()">
-                test
             </button>
         </form>
         <div id="signup-footer">
