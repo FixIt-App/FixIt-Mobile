@@ -1,29 +1,54 @@
 page-login {
+
   ion-content {
     display: flex;
     align-items: center;
     justify-content: center;
+        background: linear-gradient(-60deg, color($colors, kiss) 64%, #ffffff 64%);
   }
+
   .logo-fixit {
-    height: 150px; 
+    height: 35vmin; 
     width: auto; 
     display: block; 
     margin-left: auto; 
     margin-right: auto; 
-    margin-top: 15%;
-    border-radius: 35%;
-  }
-  form {
-    padding: 20px;
-    .item {
-      border: 1px solid #f1f1f1;
-      border-radius: 15px;
-      margin: 10px 0 0;
-      color: #5D5D5D;
-    }
-    .button {
-      margin: 20px 0 !important;
-    }
+    margin-top: 15vmin;
   }
   
+  form {
+    padding: 0 20px;
+    .item {
+      border: 1px solid color($colors, whitesnake);
+      border-radius: 10px;
+      border-color: color($colors, the-strokes);
+      margin: 10px 0 0;
+      color: color($colors, cinderella);
+      .top-icon {
+        z-index: 100;
+      }
+    }
+
+    #login-button{ 
+      background-color: color($colors, deff-leppard);
+      margin: 20px 0;
+      border-radius: 10px;
+      border-color: color($colors, the-strokes);
+    }    
+  }
+
+  #signup-footer{
+    padding: 0 20px;
+    //bottom: 20px;
+    #signup-button{
+      margin: 20px 0;
+      border-radius: 10px;
+      background-color: color($colors, deff-leppard);
+    }
+
+    #signup-text{
+      text-align: center;
+      color: color($colors, radiohead);
+    }
+  }
 }

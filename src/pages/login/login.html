@@ -8,28 +8,30 @@
         </div>
     </div>
     <span *ngIf="!authenticatingUser">
-        <img src="assets/fix-it.jpg" class="logo-fixit"/>
+        <img src="assets/logo.png" class="logo-fixit"/>
         
         <form>
             <ion-item>
                 <ion-input placeholder="Correo" name="username" [(ngModel)]="username" type="text"></ion-input>
-                <ion-icon name="person" color="light-green" item-left></ion-icon>
+                <ion-icon name="person" item-left></ion-icon>
             </ion-item>
 
             <ion-item>
-                <ion-input placeholder="Contraseña" name="password" [(ngModel)]="password" type="password"></ion-input>
-                <ion-icon name="lock" color="light-green" item-left></ion-icon>
+                <ion-icon name="lock" item-left></ion-icon>
+                <ion-input placeholder="Contraseña" name="password" [(ngModel)]="password" [type]="passwordType" ></ion-input>
+                <ion-icon name="eye" *ngIf="passwordType=='password'" class="top-icon" (click)="togglePassword()" item-right></ion-icon>
+                <ion-icon name="eye-off" *ngIf="passwordType=='text'" class="top-icon" (click)="togglePassword()" item-right></ion-icon>
             </ion-item>
-
-            <div style="margin-top: 10vh;">
-                <button ion-button round type="button" full color="light-green" (click)="login()">
-                    Iniciar Sesión
-                </button>
-                <button ion-button round type="button" full color="light-green" (click)="signUp()">
-                    Crear Usuario
-                </button>
-            </div>
+            <button id="login-button" ion-button round type="button" full (click)="login()">
+                Inicia Sesión
+            </button>
         </form>
+        <div id="signup-footer">
+            <p id="signup-text">¿No tienes una cuenta?</p>
+            <button id="signup-button" ion-button round type="button" full (click)="signUp()">
+                Regístrate
+            </button>
+        </div>
     </span>
 
 
