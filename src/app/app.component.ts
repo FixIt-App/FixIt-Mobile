@@ -1,3 +1,4 @@
+import { Work } from './../models/work';
 import { Component, ViewChild } from '@angular/core';
 import { Platform, MenuController, Nav, Events, AlertController, LoadingController } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -79,6 +80,10 @@ export class MyApp {
       (notification: NotificationEventResponse) => {
         console.log('Received a notification', notification);
         console.log(notification.additionalData);
+        let work: Work;
+        if(notification.additionalData.work) {
+          work = new Work(notification.additionalData.work);
+        }
         if(notification.additionalData.foreground) {
           let confirmAlert = this.alertCtrl.create({
             title: notification.title,
@@ -87,23 +92,24 @@ export class MyApp {
               text: 'Cancelar',
               role: 'cancel'
             }, {
-            text: 'Ver',
-            handler: () => {
-              //TODO (a-santamaria): got to work details with work
-              // this.nav.push('WorkDetailsPage', {
-              //   work: 
-              // })
-             
+              text: 'Ver',
+              handler: () => {
+                if(work) {
+                  this.nav.setRoot('WorkDetailsPage', {
+                    work: work
+                  });
+                }
               }
             }]
             });
           confirmAlert.present();
         } else {
           console.log('no foreground');
-          //TODO (a-santamaria): got to work details with work
-          // this.nav.push('WorkDetailsPage', {
-          //   work: 
-          // })
+          if(work) {
+            this.nav.setRoot('WorkDetailsPage', {
+              work: work
+            })
+          }
         }
       });
     
