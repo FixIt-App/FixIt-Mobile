@@ -51,7 +51,7 @@ export class CreateUserPage {
   create() {
     this.customer.username = this.customer.email;
     this.customer.phone = this.selectedCountry.countryCallingCodes[0] + this.phone;
-
+    this.customer.city = 'Bogotá, Colombia';
     this.userService.saveCustomer(this.customer).subscribe(
       customer => {
         this.isConfirmingSMS = true;
@@ -70,7 +70,8 @@ export class CreateUserPage {
         //todo (a-santamaria): revisar tipos de errores
         alert.present().then(
           err => {
-            this.customer.username = ""
+            this.customer.username = "";
+            this.customer.email = "";
           });
       })
   }
