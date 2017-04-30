@@ -19,6 +19,7 @@ export class LoginPage {
 	username: string;
 	password: string;
 	authenticatingUser: boolean;
+	inputType: string;
 
 	constructor(private navController: NavController,
 							private authService: AuthService,
@@ -28,6 +29,7 @@ export class LoginPage {
 							public confirmationService: ConfirmationService)
 	{
 		this.authenticatingUser = true;
+		this.inputType = "password";
 	}
 
 
@@ -95,6 +97,21 @@ export class LoginPage {
 		this.navController.push(CreateUserPage, {
 			CreateUserPage: false
 		})
+	}
+
+	togglePassword() {
+		console.log('hola');
+		this.inputType = (this.inputType == "text") ? "password" : "text";
+	}
+
+	showPassword(){
+		console.log("text");
+		this.inputType = "text";
+	}
+
+	hidePassword(){
+		console.log("password");
+		this.inputType = "password";
 	}
 }
 

@@ -1,12 +1,12 @@
 /*
 * Leave this constant
 */
-const SERVER_PORT: string = "8000";
+const SERVER_PORT: string = "8080";
 
 /**
  * Enable when testing in browser ("$ ionic serve")
  */
-const SERVER_LOCATION: string = "http://104.131.151.33";
+const SERVER_LOCATION: string = "http://35.166.206.134"; //gleis.fix-it.com.co
 export const SERVER_URL = "";
 
 /**

@@ -70,7 +70,8 @@ export class CreateUserPage {
         //todo (a-santamaria): revisar tipos de errores
         alert.present().then(
           err => {
-            this.customer.username = ""
+            this.customer.username = "";
+            this.customer.email = "";
           });
       })
   }
