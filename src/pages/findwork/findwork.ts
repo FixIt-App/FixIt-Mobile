@@ -27,6 +27,7 @@ export class FindWorkPage implements OnInit {
   showheader:boolean;
   hideheader:boolean;
   headercontent:any;
+  startingSlides: boolean;
 
   @ViewChildren(Slides) slides: QueryList<Slides>;
 
@@ -35,6 +36,7 @@ export class FindWorkPage implements OnInit {
               public userDataService: UserDataService,
               public myElement: ElementRef)
   {
+    this.startingSlides = true;
     this.work = new Work({});
     this.showheader = false;
     this.hideheader = true;
@@ -51,13 +53,15 @@ export class FindWorkPage implements OnInit {
       error => {
           console.log(error);
       });
+    
   }
 
   initializeSlides() {
-    // console.log(this.slides.length);
+    this.sleep(300).then(() => {
+      this.startingSlides = false;
+    });
     this.slides.changes.subscribe(
       (slides: QueryList<Slides>) => {
-        console.log(slides);
         slides.map(
           (slide) => {
             slide.slidesPerView = 3;
@@ -106,4 +110,7 @@ export class FindWorkPage implements OnInit {
       });
   }
 
+  sleep (time) {
+    return new Promise((resolve) => setTimeout(resolve, time));
+  }
 }

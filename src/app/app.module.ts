@@ -8,6 +8,7 @@ import { Camera } from '@ionic-native/camera';
 import { DatePicker } from '@ionic-native/date-picker';
 import { Geolocation } from '@ionic-native/geolocation';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { Push } from '@ionic-native/push';
 
 import { FindWorkPage } from '../pages/findwork/findwork'
 import { LoginPage } from '../pages/login/login'
@@ -21,6 +22,7 @@ import { AddressService } from '../providers/address-service'
 import { UserDataService } from '../providers/user-data-service'
 import { WorkService } from '../providers/work-service'
 import { ConfirmationService } from '../providers/confirmation-service';
+import { DeviceService } from '../providers/device-service';
 
 @NgModule({
   declarations: [
@@ -52,12 +54,14 @@ import { ConfirmationService } from '../providers/confirmation-service';
     DatePicker,
     Geolocation,
     BarcodeScanner,
+    Push,
     WorkTypeService,
     AuthService,
     AddressService,
     UserDataService,
     WorkService,
-    ConfirmationService
+    ConfirmationService,
+    DeviceService
   ]
 })
 export class AppModule {}

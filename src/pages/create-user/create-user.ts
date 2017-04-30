@@ -51,9 +51,9 @@ export class CreateUserPage {
   create() {
     this.customer.username = this.customer.email;
     this.customer.phone = this.selectedCountry.countryCallingCodes[0] + this.phone;
-
-    this.userService.saveCustomer(this.customer)
-      .subscribe(customer => {
+    this.customer.city = 'Bogotá, Colombia';
+    this.userService.saveCustomer(this.customer).subscribe(
+      customer => {
         this.isConfirmingSMS = true;
       },
       error => {

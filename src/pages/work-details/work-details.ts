@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner';
 
 import { Work } from '../../models/work';
-import { WorkType } from '../../models/worktype';
+// import { WorkType } from '../../models/worktype';
 
 
 @IonicPage()
@@ -20,32 +20,6 @@ export class WorkDetailsPage {
               private barcodeScanner: BarcodeScanner) 
   {
     this.work = navParams.get('work');
-    // for testing
-    // this.work = new Work({
-    //   images: [],
-    //   state:"SCHEDULED",
-    //   time: new Date("2017-05-01T02:41:00Z"),
-    //   worker: 
-    //   {
-    //    document_id: "1020787426",
-    //    email:"",
-    //    first_name:"Alfredo",
-    //    id:1,
-    //    last_name:"Santamaria",
-    //    phone:"3186017866",
-    //    profile_pic:"https://test-fixit.s3.amazonaws.com/media/workers/pf2.png",
-    //    rh:"0+",
-    //    username:"alfredoWorker"
-    //   },
-    //   worktype: new WorkType({
-    //     description:"Desde 33,000/hora",
-    //     icon : "https://test-fixit.s3.amazonaws.com/media/electricista.jpg",
-    //     id:4,
-    //     name:"Cambiar bombillo",
-    //     price:"200000.00",
-    //     price_type:"STANDARIZED"
-    //   }),
-    // });
   }
 
 
@@ -71,8 +45,8 @@ export class WorkDetailsPage {
   registerQR() {
     let options: BarcodeScannerOptions =  {
       preferFrontCamera : false, // iOS and Android
-      showFlipCameraButton : true, // iOS and Android
-      showTorchButton : true, // iOS and Android
+      showFlipCameraButton : false, // iOS and Android
+      showTorchButton : false, // iOS and Android
       torchOn: false, // Android, launch with the torch switched on (if available)
       prompt : "Escanea el código del trabajador dentro del area", // Android
       resultDisplayDuration: 500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
