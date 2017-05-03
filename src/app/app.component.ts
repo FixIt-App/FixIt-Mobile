@@ -9,6 +9,7 @@ import { FindWorkPage } from '../pages/findwork/findwork';
 
 import { Customer } from '../models/user';
 import { DeviceService } from '../providers/device-service';
+import { UserDataService } from '../providers/user-data-service';
 
 @Component({
   templateUrl: 'app.html'
@@ -28,6 +29,7 @@ export class MyApp {
               private alertCtrl: AlertController,
               private push: Push,
               private deviceService: DeviceService,
+              private userDataService: UserDataService,
               public loadingCtrl: LoadingController)
   {
     // menu navigation pages
@@ -35,7 +37,7 @@ export class MyApp {
       { title: 'Pedir trabajo', component: FindWorkPage },
       { title: 'Próximos servicios', component: 'NextServicesPage' },
       { title: 'Historial servicios', component: 'ServiceHistoricalPage' },
-      { title: 'Configuraciones', component: FindWorkPage },
+      { title: 'Configuraciones', component: 'SettingsPage' },
       { title: 'Cerrar sesión', component: null }
     ];
     this.listenToCustomerLogged();
@@ -171,6 +173,7 @@ export class MyApp {
     this.events.subscribe('customer:logged', 
       (customer) => {
         this.customer = customer;
+        this.userDataService.saveCustomer(this.customer);
         this.platform.ready().then(() => {
           if(this.platform.is('cordova'))
             this.initPushNotification();

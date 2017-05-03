@@ -1,0 +1,58 @@
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Configuraciones</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <button ion-button clear class="button-list" (click)="editUser()">
+      <ion-row>
+        <ion-col col-4 class="avatar">
+          <!--TODO (a-santamari): USER AVATAR-->
+          <img id="avatar-img" src="http://ionicframework.com/dist/preview-app/www/assets/img/avatar-ts-woody.png">
+        </ion-col>
+        <ion-col col-8 class="list-col">
+            <ion-row>
+              {{ customer.firstName }} {{ customer.lastName }}
+            </ion-row>
+            <ion-row>
+              {{ customer.phone }}
+            </ion-row>
+            <ion-row>
+              {{ customer.email }}
+            </ion-row>
+        </ion-col>
+      </ion-row>
+    </button>
+
+    <ion-list-header>
+      Métodos de pago
+    </ion-list-header>
+    <ion-item class="no-lines" (click)="editPaymentMethod()">
+      <ion-icon name="card" item-left></ion-icon>
+      *** 2353 (mock)
+      <ion-icon name="trash" color="danger" item-right (click)="deletePaymentMethod()"></ion-icon>
+    </ion-item>
+    <button ion-button clear full (click)="addPaymentMethod()">
+      Agregar metodo de pago
+    </button>
+
+    <ion-list-header>
+      Direcciones
+    </ion-list-header>
+    <ion-item class="no-lines" *ngFor="let address of addresses">
+      {{ address.name }}: {{ address.address }}
+      <ion-icon name="trash" color="danger" item-right (click)="deleteAddress()"></ion-icon>
+    </ion-item>
+    <button ion-button clear full (click)="newAddress()">
+      Agregar dirección
+    </button>
+
+  </ion-list>
+</ion-content>

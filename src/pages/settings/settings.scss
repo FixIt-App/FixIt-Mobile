@@ -1,0 +1,38 @@
+page-settings {
+  .list-header-md {
+    margin-bottom: 0px;
+  }
+  .list-header-ios {
+    margin-bottom: 0px;
+  }
+  .button-list {
+    height: 100%;
+    width: 100%;
+    color: color($colors, metallica);
+    text-transform: none;
+    padding: 0px;
+    ion-row {
+      width: 100%;
+      .avatar {
+        text-align: center;
+        #avatar-img {
+          width: 80px;
+          height: 80px;
+          border-radius: 50%;
+          overflow: hidden;
+        }
+      }
+      .list-col {
+        margin: auto;
+        ion-row {
+          margin: 5px 0px;
+        }
+      }
+    }
+  }
+  .no-lines {
+    .item-inner {
+      border-bottom: none !important;
+    }
+  }
+}
