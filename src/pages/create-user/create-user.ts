@@ -56,10 +56,22 @@ export class CreateUserPage {
       customer => {
         this.isConfirmingSMS = true;
       },
-      error => {
+      (error: Response) => {
+        console.log(error);
         var msg = 'No se pudo crear el usuario'
-        if(error.status = 500){
-          msg = "El correo seleccionado ya está en uso"
+        if(error.status == 500){
+          msg = "El correo seleccionado ya está en uso";
+        } else if (error.status == 400) {
+          let errObj = error.json();
+          if (errObj['email']) {
+            msg = errObj['email'];
+          } else if (errObj['username']) {
+            msg = errObj['username'];
+          } else if(errObj['phone']) {
+            msg = errObj['phone'];
+          } else {
+            msg = "Error por favor intenta más tarde";
+          }
         }
         
         var alert = this.alertCtrl.create({
@@ -68,11 +80,7 @@ export class CreateUserPage {
           buttons: ['OK']
         });
         //todo (a-santamaria): revisar tipos de errores
-        alert.present().then(
-          err => {
-            this.customer.username = "";
-            this.customer.email = "";
-          });
+        alert.present();
       })
   }
 
