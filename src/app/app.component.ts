@@ -19,7 +19,7 @@ export class MyApp {
 
   // make HelloIonicPage the root (or first) page
   rootPage: any = LoginPage;
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{title: string, component: any, icon: string}>;
   customer: Customer;
 
   constructor(public platform: Platform,
@@ -34,11 +34,11 @@ export class MyApp {
   {
     // menu navigation pages
     this.pages = [
-      { title: 'Pedir trabajo', component: FindWorkPage },
-      { title: 'Próximos servicios', component: 'NextServicesPage' },
-      { title: 'Historial servicios', component: 'ServiceHistoricalPage' },
-      { title: 'Configuraciones', component: 'SettingsPage' },
-      { title: 'Cerrar sesión', component: null }
+      { title: 'Pedir trabajo', component: FindWorkPage, icon: 'apps' },
+      { title: 'Próximos servicios', component: 'NextServicesPage', icon: 'calendar' },
+      { title: 'Historial servicios', component: 'ServiceHistoricalPage', icon: 'folder-open' },
+      { title: 'Configuraciones', component: 'SettingsPage', icon: 'settings' },
+      { title: 'Cerrar sesión', component: null, icon: 'power' }
     ];
     this.listenToCustomerLogged();
     this.initializeApp();
@@ -145,7 +145,7 @@ export class MyApp {
   
   openPage(page) {
     if(page.title == 'Cerrar sesión') {
-      let loader = this.loadingCtrl.create({content: "Cerrando sesión..."});
+      let loader = this.loadingCtrl.create({spinner: 'crescent'});
       loader.present();
       this.deviceService.removeDeviceToken().subscribe(
         (data) => {
@@ -162,8 +162,9 @@ export class MyApp {
         }
       );
     } else if(page.title == 'Pedir trabajo') {
-      if(this.nav.getActive() != page.component)
+      if(this.nav.getActive().name != 'FindWorkPage') {
         this.nav.setRoot(page.component);
+      }
     } else {
       this.nav.push(page.component);
     }

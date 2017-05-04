@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { COUNTRY_CODES } from './country-codes';
 
+@IonicPage()
 @Component({
   selector: 'page-country-code-selector',
   templateUrl: 'country-code-selector.html'

@@ -20,6 +20,9 @@ page-settings {
           height: 80px;
           border-radius: 50%;
           overflow: hidden;
+          border-color: color($colors, metallica);
+          border-width: 2px;
+          border-style: solid;
         }
       }
       .list-col {

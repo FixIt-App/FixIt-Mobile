@@ -5,6 +5,7 @@ import { Customer } from '../../models/user';
 import { Address } from '../../models/address';
 import { UserDataService } from '../../providers/user-data-service';
 import { AddressService } from '../../providers/address-service';
+
 @IonicPage()
 @Component({
   selector: 'page-settings',
@@ -12,7 +13,7 @@ import { AddressService } from '../../providers/address-service';
 })
 export class SettingsPage {
 
-  customer: any;
+  customer: Customer;
   addresses: Address[];
   constructor(public navCtrl: NavController, 
               private userDataService: UserDataService,
@@ -20,20 +21,20 @@ export class SettingsPage {
               private modalCtrl: ModalController,
               private addressService: AddressService) 
   {
-    // this.customer = this.userDataService.getCustomer();
-    this.customer = {
-      username: "alfredo-santamaria@outlook.com", 
-      firstName: "Alfredo", 
-      lastName: "Santamaria", 
-      email: "alfredo-santamaria@outlook.com", 
-      phone: "+573186017861",
-      city: "Bogotá, Colombia",
-      confirmations: [
-        { confirmation_type:"MAIL", state:false},
-        { confirmation_type:"SMS", state:true}
-      ],
-      idCustomer:5
-    };
+    this.customer = this.userDataService.getCustomer();
+    // this.customer = {
+    //   username: "alfredo-santamaria@outlook.com", 
+    //   firstName: "Alfredo", 
+    //   lastName: "Santamaria", 
+    //   email: "alfredo-santamaria@outlook.com", 
+    //   phone: "+573186017861",
+    //   city: "Bogotá, Colombia",
+    //   confirmations: [
+    //     { confirmation_type:"MAIL", state:false},
+    //     { confirmation_type:"SMS", state:true}
+    //   ],
+    //   idCustomer:5
+    // };
     console.log(this.customer)
   }
 
@@ -49,7 +50,7 @@ export class SettingsPage {
   }
 
   editUser() {
-    console.log('editUser');
+    this.navCtrl.push('SettingsUserPage');
   }
 
   editPaymentMethod() {
@@ -59,6 +60,7 @@ export class SettingsPage {
   addPaymentMethod() {
 
   }
+
   deletePaymentMethod() {
     // TODO(a-santamaria): delete payment method
     console.log('todo delete payment method');

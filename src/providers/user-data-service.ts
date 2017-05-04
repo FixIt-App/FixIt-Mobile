@@ -33,6 +33,23 @@ export class UserDataService {
      return this.http.post(createCustomerURI, customer.export(), options)
                 .map(response => response.json() as Customer)
                 .catch(this.handleError)
+  }
+
+  updateCustomer(idCustomer: number, fieldName: string, fieldValue: string): Observable<Customer> {
+     let token = localStorage.getItem('token');
+     let customerURI: string = `${SERVER_URL}/api/customers/${idCustomer}/`
+     var headers = new Headers({ 'Content-Type': 'application/json', 
+                                  'Accept': 'application/json',
+                                  'Authorization': `Token ${token}`});
+     let obj = {};
+     obj[fieldName] = fieldValue;
+     console.log(obj);
+     let body = JSON.stringify(obj)
+     console.log(body);
+     var options = new RequestOptions({ headers: headers });
+     return this.http.put(customerURI, body, options)
+                .map(response => new Customer(response.json()))
+                .catch(this.handleError)
   } 
 
   private handleError(error: any): Observable<any> {
