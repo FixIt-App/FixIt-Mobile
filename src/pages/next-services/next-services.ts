@@ -40,7 +40,7 @@ export class NextServicesPage {
 
   ionViewDidLoad() {
     this.listenToScroll();
-    this.workService.getMyWorks(['ORDERED', 'SCHEDULED']).subscribe(
+    this.workService.getMyWorks(['ORDERED', 'SCHEDULED',  'IN_PROGRESS']).subscribe(
       (works) => {
         this.works = works;
         console.log(this.works);

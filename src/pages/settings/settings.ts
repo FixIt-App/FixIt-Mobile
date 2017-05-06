@@ -22,19 +22,6 @@ export class SettingsPage {
               private addressService: AddressService) 
   {
     this.customer = this.userDataService.getCustomer();
-    // this.customer = {
-    //   username: "alfredo-santamaria@outlook.com", 
-    //   firstName: "Alfredo", 
-    //   lastName: "Santamaria", 
-    //   email: "alfredo-santamaria@outlook.com", 
-    //   phone: "+573186017861",
-    //   city: "Bogotá, Colombia",
-    //   confirmations: [
-    //     { confirmation_type:"MAIL", state:false},
-    //     { confirmation_type:"SMS", state:true}
-    //   ],
-    //   idCustomer:5
-    // };
     console.log(this.customer)
   }
 

@@ -17,6 +17,11 @@ page-work-details {
   }
 
   .avatar {
+    #check {
+      font-size: 4.2em;
+      margin: 15px;
+      color: color($colors, iron-maiden);
+    }
     text-align: center;
     #avatar-img {
       width: 80px;
