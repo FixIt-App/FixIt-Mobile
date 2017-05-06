@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner';
 
 import { Work } from '../../models/work';
+import { WorkService } from "../../providers/work-service";
 
 @IonicPage()
 @Component({
@@ -15,6 +16,8 @@ export class WorkDetailsPage {
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
+              private workService: WorkService,
+              private alertCtrl: AlertController,
               private barcodeScanner: BarcodeScanner) 
   {
     this.work = navParams.get('work');
@@ -55,10 +58,33 @@ export class WorkDetailsPage {
     };
     this.barcodeScanner.scan(options).then(
       (result) => {
-          alert("We got a barcode\n" +
-                "Result: " + result.text + "\n" +
-                "Format: " + result.format + "\n" +
-                "Cancelled: " + result.cancelled);
+        console.log(result);
+        this.workService.confirmWorker(result.text, this.work).subscribe(
+          (work) => {
+            this.work = work;
+             let alert = this.alertCtrl.create({
+              title: '¡Identidad confirmada!',
+              subTitle: 'La identidad de trabajador fue confirmada exitosamente',
+              buttons: ['Listo']
+            });
+            alert.present();
+          },
+          (error) => {
+            console.log(error);
+            let msg: string = "Error al confiramr la identidad del trabajador";
+            if (error.status == 409) {
+              msg = "Error al confiramr la identidad del trabajador";
+            } else {
+              "Error inesperado, por favor intenta mas tarde";
+            }
+            let alert = this.alertCtrl.create({
+              title: 'Error',
+              subTitle: msg,
+              buttons: ['OK']
+            });
+            alert.present();
+          }
+        );
       },
        (error) => {
           alert("Scanning failed: " + error);
