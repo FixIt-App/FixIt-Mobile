@@ -55,11 +55,12 @@ export class SettingsPage {
 
   editPaymentMethod() {
     //TODO (a-santamaria): edit payment method
+
   }
 
   addPaymentMethod() {
-
-  }
+    this.navCtrl.push('PaymentMethodPage');
+  } 
 
   deletePaymentMethod() {
     // TODO(a-santamaria): delete payment method

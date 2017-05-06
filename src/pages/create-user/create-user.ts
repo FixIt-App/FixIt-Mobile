@@ -146,7 +146,7 @@ export class CreateUserPage {
     this.navController.pop();
   }
 
-  gotToSelectCountry() {
+  goToSelectCountry() {
     let modal = this.modalCtrl.create('CountryCodeSelectorPage');
        modal.onDidDismiss(
          (data) => {

@@ -1,0 +1,55 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Método de pago</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form [formGroup]="form">
+     <ion-label>Número de tarjeta</ion-label>
+     <ion-item>
+       <ion-icon name="card" item-left></ion-icon>
+      <ion-input type="text" [(formControl)]="number"></ion-input>
+    </ion-item>
+    <div class="errorBox" *ngIf="!number.valid  && (number.dirty || submitAttempt)">
+        * requerido.
+    </div>
+    <ion-row>
+
+      <ion-col>
+        <ion-label>Fecha Exp.</ion-label>
+        <ion-item>
+          <ion-input type="text" placeholder="MM/YY" [(formControl)]="expirationDate"></ion-input>
+        </ion-item>
+        <div class="errorBox" *ngIf="!expirationDate.valid  && (expirationDate.dirty || submitAttempt)">
+            * requerido.
+        </div>  
+      </ion-col>
+
+      <ion-col>
+        <ion-label>CVV</ion-label>
+        <ion-item>
+          <ion-input type="text" [(formControl)]="cvv"></ion-input>
+        </ion-item>
+        <div class="errorBox" *ngIf="!cvv.valid  && (cvv.dirty || submitAttempt)">
+            * requerido.
+        </div>
+      </ion-col>
+
+    </ion-row>
+
+    <ion-label>Ciudad</ion-label>
+    <ion-item class="country-code" (click)="goToSelectCountry()">
+        <span *ngIf="selectedCountry"> {{ selectedCountry.emoji }} &nbsp;{{ selectedCountry.name }} </span>
+         <ion-icon name="arrow-dropdown" icon-right></ion-icon>
+    </ion-item>
+
+  </form>
+</ion-content>
+
+<ion-footer padding>
+  <button ion-button block> Siguente</button>
+</ion-footer>
