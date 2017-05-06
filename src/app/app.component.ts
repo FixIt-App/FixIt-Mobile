@@ -9,6 +9,7 @@ import { FindWorkPage } from '../pages/findwork/findwork';
 
 import { Customer } from '../models/user';
 import { DeviceService } from '../providers/device-service';
+import { UserDataService } from '../providers/user-data-service';
 
 @Component({
   templateUrl: 'app.html'
@@ -18,7 +19,7 @@ export class MyApp {
 
   // make HelloIonicPage the root (or first) page
   rootPage: any = LoginPage;
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{title: string, component: any, icon: string}>;
   customer: Customer;
 
   constructor(public platform: Platform,
@@ -28,15 +29,16 @@ export class MyApp {
               private alertCtrl: AlertController,
               private push: Push,
               private deviceService: DeviceService,
+              private userDataService: UserDataService,
               public loadingCtrl: LoadingController)
   {
     // menu navigation pages
     this.pages = [
-      { title: 'Pedir trabajo', component: FindWorkPage },
-      { title: 'Próximos servicios', component: 'NextServicesPage' },
-      { title: 'Historial servicios', component: 'ServiceHistoricalPage' },
-      { title: 'Configuraciones', component: FindWorkPage },
-      { title: 'Cerrar sesión', component: null }
+      { title: 'Pedir trabajo', component: FindWorkPage, icon: 'apps' },
+      { title: 'Próximos servicios', component: 'NextServicesPage', icon: 'calendar' },
+      { title: 'Historial servicios', component: 'ServiceHistoricalPage', icon: 'folder-open' },
+      { title: 'Configuraciones', component: 'SettingsPage', icon: 'settings' },
+      { title: 'Cerrar sesión', component: null, icon: 'power' }
     ];
     this.listenToCustomerLogged();
     this.initializeApp();
@@ -143,7 +145,7 @@ export class MyApp {
   
   openPage(page) {
     if(page.title == 'Cerrar sesión') {
-      let loader = this.loadingCtrl.create({content: "Cerrando sesión..."});
+      let loader = this.loadingCtrl.create({spinner: 'crescent'});
       loader.present();
       this.deviceService.removeDeviceToken().subscribe(
         (data) => {
@@ -160,8 +162,9 @@ export class MyApp {
         }
       );
     } else if(page.title == 'Pedir trabajo') {
-      if(this.nav.getActive() != page.component)
+      if(this.nav.getActive().name != 'FindWorkPage') {
         this.nav.setRoot(page.component);
+      }
     } else {
       this.nav.push(page.component);
     }
@@ -171,6 +174,7 @@ export class MyApp {
     this.events.subscribe('customer:logged', 
       (customer) => {
         this.customer = customer;
+        this.userDataService.saveCustomer(this.customer);
         this.platform.ready().then(() => {
           if(this.platform.is('cordova'))
             this.initPushNotification();

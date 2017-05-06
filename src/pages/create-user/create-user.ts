@@ -4,7 +4,6 @@ import { AlertController, ModalController } from 'ionic-angular'
 
 import { UserDataService } from '../../providers/user-data-service'
 import { Customer } from '../../models/user'
-import { CountryCodeSelectorPage } from '../country-code-selector/country-code-selector'
 import { FindWorkPage } from '../findwork/findwork';
 import { ConfirmationService } from '../../providers/confirmation-service';
 import { AuthService } from '../../providers/auth-service';
@@ -147,8 +146,8 @@ export class CreateUserPage {
     this.navController.pop();
   }
 
-  gotToSelectCountry() {
-    let modal = this.modalCtrl.create(CountryCodeSelectorPage);
+  goToSelectCountry() {
+    let modal = this.modalCtrl.create('CountryCodeSelectorPage');
        modal.onDidDismiss(
          (data) => {
            if(data) {

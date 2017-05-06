@@ -36,7 +36,7 @@
     <ion-row>
       <ion-col col-6 class="avatar">
         <img *ngIf="work.worker" id="avatar-img" [src]="work.worker.profile_pic">
-        <img *ngIf="!work.worker" id="avatar-img" src="http://ionicframework.com/dist/preview-app/www/assets/img/avatar-ts-woody.png">
+        <img *ngIf="!work.worker" id="avatar-img" src="assets/fixit_default_pf.svg">
         <br>
         <p *ngIf="work.worker"> {{ work.worker.first_name }} {{ work.worker.last_name }} </p>
         <p *ngIf="!work.worker"> Por asignar </p>

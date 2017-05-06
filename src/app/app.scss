@@ -50,17 +50,19 @@
 }
 
 ion-backdrop {
-  opacity: 0 !important;
+  opacity: 0.1 !important;
 }
 
 .loading-md .loading-wrapper {
   background: none;
   box-shadow: none;
+  transform: scale(2) !important;
 }
 
 .loading-ios .loading-wrapper {
   background: none;
   box-shadow: none;
+  transform: scale(2) !important;
 }
 
 .bar-button {

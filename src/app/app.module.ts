@@ -14,7 +14,6 @@ import { FindWorkPage } from '../pages/findwork/findwork'
 import { LoginPage } from '../pages/login/login'
 import { SchedulePage } from '../pages/schedule/schedule'
 import { CreateUserPage } from '../pages/create-user/create-user'
-import { CountryCodeSelectorPage } from '../pages/country-code-selector/country-code-selector'
 
 import { WorkTypeService } from '../providers/wortktype-service'
 import { AuthService } from '../providers/auth-service'
@@ -30,8 +29,7 @@ import { DeviceService } from '../providers/device-service';
     FindWorkPage,
     LoginPage,
     SchedulePage,
-    CreateUserPage,
-    CountryCodeSelectorPage
+    CreateUserPage
   ],
   imports: [
     BrowserModule,
@@ -44,8 +42,7 @@ import { DeviceService } from '../providers/device-service';
     FindWorkPage,
     LoginPage,
     SchedulePage,
-    CreateUserPage,
-    CountryCodeSelectorPage
+    CreateUserPage
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},

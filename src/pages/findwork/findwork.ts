@@ -57,7 +57,7 @@ export class FindWorkPage implements OnInit {
   }
 
   initializeSlides() {
-    this.sleep(300).then(() => {
+    this.sleep(500).then(() => {
       this.startingSlides = false;
     });
     this.slides.changes.subscribe(

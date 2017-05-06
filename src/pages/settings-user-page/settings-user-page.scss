@@ -1,0 +1,49 @@
+page-settings-user-page {
+  .list-header-md {
+    margin-bottom: 0px;
+    min-height: 0px;
+    .label-md {
+      margin: 8px 8px 8px 0; 
+    }
+  }
+  .list-header-ios {
+    margin-bottom: 0px;
+    min-height: 0px;
+    .label-ios {
+      margin: 8px 8px 8px 0; 
+    }
+  }
+  
+  .avatar {
+    text-align: center;
+    #avatar-img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      overflow: hidden;
+      border-color: color($colors, metallica);
+      border-width: 2px;
+      border-style: solid;
+    }
+    #item-edit {
+      position: absolute;
+      top: 60%;
+      left: 42%;
+      margin: 0px;
+      color: color($colors, whitesnake);
+      background-color: color($colors, metallica);
+    }
+  }
+  .country-code {
+    .label-md {
+      margin: 9px 0px 9px 0;
+    }
+    .label-ios {
+      margin: 10px 8px 9px 0;
+    }
+    .item-inner {
+      padding-right: 0px !important;
+      border-bottom: none !important;
+    }
+  }
+}

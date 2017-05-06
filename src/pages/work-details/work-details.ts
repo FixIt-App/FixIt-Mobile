@@ -3,8 +3,6 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner';
 
 import { Work } from '../../models/work';
-// import { WorkType } from '../../models/worktype';
-
 
 @IonicPage()
 @Component({

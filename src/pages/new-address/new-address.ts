@@ -268,7 +268,7 @@ export class NewAddressPage {
   }
 
   sendAddressToServer(shortName: string) {
-    let loader = this.loadingCtrl.create({content: "Please wait..."});
+    let loader = this.loadingCtrl.create({spinner: 'crescent'});
     loader.present();
     let vals: string[] = this.location.value.split(', ');
     let city: string = vals[0].trim();
@@ -304,15 +304,7 @@ export class NewAddressPage {
   }
 
   presentLoader() {
-    this.loader = this.loadingCtrl.create({
-      spinner: 'hide',
-      content: `
-       <div class="spinner">
-        <div class="bounce1"></div>
-        <div class="bounce2"></div>
-        <div class="bounce3"></div>
-      </div>`,
-    });
+    this.loader = this.loadingCtrl.create({spinner: 'crescent'});
     this.loader.present();
   }
 }
