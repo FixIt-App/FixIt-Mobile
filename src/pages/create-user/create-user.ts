@@ -29,6 +29,9 @@ export class CreateUserPage {
   phone: number;
   isConfirmingSMS: boolean;
   smsCode: number;
+  stepNumber: number;
+  title: string;
+  subtitle: string;
 
   constructor(private userService: UserDataService,
               private navParams: NavParams,
@@ -40,12 +43,16 @@ export class CreateUserPage {
               public events: Events,
               public userDataService: UserDataService)
   {
+    
+    this.stepNumber = 1;
+    this.title = "¿Cómo te llamas?";
+    this.subtitle = null;
+    
     if(this.navParams.get('customer'))
       this.customer = this.navParams.get('customer');
     else
       this.customer = new Customer({});
     this.isConfirmingSMS = this.navParams.get('isConfirmingSMS');
-    console.log('entre a create customer');
   }
 
   create() {
@@ -57,9 +64,9 @@ export class CreateUserPage {
         this.isConfirmingSMS = true;
       },
       error => {
-        var msg = 'No se pudo crear el usuario'
+        var msg = 'No se pudo crear el usuario';
         if(error.status = 500){
-          msg = "El correo seleccionado ya está en uso"
+          msg = "El correo seleccionado ya está en uso";
         }
         
         var alert = this.alertCtrl.create({
@@ -149,6 +156,40 @@ export class CreateUserPage {
          }
        );
        modal.present();
+  }
+  nextStep(){
+    this.stepNumber++;
+    switch(this.stepNumber){
+      case 1:
+        this.title = "¿Cómo te llamas?";
+        this.subtitle = null;
+        break;
+      case 2:
+        this.title = "Correo electrónico";
+        this.subtitle = "No spam, prometido";
+        break;
+      case 3:
+        this.title = "Contraseña";
+        this.subtitle = "Recuerda que debe ser mínimo de 8 caracteres";
+        break;
+      case 4:
+        this.title = "¿Quién eres?";
+        this.subtitle = "test";
+        break;
+      case 5:
+        this.title = "¿Quién eres?";
+        this.subtitle = null;
+        break;
+      case 6:
+        this.title = "¿Quién eres?";
+        this.subtitle = "test";
+        break;
+    }
+  }
+
+  previousStep(){
+    this.stepNumber -= 2;
+    this.nextStep();
   }
 
 }

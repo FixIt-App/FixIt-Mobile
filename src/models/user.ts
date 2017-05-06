@@ -7,6 +7,7 @@ export class User {
     lastName: string;
     phone: string;
     email: string;
+    
 
     constructor(data: any) {
         this.username = data.username;
@@ -28,10 +29,27 @@ export class User {
     }
 }
 
+export class CreditCard {
+	number: string;
+    securityNumber: string;
+    expirationYear: string;
+	expirationMonth: string;
+
+    export(): any {
+        var obj: any = {};
+        obj.number = this.number;
+        obj.securityNumber = this.securityNumber;
+        obj.expirationYear = this.expirationYear;
+        obj.expirationMonth = this.expirationMonth;
+        return obj
+    }
+}
+
 export class Customer extends User {
     idCustomer: number;
     city: string;
     confirmations: Confirmation[];
+    creditCard: CreditCard;
 
     constructor(data: any) {
         console.log(data);
