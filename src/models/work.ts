@@ -10,7 +10,7 @@ export class Work {
     address: Address;
     images: number[];
     imagesUrl: string[];
-    needItNow: boolean;
+    asap: boolean;
     worker: Worker;
     state: string;
 
@@ -23,7 +23,7 @@ export class Work {
         this.description = data.description;
         this.address = data.address;
         this.images = data.address;
-        this.needItNow = false;
+        this.asap = false;
         if(data.address)
             this.address = new Address(data.address);
         if(data.worktype)
@@ -46,7 +46,7 @@ export class Work {
             obj.images = this.images;
         else
             obj.images = [];
-        obj.needItNow = this.needItNow;
+        obj.asap = this.asap;
         return obj
     }
 }

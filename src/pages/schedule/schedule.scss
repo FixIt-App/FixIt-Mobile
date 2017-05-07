@@ -7,9 +7,9 @@ page-schedule {
   }
   .row-where {
     .title {
-      font-size: 6vw;
+      font-size: 2.5rem;
       color: color($colors, guns-n-roses);
-      margin: 25px 0px;
+      margin: 5px 0px;
       font-weight: bold;
       margin-left: auto;
       margin-right: auto;
@@ -29,33 +29,47 @@ page-schedule {
     }
   }
   .row-cover {
-    height: 200px;
     ion-card {
-      height: 80%;
+      height: 150px;
     }
     .title-cover {
-      font-size: 6vw;
+      font-size: 2.5rem;
       color: color($colors, guns-n-roses);
-      margin: 13px 8px 13px 0;
+      margin: 5px 8px 5px 0;
       padding-left: 16px;
       font-weight: bold;
     }
     .sub-title-cover {
-      font-size: 4vw;
+      font-size: 1.5rem;
       color: color($colors, korn);
-      margin: 13px 8px 13px 0;
+      margin: 0px 8px 0px 0;
       padding-left: 16px;
       font-weight: bold;
     }
     .cover {
+      height: 100%;
+      
+      .cover-image-container {
         height: 100%;
-        
-        .cover-image-container {
-          height: 100%;
-          background-size: cover;
-          background-repeat: no-repeat;
-          background-position: 50% 50%;
-        }
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
       }
     }
+  }
+  .item-price {
+    .label-md {
+      margin: 0px;
+    }
+    .label-ios {
+      margin: 0px;
+    }
+  }
+
+  .item-ios.item-block .item-inner {
+    border-bottom: none;
+  }
+  .item-md.item-block .item-inner {
+    border-bottom: none;
+  }
 }

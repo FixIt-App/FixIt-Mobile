@@ -19,6 +19,7 @@ export class SchedulePage {
   today: Date;
   addresses: Address[];
   selectedAddress: Address;
+  dynamicPrice: any;
 
   constructor(private navController: NavController,
               private navParams: NavParams,
@@ -60,22 +61,32 @@ export class SchedulePage {
 
   needItNow() {
     this.work.date = new Date();
-    this.work.needItNow = true;
+    this.work.asap = true;
     console.log(this.work);
-    // this.navController.push(WherePage, {
-    //     work: this.work
-    // });
+    this.getDynamicPrice();
   }
 
   editDate() {
-    if(this.work.needItNow) {
-      this.work.needItNow = false;
+    this.dynamicPrice = undefined;
+    if(this.work.asap) {
+      this.work.asap = false;
       this.work.date = undefined;
     } else {
       this.makeDate();
     }
   }
 
+  getDynamicPrice() {
+    this.workService.dynamicPrice(this.work).subscribe(
+      (data) => {
+        console.log(data);
+        this.dynamicPrice = data;
+      },
+      (error) => {
+        console.log(error);
+      }
+    )
+  }
   makeDate() {
     let options = {
       date: new Date(),
@@ -87,6 +98,7 @@ export class SchedulePage {
     this.datePicker.show(options).then(
       date => {
           this.work.date = date;
+          this.getDynamicPrice();
       },
       error => {
           console.log('Error: ' + error);
@@ -113,9 +125,9 @@ export class SchedulePage {
       this.workService.createWork(this.work).subscribe(
         (work) => {
           //TODO (a-santamaria): el need it now deberia guardarse en el servidor
-          let needItNow = this.work.needItNow;
+          let asap = this.work.asap;
           this.work = work;
-          this.work.needItNow = needItNow;
+          this.work.asap = asap;
           
           this.navController.push('ConfirmationPage', {
             work: this.work
