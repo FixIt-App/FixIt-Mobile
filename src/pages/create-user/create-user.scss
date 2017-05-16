@@ -15,8 +15,7 @@ ion-content {
     h2{
       text-align: center;
       color: color($colors, nirvana);
-      font-size: 1.5rem;
-      width: 70vw;
+      font-size: 1.5rem; 
     }
 
     .confirmText {
@@ -24,12 +23,7 @@ ion-content {
     }
 
     form {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      padding: 20px;
-
+      padding: 8vw;
       .item {
         border: 3px solid color($colors, ozzy-osbourne);
         border-radius: 15px;
@@ -42,12 +36,8 @@ ion-content {
       }
 
       #buttons {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: row;
         margin-top: 5vmin;
-
+        padding:0;
         button{
           margin-top: 0px;
           color: color($colors, whitesnake);
@@ -55,13 +45,10 @@ ion-content {
         }
 
         #previous{
-          width: 20vw;
-          margin-right: 3vw;
-          background-color: color($colors, iron-maiden) !important;
+          background-color: color($colors, iron-maiden);
         }
 
         #next{
-          width: 60vw;
           background-color: color($colors, keane);
         }
       }

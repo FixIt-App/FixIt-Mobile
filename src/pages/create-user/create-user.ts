@@ -4,6 +4,7 @@ import { AlertController, ModalController } from 'ionic-angular'
 
 import { UserDataService } from '../../providers/user-data-service'
 import { Customer } from '../../models/user'
+import { CreditCard } from '../../models/credit-card'
 import { CountryCodeSelectorPage } from '../country-code-selector/country-code-selector'
 import { FindWorkPage } from '../findwork/findwork';
 import { ConfirmationService } from '../../providers/confirmation-service';
@@ -30,8 +31,14 @@ export class CreateUserPage {
   isConfirmingSMS: boolean;
   smsCode: number;
   stepNumber: number;
+
   title: string;
   subtitle: string;
+
+  showBackButton: boolean;
+  showNextButton: boolean;
+  disableNextButton: boolean;
+  showSkipButton: boolean;
 
   constructor(private userService: UserDataService,
               private navParams: NavParams,
@@ -44,15 +51,22 @@ export class CreateUserPage {
               public userDataService: UserDataService)
   {
     
-    this.stepNumber = 1;
-    this.title = "¿Cómo te llamas?";
-    this.subtitle = null;
+    
+    if(this.stepNumber == null){
+      this.stepNumber = 1;
+      this.firstStep(); 
+    }
+
+    this.smsCode = 1234;
     
     if(this.navParams.get('customer'))
       this.customer = this.navParams.get('customer');
-    else
+    else{
       this.customer = new Customer({});
-    this.isConfirmingSMS = this.navParams.get('isConfirmingSMS');
+      this.customer.creditCard = new CreditCard();
+      this.customer.creditCard.number = "";
+    }
+      this.isConfirmingSMS = this.navParams.get('isConfirmingSMS');
   }
 
   create() {
@@ -132,7 +146,6 @@ export class CreateUserPage {
 				
 			}
 		);
-			
 	}
 
   sendCodeAgain() {
@@ -157,39 +170,132 @@ export class CreateUserPage {
        );
        modal.present();
   }
+
   nextStep(){
-    this.stepNumber++;
+    let canContinue = false;
+
     switch(this.stepNumber){
+      case -1:
+        canContinue = this.goToLogInView();
+        this.stepNumber = 0;
+        break;
+      case 0:
+        canContinue = this.firstStep();
+        break;
       case 1:
-        this.title = "¿Cómo te llamas?";
-        this.subtitle = null;
+        canContinue = this.secondStep();
         break;
       case 2:
-        this.title = "Correo electrónico";
-        this.subtitle = "No spam, prometido";
+        canContinue = this.thirdStep();
         break;
       case 3:
-        this.title = "Contraseña";
-        this.subtitle = "Recuerda que debe ser mínimo de 8 caracteres";
+        canContinue = this.forthStep();
         break;
       case 4:
-        this.title = "¿Quién eres?";
-        this.subtitle = "test";
+        canContinue =this.fifthStep();
         break;
       case 5:
-        this.title = "¿Quién eres?";
-        this.subtitle = null;
+        canContinue =this.sixthStep();
         break;
       case 6:
-        this.title = "¿Quién eres?";
-        this.subtitle = "test";
+        canContinue = false;//LogIn 
         break;
+    }
+
+    if(canContinue)
+      this.stepNumber++;
+  }
+
+  firstStep(){
+    this.title = "¿Cómo te llamas?";
+    this.subtitle = null;
+
+    this.showNextButton = true;
+    this.showSkipButton = false; 
+
+    return true;
+  }
+
+  secondStep(){
+    this.title = "Contraseña";
+    this.subtitle = "Recuerda que debe ser mínimo de 8 caracteres";
+
+    this.showNextButton = true;
+    this.showSkipButton = false;
+
+    return true;
+  }
+
+  thirdStep(){
+    this.title = "Correo electrónico";
+    this.subtitle = "No spam, prometido";
+
+    this.showNextButton = true;
+    this.showSkipButton = false;
+
+    if(this.isEmailOk()){
+      return true;
+    }else{
+      this.customer.email = "";
+      alert('El correo selecccionado se encuentra en uso');
+      return false;
     }
   }
 
-  previousStep(){
+  forthStep(){
+    this.title = "Número telefónico";
+    this.subtitle = null;
+
+    this.showNextButton = true;
+    this.showSkipButton = false;
+
+    return true; 
+  }
+
+  fifthStep(){
+    this.title = "Confirma tu número";
+    this.subtitle = "Hemos un enviado un código de confirmación de 4 dígitos a tu teléfono "+
+                        "a través de un mensaje de texto, ingresa el código a continuación. ";
+
+    this.showNextButton = true;
+    this.showSkipButton = false;
+
+    if(this.isSmsCodeOk()){
+      return true;
+    }else{
+      this.customer.email = "";
+      alert('El código ingresado es incorrecto');
+      return false;
+    }
+  }
+
+  sixthStep(){
+    this.title = "Tarjeta de crédito";
+    this.subtitle = "Puedes ingresarla más adelante si lo deseas, pero vas a necesitarla para usar nuestros servicios";
+
+    this.showNextButton = true;
+    this.showSkipButton = false; 
+
+    return true;
+  }
+
+  stepBack(){
     this.stepNumber -= 2;
+    if(this.stepNumber < -1)
+      this.stepNumber = -1;
     this.nextStep();
   }
 
+  goToLogInView(){
+    console.log('LogIn Page');
+    return true;
+  }
+
+  isEmailOk(){
+    return true;  
+  }
+
+  isSmsCodeOk(){
+    return true;
+  }
 }

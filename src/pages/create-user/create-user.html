@@ -13,11 +13,11 @@
         </ion-item>
 
         <ion-item *ngIf="stepNumber == 2">
-            <ion-input placeholder="Correo" name="email" [(ngModel)]="customer.email" type="email"></ion-input>
+            <ion-input placeholder="Contraseña" name="password" [(ngModel)]="customer.password" type="password"></ion-input>
         </ion-item>
 
         <ion-item *ngIf="stepNumber == 3">
-            <ion-input placeholder="Contraseña" name="password" [(ngModel)]="customer.password" type="password"></ion-input>
+            <ion-input placeholder="Correo" name="email" [(ngModel)]="customer.email" type="email"></ion-input>
         </ion-item>
 
         <ion-grid no-padding  *ngIf="stepNumber == 4">
@@ -36,27 +36,42 @@
         </ion-grid>
 
         <ion-item *ngIf="stepNumber == 5">
-            <ion-input placeholder="Número" name="password" [(ngModel)]="customer.creditCard.number" type="number"></ion-input>
+            <ion-input placeholder="XXXX" name="smsCode" [(ngModel)]="smsCode" type="number"></ion-input>
         </ion-item>
 
-        <ion-item *ngIf="stepNumber == 5">
-            <ion-input placeholder="Contraseña" name="password" [(ngModel)]="customer.creditCard.securityNumber" type="password"></ion-input>
-        </ion-item>
+        <div id="credit-card" *ngIf="stepNumber == 6">   
+            <ion-item>
+                <ion-input placeholder="Tarjeta de crédito" name="creditCardNumber" [(ngModel)]="customer.creditCard.number" type="number"></ion-input>
+            </ion-item>
+            <ion-grid>
+            <ion-row id="expiration-date-and-security-number">
+                 <ion-col col-3>
+                    <ion-item>
+                        <ion-input placeholder="MM" name="expirationMonth" [(ngModel)]="customer.creditCard.expirationMonth" type="number"></ion-input>
+                    </ion-item>
+                 </ion-col>
+                 <ion-col col-3>    
+                    <ion-item>
+                        <ion-input placeholder="YY" name="expirationYear" [(ngModel)]="customer.creditCard.expirationYear" type="number"></ion-input>
+                    </ion-item>
+                 </ion-col>
 
-        <ion-item *ngIf="stepNumber == 5">
-            <ion-input placeholder="Contraseña" name="password" [(ngModel)]="customer.creditCard.expirationYear" type="password"></ion-input>
-        </ion-item>
-
-        <ion-item *ngIf="stepNumber == 5">
-            <ion-input placeholder="Contraseña" name="password" [(ngModel)]="customer.creditCard.expirationMonth" type="password"></ion-input>
-        </ion-item>
-
-        <div id="buttons">
-            <button id="previous" ion-button round full color="light-green" *ngIf="stepNumber > 1" (click)="previousStep()">
-                 <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
-            </button>
-            <button id="next" ion-button round full color="light-green" (click)="nextStep()"> Siguiente</button>
+                 <ion-col col-4 offset-2>
+                    <ion-item>
+                        <ion-input placeholder="CVV" name="securityNumber" [(ngModel)]="customer.creditCard.securityNumber" type="number"></ion-input>
+                    </ion-item>
+                 </ion-col>
+            </ion-row>
+            </ion-grid>
         </div>
+
+        <ion-row id="buttons">
+            <button col-3 id="previous" ion-button round full color="light-green" (click)="stepBack()">
+                 <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            </button> 
+            <button col-8 offset-1 id="next" ion-button round full color="light-green" (click)="nextStep()"> Siguiente</button>
+            <button col-8 offset-1 id="next" ion-button round full color="light-green" *ngIf="showSkipButton" (click)="nextStep()">Omitir</button>
+        </ion-row>
     </form>
 
     <div *ngIf="isConfirmingSMS">
