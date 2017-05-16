@@ -81,6 +81,38 @@ export class WorkService {
                     .catch(this.handleError)
   }
 
+  confirmWorker(workerUrl: string, work: Work) {
+    this.token = localStorage.getItem('token');
+    let createWorkUrl: string = `${SERVER_URL}${workerUrl}work/${work.id}/confirmation/`;
+    var headers = new Headers({ 'Content-Type': 'application/json', 
+                                'Accept': 'application/json',
+                                'Authorization': `Token ${this.token}`
+                            });
+    
+    var options = new RequestOptions({ headers: headers });
+    return this.http.post(createWorkUrl, null, options)
+                    .map(response => new Work(response.json()))
+                    .catch(this.handleError)
+  }
+
+  dynamicPrice(work: Work) {
+    let createWorkUrl: string = `${SERVER_URL}/api/dynamicprice/`;
+      var headers = new Headers({ 'Content-Type': 'application/json', 
+                                  'Accept': 'application/json',
+                                  'Authorization': `Token ${this.token}`
+                              });
+      var params = {
+        asap: work.asap,
+        date: work.date.toISOString(),
+        worktypeid: work.workType.id
+      };
+      console.log(params);
+      var options = new RequestOptions({ headers: headers, params: params });
+      return this.http.get(createWorkUrl, options)
+                      .map(response => response.json())
+                      .catch(this.handleError)
+  }
+
   private extractWorks(rawWorks: any): Observable<Work[]> {
     return rawWorks.map(rawWork => {
       console.log(rawWork);

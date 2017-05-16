@@ -17,7 +17,6 @@
 <ion-content>
   <ion-grid>
     <ion-row class="row-cover">
-
       <ion-col col-4>
         <ion-card>
           <div class="cover">
@@ -29,16 +28,36 @@
 
       <ion-col col-8>
         <div class="title-cover">{{ work.workType.name }}</div>
+        <ion-row *ngIf="!dynamicPrice">
+          <div class="sub-title-cover" *ngIf="work.workType.price_type == 'STANDARIZED' ">
+            {{ work.workType.price | currency:'usd':true:'4.0' }}
+          </div>
+          <div class="sub-title-cover" *ngIf="work.workType.price_type == 'NOT_STANDARIZED' ">
+            Desde: {{ work.workType.price | currency:'usd':true:'4.0' }}
+          </div>
+        </ion-row>
 
-        <div class="sub-title-cover" *ngIf="work.workType.price_type == 'STANDARIZED' ">
-          {{ work.workType.price | currency:'usd':true:'4.0' }}
-        </div>
-        <div class="sub-title-cover" *ngIf="work.workType.price_type == 'NOT_STANDARIZED' ">
-          Desde: {{ work.workType.price | currency:'usd':true:'4.0' }}
-        </div>
+        <ion-row *ngIf="dynamicPrice">
+          <div class="sub-title-cover" *ngIf="dynamicPrice.asap">Recargos</div>
 
+          <ion-item class="item-price" *ngIf="dynamicPrice.asap">
+            <ion-icon name="moon" item-left small></ion-icon>
+            <h5>Lo necesito ya</h5>
+            <p>{{ dynamicPrice.asap | currency:'usd':true:'4.0' }}</p>
+          </ion-item>
+          <ion-item class="item-price" *ngIf="dynamicPrice.time">
+            <ion-icon name="time" item-left small></ion-icon>
+            <h5>Horario</h5>
+            <p>{{ dynamicPrice.time | currency:'usd':true:'4.0' }}</p>
+          </ion-item>
+           <!--<ion-item class="item-price" *ngIf="dynamicPrice.price">
+            <ion-icon name="logo-usd" item-left small></ion-icon>
+            <h5>Precio Total</h5>
+            <p>{{ dynamicPrice.price | currency:'usd':true:'4.0' }}</p>
+          </ion-item>-->
+          <div class="sub-title-cover">Precio: {{ dynamicPrice.price | currency:'usd':true:'4.0' }}</div>
+        </ion-row>
       </ion-col>
-
     </ion-row>
 
     <ion-row *ngIf="!work.date">
@@ -54,8 +73,8 @@
       <ion-col>
         <button ion-button icon-left color="guns-n-roses" (click)="editDate()" block>
           <ion-icon name="create"></ion-icon> 
-          <span *ngIf="!work.needItNow">{{ work.date | date:'medium'  }}</span>
-          <span *ngIf="work.needItNow"> Lo Necesito ya: {{ work.date | date:'medium'  }} </span>
+          <span *ngIf="!work.asap">{{ work.date | date:'medium'  }}</span>
+          <span *ngIf="work.asap"> Lo Necesito ya: {{ work.date | date:'medium'  }} </span>
         </button>  
       </ion-col>
     </ion-row>
@@ -75,7 +94,7 @@
         </ion-select>
       </ion-col>
       <ion-col col-2>
-        <button ion-button icon-only round color="guns-n-roses" (click)="newAddress()" block>
+        <button ion-button icon-only clear round color="guns-n-roses" (click)="newAddress()" block>
           <ion-icon name="add"></ion-icon>
         </button>  
       </ion-col>

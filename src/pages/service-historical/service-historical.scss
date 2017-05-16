@@ -1,4 +1,21 @@
 page-service-historical {
+  .noWorks {
+    background: #f1f1f1;
+    padding: 20px 25px;
+    margin-top: 20px;
+    h3 {
+      color: color($colors, metallica);
+    }
+    p {
+      color: #717171 !important;
+      font-size: 13px !important;
+    }
+    ion-icon {
+       color: color($colors, metallica);
+       font-size: 2.2em;
+    }
+  }
+  
   ion-col {
     height: 100%;
   }

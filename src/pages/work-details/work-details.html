@@ -21,6 +21,7 @@
       <div class="work-sub-title">
         <span *ngIf="work.state == 'ORDERED'"> Asignando... </span>
         <span *ngIf="work.state == 'SCHEDULED'"> Programado </span>
+        <span *ngIf="work.state == 'IN_PROGRESS'"> En Progresso </span>
       </div>
     </ion-row>
 
@@ -36,20 +37,25 @@
     <ion-row>
       <ion-col col-6 class="avatar">
         <img *ngIf="work.worker" id="avatar-img" [src]="work.worker.profile_pic">
-        <img *ngIf="!work.worker" id="avatar-img" src="http://ionicframework.com/dist/preview-app/www/assets/img/avatar-ts-woody.png">
+        <img *ngIf="!work.worker" id="avatar-img" src="assets/fixit_default_pf.svg">
         <br>
         <p *ngIf="work.worker"> {{ work.worker.first_name }} {{ work.worker.last_name }} </p>
         <p *ngIf="!work.worker"> Por asignar </p>
       </ion-col>
       <ion-col col-6 class="avatar">
-        <button *ngIf="work.worker" ion-button id="qr-button" clear (click)="registerQR()">
+        <div *ngIf="work.state == 'IN_PROGRESS'">
+          <ion-icon id="check" name="checkmark-circle-outline"></ion-icon>
+          <br>
+          <label>Identidad de Trabajador Confirmada</label>
+        </div>
+        <button *ngIf="work.worker && work.state != 'IN_PROGRESS'" ion-button id="qr-button" clear (click)="registerQR()">
           <div>
           <img id="qr-img" src="https://d30y9cdsu7xlg0.cloudfront.net/png/78107-200.png">
           <br>
           <label>Registra el código del trabajador aquí</label>
           </div>
         </button>
-        <p *ngIf="!work.worker">
+        <p *ngIf="!work.worker && work.state != 'IN_PROGRESS'">
           Estamos buscando el trabajador. Te llegará una notificación apenas sea asingndo.
         </p>
       </ion-col>

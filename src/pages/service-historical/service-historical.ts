@@ -1,3 +1,4 @@
+import { FindWorkPage } from './../findwork/findwork';
 import { Component } from '@angular/core';
 import { NavController, NavParams, IonicPage } from 'ionic-angular';
 
@@ -54,6 +55,10 @@ export class ServiceHistoricalPage {
       return true;
     }
     return false;
+  }
+
+  goToFindWorks() {
+    this.navCtrl.setRoot(FindWorkPage);
   }
 
 }

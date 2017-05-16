@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, Events } from 'ionic-angular';
+import { NavController, Events, LoadingController, Loading } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 
 import { FindWorkPage } from '../findwork/findwork';
@@ -20,13 +20,15 @@ export class LoginPage {
 	password: string;
 	authenticatingUser: boolean;
 	passwordType: string;
+	loader: Loading;
 
 	constructor(private navController: NavController,
 							private authService: AuthService,
 							public alertCtrl: AlertController,
 							public events: Events,
 							public userDataService: UserDataService,
-							public confirmationService: ConfirmationService)
+							public confirmationService: ConfirmationService,
+							public loadingCtrl: LoadingController)
 	{
 		this.authenticatingUser = true;
 		this.passwordType = "password";
@@ -42,7 +44,8 @@ export class LoginPage {
 		}
 	}
 
-	login(){
+	login() {
+		this.presentLoader();
 		this.authService.login(this.username, this.password).subscribe(
 			token => {
 				console.log(token.token);
@@ -63,6 +66,7 @@ export class LoginPage {
 						subTitle: msg,
 						buttons: ['OK']
 				});
+				this.dismissLoader();
 				alert.present();
 			})
 	}
@@ -85,9 +89,11 @@ export class LoginPage {
 					console.log(customer);
 					this.navController.setRoot(FindWorkPage);
 				}
+				this.dismissLoader();
 			},  
 			error => {
 				this.authenticatingUser = false;
+				this.dismissLoader();
 			}
 		);
 			
@@ -102,6 +108,17 @@ export class LoginPage {
 	togglePassword() {
 		console.log('hola');
 		this.passwordType = (this.passwordType == "text") ? "password" : "text";
+	}
+
+	presentLoader() {
+		this.loader = this.loadingCtrl.create({spinner: 'crescent'});
+    this.loader.present();
+	}
+
+	dismissLoader() {
+		if(this.loader) {
+			this.loader.dismiss();
+		}
 	}
 }
 

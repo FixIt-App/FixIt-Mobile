@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChildren, QueryList, ViewChild, ElementRef } from '@angular/core';
-import { NavController, Slides, Content } from 'ionic-angular';
+import { NavController, Slides, Content, Platform } from 'ionic-angular';
 import { WorkTypeService } from '../../providers/wortktype-service'
 import { SchedulePage } from '../schedule/schedule'
 import { UserDataService } from '../../providers/user-data-service';
@@ -34,10 +34,10 @@ export class FindWorkPage implements OnInit {
   constructor(private navController: NavController,
               private workTypeService: WorkTypeService,
               public userDataService: UserDataService,
+              private platform: Platform,
               public myElement: ElementRef)
   {
     this.startingSlides = true;
-    this.work = new Work({});
     this.showheader = false;
     this.hideheader = true;
   }
@@ -57,14 +57,18 @@ export class FindWorkPage implements OnInit {
   }
 
   initializeSlides() {
-    this.sleep(300).then(() => {
+    this.sleep(500).then(() => {
       this.startingSlides = false;
     });
     this.slides.changes.subscribe(
       (slides: QueryList<Slides>) => {
         slides.map(
           (slide) => {
-            slide.slidesPerView = 3;
+            console.log('Width: ' + this.platform.width());
+            if(this.platform.width() > 700)
+            slide.slidesPerView = 5;
+            else
+              slide.slidesPerView = 3;
             slide.pager = true;
             slide.paginationType = 'bullets';
             // slide.freeMode = true;
@@ -74,7 +78,8 @@ export class FindWorkPage implements OnInit {
 
   }
 
-  goToNextStep(selectedWork: WorkType){
+  goToNextStep(selectedWork: WorkType) {
+    this.work = new Work({});
     this.work.workType = selectedWork;
     console.log(this.work);
     if(this.work.workType.price_type != 'UNKNOWN') {

@@ -1,3 +1,4 @@
+import { FindWorkPage } from './../findwork/findwork';
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController, NavParams, IonicPage, Content } from 'ionic-angular';
 
@@ -39,7 +40,7 @@ export class NextServicesPage {
 
   ionViewDidLoad() {
     this.listenToScroll();
-    this.workService.getMyWorks(['ORDERED', 'SCHEDULED']).subscribe(
+    this.workService.getMyWorks(['ORDERED', 'SCHEDULED',  'IN_PROGRESS']).subscribe(
       (works) => {
         this.works = works;
         console.log(this.works);
@@ -96,6 +97,10 @@ export class NextServicesPage {
         }
         this.slideHeaderPrevious = this.ionScroll.scrollTop - this.start;
       });
+  }
+
+  goToFindWorks() {
+    this.navCtrl.setRoot(FindWorkPage);
   }
 
 }

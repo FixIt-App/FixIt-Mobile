@@ -6,7 +6,7 @@
   "proxies": [
     {
       "path": "/api",
-      "proxyUrl": "http://35.166.206.134:8080/api"
+      "proxyUrl": "https://gleis.fix-it.com.co/api"
     }
   ]
 }

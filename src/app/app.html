@@ -4,9 +4,9 @@
       <ion-list no-lines>
         <button ion-item color="primary">
           <ion-avatar item-left>
-            <img src="http://ionicframework.com/dist/preview-app/www/assets/img/avatar-ts-woody.png">
+            <img src="assets/fixit_default_pf_white.png">
           </ion-avatar>
-          <h1 *ngIf="customer"> {{ customer.firstName }} {{ customer.lastName }} </h1>
+          <h1 *ngIf="customer"> {{ customer.firstName }} </h1>
         </button>
       </ion-list>
     </ion-toolbar>
@@ -15,6 +15,7 @@
   <ion-content>
     <ion-list no-lines>
       <button menuClose ion-item class="item-menu" *ngFor="let p of pages" (click)="openPage(p)">
+        <ion-icon [name]="p.icon" item-left></ion-icon>
         {{p.title}}
       </button>
     </ion-list>

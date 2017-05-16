@@ -1,0 +1,102 @@
+<ion-header>
+
+  <ion-navbar hideBackButton>
+    <ion-buttons left>
+      <button ion-button style="margin: 0px 6px;" icon-only (click)="goBack()">
+        <ion-icon name="arrow-back"></ion-icon>
+        <span showWhen="ios">Back</span>
+      </button>
+    </ion-buttons>
+    <ion-title>Editar cuenta</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-list no-lines *ngIf="field == ''">
+    <ion-item clear class="avatar" (click)="editProfile()">
+      <!--TODO (a-santamari): USER AVATAR-->
+      <img id="avatar-img" src="assets/fixit_default_pf.svg">
+      <!--<ion-icon id="item-edit" isActive="false" name="create" item-right></ion-icon>-->
+    </ion-item>
+
+    <ion-list-header color="ac-dc">
+      Nombre
+    </ion-list-header>
+    <ion-item (click)="edit('first_name')">
+      {{ customer.firstName }}
+      <ion-icon name="person" color="metallica" item-left></ion-icon>
+    </ion-item>
+
+    <ion-list-header color="ac-dc">
+      Apellido
+    </ion-list-header>
+    <ion-item (click)="edit('last_name')">
+      {{ customer.lastName }}
+      <ion-icon name="person" color="metallica" item-left></ion-icon>
+    </ion-item>
+
+    <ion-list-header color="ac-dc">
+      Celular
+    </ion-list-header>
+    <ion-item (click)="edit('phone')">
+      {{ customer.phone }}
+      <ion-icon name="call" color="metallica" item-left></ion-icon>
+    </ion-item>
+
+    <ion-list-header color="ac-dc">
+      Email
+    </ion-list-header>
+    <ion-item (click)="edit('email')">
+      {{ customer.email }}
+      <ion-icon name="at" color="metallica" item-left></ion-icon>
+    </ion-item>
+
+    <ion-list-header color="ac-dc">
+      Contraseña
+    </ion-list-header>
+    <ion-item (click)="edit('password')">
+      ****
+      <ion-icon name="lock" color="metallica" item-left></ion-icon>
+    </ion-item>
+    
+
+  </ion-list>
+  <div *ngIf="field != ''" style="padding: 16px;">
+    <form>
+      <ion-item *ngIf="field == 'first_name'">
+        <ion-label stacked>Nombre</ion-label>
+        <ion-input name="firstName" type="text" [(ngModel)]="fieldValue"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="field == 'last_name'">
+        <ion-label stacked>Apellido</ion-label>
+        <ion-input name="lastName" type="text" [(ngModel)]="fieldValue"></ion-input>
+      </ion-item>
+      <ion-grid no-padding *ngIf="field == 'phone'">
+          <ion-row>
+              <ion-col col-4>
+                  <ion-item class="country-code" (click)="gotToSelectCountry()">
+                      <span *ngIf="selectedCountry"> {{ selectedCountry.emoji }} 	&nbsp; {{ selectedCountry.countryCallingCodes[0] }} </span>
+                  </ion-item>
+              </ion-col>
+              <ion-col col-8>
+                  <ion-item>
+                      <ion-input placeholder="Celular" name="phone" [(ngModel)]="fieldValue" type="tel"></ion-input>
+                  </ion-item>
+              </ion-col>
+          </ion-row>
+      </ion-grid>
+      <ion-item *ngIf="field == 'email'">
+        <ion-label stacked>Email</ion-label>
+        <ion-input name="email" type="text" [(ngModel)]="fieldValue"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="field == 'password'">
+        <ion-label stacked>Nueva contraseña</ion-label>
+        <ion-input name="email" type="password" [(ngModel)]="fieldValue"></ion-input>
+      </ion-item>
+    </form>
+    <br>
+    <button ion-button block (click)="saveField()">Guardar</button>
+  </div>
+</ion-content>
