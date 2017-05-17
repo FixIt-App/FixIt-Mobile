@@ -284,7 +284,7 @@ export class CreateUserPage {
         this.showSkipButton = false; 
         this.stepNumber++;
         break;
-      case 6: 
+      case 6: //payment -> findeworks
         canContinue = false;//LogIn 
         if(canContinue)
           this.stepNumber++;
@@ -303,23 +303,22 @@ export class CreateUserPage {
   }
 
   disableNext() {
-    console.log(this.stepNumber);
     switch(this.stepNumber) {
       case -1:
         return false;
       case 0:
         return true;
-      case 1:
+      case 1: //names
         return !this.isNameValid();
-      case 2:
+      case 2: //password
         return !this.isPasswordValid();
-      case 3:
+      case 3: //email
         return !this.isEmailValid();
-      case 4:
+      case 4: //phone
         return !this.isPhoneValid();
-      case 5:
+      case 5: // sms
         return false;
-      case 6:
+      case 6: // payment method
        return false;
     }
   }
