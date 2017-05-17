@@ -69,14 +69,15 @@
             <button col-3 id="previous" ion-button round full color="light-green" (click)="stepBack()">
                  <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
             </button> 
-            <button col-8 offset-1 id="next" ion-button round full color="light-green" (click)="nextStep()"> Siguiente</button>
+            <button col-8 offset-1 id="next" ion-button round full color="light-green" (click)="nextStep()" [disabled]="disableNext()"> Siguiente</button>
             <button col-8 offset-1 id="next" ion-button round full color="light-green" *ngIf="showSkipButton" (click)="nextStep()">Omitir</button>
         </ion-row>
     </form>
 
     <div *ngIf="isConfirmingSMS">
         <form>
-            <h3 class="confirmText">A tu celular llegará un mensaje de texto con el código de confirmación</h3>
+            <h1 *ngIf="this.title != null">{{title}}</h1>
+            <h2 *ngIf="this.title != null && this.subtitle != null">{{subtitle}}</h2>
             <ion-item>
                 <ion-input placeholder="Código" name="codigo" [(ngModel)]="smsCode" type="number"></ion-input>
             </ion-item>

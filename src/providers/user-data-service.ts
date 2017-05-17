@@ -50,11 +50,31 @@ export class UserDataService {
      return this.http.put(customerURI, body, options)
                 .map(response => new Customer(response.json()))
                 .catch(this.handleError)
-  } 
+  }
+
+  isEmailAvailable(email: string): Observable<boolean> {
+    let emailAvailableURI: string = `${SERVER_URL}/api/customer/email/${email}/available/`
+    var headers = new Headers({ 'Content-Type': 'application/json', 
+                                'Accept': 'application/json'});
+    console.log(emailAvailableURI);
+    var options = new RequestOptions({ headers: headers });
+    return this.http.get(emailAvailableURI, options)
+            .map(response => response.json() )
+  }
+
+  isPhoneAvailable(phone: string): Observable<boolean> {
+    let phoneAvailableURI: string = `${SERVER_URL}/api/customer/phone/${phone}/available/`
+    var headers = new Headers({ 'Content-Type': 'application/json', 
+                                'Accept': 'application/json'});
+    console.log(phoneAvailableURI);
+    var options = new RequestOptions({ headers: headers });
+    return this.http.get(phoneAvailableURI, options)
+            .map(response => response.json() )
+  }
 
   private handleError(error: any): Observable<any> {
         console.error('An error occurred', error);
         return Observable.throw(error.message || error);
-    }
+  }
 
 }
