@@ -1,6 +1,6 @@
 import { FindWorkPage } from './../findwork/findwork';
-import { Component } from '@angular/core';
-import { NavController, NavParams, IonicPage } from 'ionic-angular';
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import { NavController, NavParams, IonicPage, Content } from 'ionic-angular';
 
 import { Work } from '../../models/work'
 import { WorkService } from '../../providers/work-service';
@@ -12,12 +12,25 @@ import { WorkService } from '../../providers/work-service';
 })
 export class ServiceHistoricalPage {
 
-  works: Work[];
+  currentWorks: Work[];
+  finishedWorks: Work[];
   today: Date;
   tomorrow: Date;
+
+   // for autohide header
+  @ViewChild(Content) content: Content;
+  start = 0;
+  threshold = 100;
+  slideHeaderPrevious = 0;
+  ionScroll:any;
+  showheader:boolean;
+  hideheader:boolean;
+  headercontent:any;
+
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
-              private workService: WorkService)
+              private workService: WorkService,
+              public myElement: ElementRef)
   {
     this.today = new Date();
     this.tomorrow = new Date(this.today.getFullYear(), this.today.getMonth(), 
@@ -25,16 +38,25 @@ export class ServiceHistoricalPage {
   }
 
   ionViewDidLoad() {
-    this.workService.getMyWorks(['FINISHED']).subscribe(
+    this.workService.getMyWorks(['ORDERED', 'SCHEDULED']).subscribe(
       (works) => {
-        this.works = works;
-        console.log(this.works);
-        this.works.reverse();
+        this.currentWorks = works;
+        console.log(this.currentWorks);
       },
       (error) => {
 
       }
-    )
+    );
+    this.workService.getMyWorks(['FINISHED']).subscribe(
+      (works) => {
+        this.finishedWorks = works;
+        console.log(this.finishedWorks);
+        this.finishedWorks.reverse();
+      },
+      (error) => {
+
+      }
+    );
   }
 
   isToday(date: Date) {
@@ -57,8 +79,35 @@ export class ServiceHistoricalPage {
     return false;
   }
 
+   listenToScroll() {
+    this.ionScroll = this.myElement.nativeElement.getElementsByClassName('scroll-content')[0];
+    console.log(this.ionScroll)
+    // On scroll function
+    this.ionScroll.addEventListener("scroll", 
+      () => {
+        console.log('entre a scrol');
+        if(this.ionScroll.scrollTop - this.start > this.threshold) {
+          this.showheader =true;
+          this.hideheader = false;
+        } else {
+          this.showheader =false;
+          this.hideheader = true;
+        }
+        if (this.slideHeaderPrevious >= this.ionScroll.scrollTop - this.start) {
+          this.showheader =false;
+          this.hideheader = true;
+        }
+        this.slideHeaderPrevious = this.ionScroll.scrollTop - this.start;
+      });
+  }
+
   goToFindWorks() {
     this.navCtrl.setRoot(FindWorkPage);
   }
 
+  goToDetails(work: Work) {
+    this.navCtrl.push('WorkDetailsPage', {
+      work: work
+    });
+  }
 }
