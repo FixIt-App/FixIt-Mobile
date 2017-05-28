@@ -22,6 +22,7 @@
         <span *ngIf="work.state == 'ORDERED'"> Asignando... </span>
         <span *ngIf="work.state == 'SCHEDULED'"> Programado </span>
         <span *ngIf="work.state == 'IN_PROGRESS'"> En Progresso </span>
+        <span *ngIf="work.state == 'FINISHED'"> Terminado </span>
       </div>
     </ion-row>
 
@@ -63,11 +64,8 @@
     <ion-row *ngIf="!work.worker" class="assigning">
       <div *ngIf="work.state != 'IN_PROGRESS'">
         <h6>
-          <strong>Estamos buscando el mejor trabajador para ti.</strong>
+          Estamos buscando el mejor trabajador para ti, pronto recibirás una notificación del trabajador asignado.
         </h6>
-        <p>
-          pronto recibirás una notificación del trabajador asignado.
-        </p>
       </div>
     </ion-row>
 
