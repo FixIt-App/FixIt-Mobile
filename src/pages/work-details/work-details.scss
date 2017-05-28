@@ -40,6 +40,19 @@ page-work-details {
       }
     }
   }
+
+  .assigning {
+    div {
+      color: color($colors, alice-cooper);
+      text-align: center;
+      background-color: color($colors, primary);
+      padding: 12px;
+      border-radius: 15px;
+      p {
+        margin: 0px;
+      }
+    }
+  }
   .icon-top {
     margin: 0 0 5px
   }

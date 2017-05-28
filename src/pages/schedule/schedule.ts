@@ -87,6 +87,7 @@ export class SchedulePage {
       }
     )
   }
+
   makeDate() {
     let options = {
       date: new Date(),
@@ -129,7 +130,7 @@ export class SchedulePage {
           this.work = work;
           this.work.asap = asap;
           
-          this.navController.push('ConfirmationPage', {
+          this.navController.setRoot('WorkDetailsPage', {
             work: this.work
           });
         },
