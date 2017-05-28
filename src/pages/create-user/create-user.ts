@@ -351,7 +351,7 @@ export class CreateUserPage {
   isPhoneValid() {
     if(!this.phone)
       return false;
-    if((''+this.phone).length == 10)
+    if((''+this.phone).length >= 9 && (''+this.phone).length <= 10)
       return true;
     else 
       return false;

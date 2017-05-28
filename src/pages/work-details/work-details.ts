@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, ActionSheetController } from 'ionic-angular';
 import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner';
 
 import { Work } from '../../models/work';
@@ -18,6 +18,7 @@ export class WorkDetailsPage {
               public navParams: NavParams,
               private workService: WorkService,
               private alertCtrl: AlertController,
+              private actionSheetCtrl: ActionSheetController,
               private barcodeScanner: BarcodeScanner) 
   {
     this.work = navParams.get('work');
@@ -38,9 +39,30 @@ export class WorkDetailsPage {
     })
   }
 
-  cancelWork() {
-    // TODO
-    console.log('TODO');
+  help() {
+    let actionSheet = this.actionSheetCtrl.create({
+      title: 'Ayuda',
+      buttons: [
+        {
+          text: 'Contáctanos',
+          icon: 'call',
+          handler: () => {
+            // todo (a-santamria)
+            console.log('todo contactanos');
+          }
+        },
+        {
+          text: 'Cancelar trabajo',
+          role: 'destructive',
+          icon: 'trash',
+          handler: () => {
+            // todo (a-santamria)
+            console.log('todo cancel');
+          }
+        },
+      ]
+    });
+    actionSheet.present();
   }
 
   registerQR() {
