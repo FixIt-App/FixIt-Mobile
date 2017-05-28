@@ -16,6 +16,7 @@ export class AddressService {
     }
 
     getCustomerAddresses(): Observable<any> {
+        this.token = localStorage.getItem('token');
         let getAddressesUrl: string = `${SERVER_URL}/api/myadresses/`;
         var headers = new Headers({ 'Content-Type': 'application/json', 
                                     'Accept': 'application/json',
@@ -30,6 +31,7 @@ export class AddressService {
 
     addCustomerAddress(newAddres: Address): Observable<any> {
         console.log(newAddres);
+        this.token = localStorage.getItem('token');
         let getAddressesUrl: string = `${SERVER_URL}/api/addresses/`;
         var headers = new Headers({ 'Content-Type': 'application/json', 
                                     'Accept': 'application/json',

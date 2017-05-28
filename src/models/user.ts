@@ -1,4 +1,5 @@
 import { Confirmation } from './confirmation';
+import { CreditCard } from './credit-card';
 
 export class User {
     username: string;
@@ -7,6 +8,7 @@ export class User {
     lastName: string;
     phone: string;
     email: string;
+    
 
     constructor(data: any) {
         this.username = data.username;
@@ -32,6 +34,7 @@ export class Customer extends User {
     idCustomer: number;
     city: string;
     confirmations: Confirmation[];
+    creditCard: CreditCard;
 
     constructor(data: any) {
         console.log(data);

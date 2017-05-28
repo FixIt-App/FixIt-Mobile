@@ -28,19 +28,22 @@
     <ion-row>
       <div class="time">
         <ion-icon name='calendar' icon-left></ion-icon>
-        <label>{{ work.date | date:'short' }}</label>
+        <label>{{ work.date | formatDayOfWeek }}, {{work.date.getDate()}} de {{ work.date | formatMonth }}</label>
+        <ion-icon ios="ios-clock" md="md-clock"></ion-icon>
+        <label>
+          <span *ngIf="!work.needItNow" class="input-label">{{ work.date | formatTime }}</span>
+          <span *ngIf="work.needItNow" class="input-label  needItNow">Ahora mismo</span>
+        </label>
       </div>
     </ion-row>
 
     <hr style="width: 95%; margin: 15px auto;">
 
-    <ion-row>
+    <ion-row *ngIf="work.worker">
       <ion-col col-6 class="avatar">
-        <img *ngIf="work.worker" id="avatar-img" [src]="work.worker.profile_pic">
-        <img *ngIf="!work.worker" id="avatar-img" src="assets/fixit_default_pf.svg">
+        <img id="avatar-img" [src]="work.worker.profile_pic">
         <br>
-        <p *ngIf="work.worker"> {{ work.worker.first_name }} {{ work.worker.last_name }} </p>
-        <p *ngIf="!work.worker"> Por asignar </p>
+        <p> {{ work.worker.first_name }} {{ work.worker.last_name }} </p>
       </ion-col>
       <ion-col col-6 class="avatar">
         <div *ngIf="work.state == 'IN_PROGRESS'">
@@ -48,17 +51,24 @@
           <br>
           <label>Identidad de Trabajador Confirmada</label>
         </div>
-        <button *ngIf="work.worker && work.state != 'IN_PROGRESS'" ion-button id="qr-button" clear (click)="registerQR()">
+        <button *ngIf="work.state != 'IN_PROGRESS'" ion-button id="qr-button" clear (click)="registerQR()">
           <div>
           <img id="qr-img" src="https://d30y9cdsu7xlg0.cloudfront.net/png/78107-200.png">
           <br>
           <label>Registra el código del trabajador aquí</label>
           </div>
         </button>
-        <p *ngIf="!work.worker && work.state != 'IN_PROGRESS'">
-          Estamos buscando el trabajador. Te llegará una notificación apenas sea asingndo.
-        </p>
       </ion-col>
+    </ion-row>
+    <ion-row *ngIf="!work.worker" class="assigning">
+      <div *ngIf="work.state != 'IN_PROGRESS'">
+        <h6>
+          <strong>Estamos buscando el mejor trabajador para ti.</strong>
+        </h6>
+        <p>
+          pronto recibirás una notificación del trabajador asignado.
+        </p>
+      </div>
     </ion-row>
 
     <ion-row *ngIf="work.worker" style="margin: auto;">
@@ -81,11 +91,11 @@
         </button>
       </ion-col>
       <ion-col col-6 class="row-right">
-        <button ion-button block clear (click)="cancelWork()">
+        <button ion-button block clear (click)="help()">
           <div>
-            <ion-icon class="icon-top" name="close-circle"></ion-icon>
+            <ion-icon class="icon-top" name="information-circle"></ion-icon>
             <br>
-            <label>Cancelar</label>
+            <label>Ayuda</label>
           </div>
         </button>
       </ion-col>

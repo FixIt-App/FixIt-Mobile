@@ -1,26 +1,26 @@
 <ion-content>
     <form *ngIf="!isConfirmingSMS">
-        <ion-item>
+
+        <h1 *ngIf="this.title != null">{{title}}</h1>
+        <h2 *ngIf="this.title != null && this.subtitle != null">{{subtitle}}</h2>
+
+        <ion-item *ngIf="stepNumber == 1">
             <ion-input placeholder="Nombre" name="name" [(ngModel)]="customer.firstName" type="text"></ion-input>
-            <ion-icon name="person" color="light-green" item-left></ion-icon>
         </ion-item>
 
-        <ion-item>
+        <ion-item *ngIf="stepNumber == 1">
             <ion-input placeholder="Apellido" name="lastname" [(ngModel)]="customer.lastName" type="text"></ion-input>
-            <ion-icon name="person" color="light-green" item-left></ion-icon>
         </ion-item>
 
-        <ion-item>
-            <ion-input placeholder="Correo" name="email" [(ngModel)]="customer.email" type="email"></ion-input>
-            <ion-icon name="at" color="light-green" item-left></ion-icon>
-        </ion-item>
-
-        <ion-item>
+        <ion-item *ngIf="stepNumber == 2">
             <ion-input placeholder="Contraseña" name="password" [(ngModel)]="customer.password" type="password"></ion-input>
-            <ion-icon name="lock" color="light-green" item-left></ion-icon>
         </ion-item>
 
-        <ion-grid no-padding>
+        <ion-item *ngIf="stepNumber == 3">
+            <ion-input placeholder="Correo" name="email" [(ngModel)]="customer.email" type="email"></ion-input>
+        </ion-item>
+
+        <ion-grid no-padding  *ngIf="stepNumber == 4">
             <ion-row>
                 <ion-col col-3>
                     <ion-item class="country-code" (click)="goToSelectCountry()">
@@ -30,23 +30,54 @@
                 <ion-col col-8 offset-1>
                     <ion-item>
                         <ion-input placeholder="Teléfono" name="phone" [(ngModel)]="phone" type="tel"></ion-input>
-                        <ion-icon name="call" color="light-green" item-left></ion-icon>
                     </ion-item>
                 </ion-col>
             </ion-row>
         </ion-grid>
 
-        <div style="margin-top: 5vh;">
-            <button ion-button round full color="light-green" (click)="create()"> Crear Usuario</button>
-            <button ion-button round full color="danger" (click)="goBack()">
-                Cerrar
-            </button>
+        <ion-item *ngIf="stepNumber == 5">
+            <ion-input placeholder="XXXX" name="smsCode" [(ngModel)]="smsCode" type="number"></ion-input>
+        </ion-item>
+
+        <div id="credit-card" *ngIf="stepNumber == 6">   
+            <ion-item>
+                <ion-input placeholder="Tarjeta de crédito" name="creditCardNumber" [(ngModel)]="customer.creditCard.number" type="number"></ion-input>
+            </ion-item>
+            <ion-grid>
+            <ion-row id="expiration-date-and-security-number">
+                 <ion-col col-3>
+                    <ion-item>
+                        <ion-input placeholder="MM" name="expirationMonth" [(ngModel)]="customer.creditCard.expirationMonth" type="number"></ion-input>
+                    </ion-item>
+                 </ion-col>
+                 <ion-col col-3>    
+                    <ion-item>
+                        <ion-input placeholder="YY" name="expirationYear" [(ngModel)]="customer.creditCard.expirationYear" type="number"></ion-input>
+                    </ion-item>
+                 </ion-col>
+
+                 <ion-col col-4 offset-2>
+                    <ion-item>
+                        <ion-input placeholder="CVV" name="securityNumber" [(ngModel)]="customer.creditCard.securityNumber" type="number"></ion-input>
+                    </ion-item>
+                 </ion-col>
+            </ion-row>
+            </ion-grid>
         </div>
+
+        <ion-row id="buttons">
+            <button col-3 id="previous" ion-button round full color="light-green" (click)="stepBack()">
+                 <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            </button> 
+            <button col-8 offset-1 id="next" ion-button round full color="light-green" (click)="nextStep()" [disabled]="disableNext()"> Siguiente</button>
+            <button col-8 offset-1 id="next" ion-button round full color="light-green" *ngIf="showSkipButton" (click)="nextStep()">Omitir</button>
+        </ion-row>
     </form>
 
     <div *ngIf="isConfirmingSMS">
         <form>
-            <h3 class="confirmText">A tu celular llegará un mensajes de texto con el código de confirmación</h3>
+            <h1 *ngIf="this.title != null">{{title}}</h1>
+            <h2 *ngIf="this.title != null && this.subtitle != null">{{subtitle}}</h2>
             <ion-item>
                 <ion-input placeholder="Código" name="codigo" [(ngModel)]="smsCode" type="number"></ion-input>
             </ion-item>
@@ -58,5 +89,4 @@
             </div>
         </form>
     </div>
-
 </ion-content>
