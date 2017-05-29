@@ -35,8 +35,7 @@ export class MyApp {
     // menu navigation pages
     this.pages = [
       { title: 'Pedir trabajo', component: FindWorkPage, icon: 'apps' },
-      { title: 'Próximos servicios', component: 'NextServicesPage', icon: 'calendar' },
-      { title: 'Historial servicios', component: 'ServiceHistoricalPage', icon: 'folder-open' },
+      { title: 'Agenda', component: 'ServiceHistoricalPage', icon: 'calendar' },
       { title: 'Configuraciones', component: 'SettingsPage', icon: 'settings' },
       { title: 'Cerrar sesión', component: null, icon: 'power' }
     ];
