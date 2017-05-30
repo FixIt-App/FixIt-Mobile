@@ -14,7 +14,7 @@ export class AuthService {
         this.token = localStorage.getItem('token');
     }
 
-    login(username: string, password: string): Observable<any>{
+    login(username: string, password: string): Observable<string>{
         let loginUrl: string = SERVER_URL + "/api/token-auth/";
         var headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' })
         var options = new RequestOptions({ headers: headers });
@@ -22,7 +22,7 @@ export class AuthService {
             username: username,
             password: password
         }, options)
-        .map(response => response.json())
+        .map(response => response.json().token)
         .catch(this.handleError)
         
     }

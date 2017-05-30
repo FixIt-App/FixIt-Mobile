@@ -48,8 +48,8 @@ export class LoginPage {
 		this.presentLoader();
 		this.authService.login(this.username, this.password).subscribe(
 			token => {
-				console.log(token.token);
-				localStorage.setItem('token', token.token);
+				console.log(token);
+				localStorage.setItem('token', token);
 				this.authService.reloadToken();
 				this.getAuthenticatedCustomer();
 			},
