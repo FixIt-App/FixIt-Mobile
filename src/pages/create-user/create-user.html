@@ -81,12 +81,9 @@
             <ion-item>
                 <ion-input placeholder="Código" name="codigo" [(ngModel)]="smsCode" type="number"></ion-input>
             </ion-item>
-            <div style="margin-top: 5vh;">
-                <button ion-button round full color="light-green" (click)="confirmSMS()"> Confirmar</button>
-                <button ion-button round full color="danger" (click)="sendCodeAgain()">
-                    Reenviar código
-                </button>
-            </div>
+            <ion-row id="buttons">
+                <button col-10 offset-1 id="next" ion-button round full color="light-green" *ngIf="isConfirmingSMS" (click)="confirmSMS()"> Confirmar</button>
+            </ion-row>
         </form>
     </div>
 </ion-content>

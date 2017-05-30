@@ -71,7 +71,8 @@ export class CreateUserPage {
     if(this.isConfirmingSMS) {
       this.title = "Confirma tu número";
       this.subtitle = "Hemos un enviado un código de confirmación de 4 dígitos a tu teléfono "+
-                "a través de un mensaje de texto, ingresa el código a continuación. ";
+                "a través de un mensaje de texto, ingresa el código a continuación." + 
+                "Si demora, también puedes revisar en tu correo.";
     }
   }
 
@@ -124,11 +125,11 @@ export class CreateUserPage {
           (error) => {
             console.log(error);
           });
-      }else {
+      } else {
         this.authService.login(this.customer.username, this.customer.password).subscribe(
           token => {
             console.log(token);
-            localStorage.setItem('token', token.token);
+            localStorage.setItem('token', token);
             this.authService.reloadToken();
             this.confirmationService.confirmSMS(this.smsCode).subscribe(
             (status) => {
@@ -157,7 +158,6 @@ export class CreateUserPage {
 				this.navController.setRoot(FindWorkPage);
 			},  
 			error => {
-				
 			}
 		);
 	}
@@ -169,11 +169,7 @@ export class CreateUserPage {
     );
   }
 
-  goBack() {
-    this.navController.pop();
-  }
-
-  goToSelectCountry() {
+ goToSelectCountry() {
     let modal = this.modalCtrl.create('CountryCodeSelectorPage');
        modal.onDidDismiss(
          (data) => {
@@ -189,12 +185,6 @@ export class CreateUserPage {
     let canContinue = false;
 
     switch(this.stepNumber) {
-      case -1:
-        canContinue = this.goToLogInView();
-        this.stepNumber = 0;
-        if(canContinue)
-          this.stepNumber++;
-        break;
       case 0: //login -> names
         canContinue = this.firstStep();
         if(canContinue)
@@ -243,7 +233,6 @@ export class CreateUserPage {
               });
               alert.present();
             }
-
           }
         );
         break;
@@ -259,8 +248,20 @@ export class CreateUserPage {
                   this.stepNumber++;
                   this.title = "Confirma tu número";
                   this.subtitle = "Hemos un enviado un código de confirmación de 4 dígitos a tu teléfono "+
-                            "a través de un mensaje de texto, ingresa el código a continuación. ";
+                      "a través de un mensaje de texto, ingresa el código a continuación." + 
+                      "Si demora, también puedes revisar en tu correo.";
+                  
+                  let username = this.customer.username == null ? this.customer.email : this.customer.username;
 
+                  this.authService.login(this.customer.email, this.customer.password).subscribe(
+                    (token) => {
+                      localStorage.setItem("token", token);
+                    },
+                    (error) => {
+                      //Todo (fabka)
+                      error.log(error);
+                    }
+                  );
                   this.showNextButton = true;
                   this.showSkipButton = false;
                 });
@@ -272,7 +273,6 @@ export class CreateUserPage {
               });
               alert.present();
             }
-
           }
         );
         break;
@@ -357,16 +357,13 @@ export class CreateUserPage {
       return false;
   }
 
-  stepBack(){
-    this.stepNumber -= 2;
-    if(this.stepNumber < -1)
-      this.stepNumber = -1;
-    this.nextStep();
-  }
-
-  goToLogInView(){
-    console.log('LogIn Page');
-    return true;
+  stepBack() {
+    if(this.stepNumber == 1) {
+      this.navController.pop();
+    } else {
+      this.stepNumber -= 2;
+      this.nextStep();
+    }
   }
 
   isEmailOk(){
