@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController, ToastController } from 'ionic-angular';
+import { Component,  QueryList, ElementRef } from '@angular/core';
+import { NavController, NavParams, ModalController, ToastController, Content, Platform } from 'ionic-angular';
 import { DatePicker } from '@ionic-native/date-picker';
+import { ViewChild, ViewChildren } from '@angular/core';
+import { Slides } from 'ionic-angular';
 
 import { Work } from '../../models/work';
 import { Address } from '../../models/address';
@@ -21,23 +23,22 @@ export class SchedulePage {
   selectedAddress: Address;
   dynamicPrice: any;
 
+  @ViewChild(Content) content: Content;
+  @ViewChildren(Slides) slides: QueryList<Slides>;
+
   constructor(private navController: NavController,
               private navParams: NavParams,
               private toastCtrl: ToastController,
               private datePicker: DatePicker,
               private modalCtrl: ModalController,
               private workService: WorkService,
-              private addressService: AddressService)
+              private addressService: AddressService,
+              private platform: Platform)
   {
     this.work = navParams.get('work');
-    console.log(this.work);
     this.today = new Date();
     this.minDate = `${this.today.getFullYear()}-${this.today.getMonth()}-${this.today.getDate()}`
-    // this.maxDate = `${today.getFullYear()+1}-${today.getMonth()}-${today.getDate()}`
-    // this.minDate = `${this.today.getFullYear()}`;
     this.maxDate = `${this.today.getFullYear()+1}`;
-
-    console.log(this.minDate + ' ' + this.maxDate);
   }
 
   ionViewDidLoad() {
@@ -48,10 +49,12 @@ export class SchedulePage {
         this.addresses = data;
         if(this.addresses && this.addresses.length > 0) {
           this.selectedAddress = this.addresses[0];
+          this.addresses[0].selected = true;
           this.work.address = this.selectedAddress;
         } else {
           // need new address
         }
+        this.initializeSlides();
       },
       error => {
         console.log(error);
@@ -62,7 +65,6 @@ export class SchedulePage {
   needItNow() {
     this.work.date = new Date();
     this.work.asap = true;
-    console.log(this.work);
     this.getDynamicPrice();
   }
 
@@ -79,6 +81,7 @@ export class SchedulePage {
   getDynamicPrice() {
     this.workService.dynamicPrice(this.work).subscribe(
       (data) => {
+        console.log("dynamicPrice");
         console.log(data);
         this.dynamicPrice = data;
       },
@@ -121,29 +124,57 @@ export class SchedulePage {
   }
 
   sendWork() {
-      this.work.address = this.selectedAddress;
+    this.work.address = this.selectedAddress;
 
-      this.workService.createWork(this.work).subscribe(
-        (work) => {
-          //TODO (a-santamaria): el need it now deberia guardarse en el servidor
-          let asap = this.work.asap;
-          this.work = work;
-          this.work.asap = asap;
-          
-          this.navController.setRoot('WorkDetailsPage', {
-            work: this.work
+    this.workService.createWork(this.work).subscribe(
+      (work) => {
+        //TODO (a-santamaria): el need it now deberia guardarse en el servidor
+        let asap = this.work.asap;
+        this.work = work;
+        this.work.asap = asap;
+        
+        this.navController.setRoot('WorkDetailsPage', {
+          work: this.work
+        });
+      },
+      (error) => {
+        console.log(error);
+        let toast = this.toastCtrl.create({
+          message: 'Error, por favor intenta más tarde',
+          duration: 3000,
+          showCloseButton: true,
+          closeButtonText: 'Cerrar'
+        });
+        toast.present();
+      }
+    )
+  }
+  
+  initializeSlides() {
+    this.slides.changes.subscribe(
+      (slides: QueryList<Slides>) => {
+        slides.map(
+          (slide) => {
+            if(this.platform.width() > 700)
+              slide.slidesPerView = 5;
+            else
+              slide.slidesPerView = 3;
+            //slide.pager = true;
+            slide.paginationType = 'bullets';
+            // slide.freeMode = true;
           });
-        },
-        (error) => {
-          console.log(error);
-          let toast = this.toastCtrl.create({
-            message: 'Error, por favor intenta más tarde',
-            duration: 3000,
-            showCloseButton: true,
-            closeButtonText: 'Cerrar'
-          });
-          toast.present();
-        }
-      )
-    }
+      }
+    )
+  }
+
+  selectAddress(address: Address) {
+    this.addresses.map(address => address.selected = false);
+    address.selected = true;
+    this.work.address = address;
+    this.selectedAddress = address;
+  }
+
+  goBack(){
+    this.navController.pop();
+  }
 }

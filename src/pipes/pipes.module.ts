@@ -6,12 +6,14 @@ import { Translator } from './translator';
 import { FormatTimePipe } from './format-time';
 import { FormatMonthPipe } from './format-month-pipe';
 import { FormatDayOfWeekPipe } from './format-day-of-week-pipe';
+import { AddressName } from './address-name';
 
 @NgModule({
   declarations: [
     FormatTimePipe,
     FormatMonthPipe,
-    FormatDayOfWeekPipe
+    FormatDayOfWeekPipe,
+    AddressName
   ],
   imports: [
 
@@ -19,7 +21,8 @@ import { FormatDayOfWeekPipe } from './format-day-of-week-pipe';
   exports: [
     FormatTimePipe,
     FormatMonthPipe,
-    FormatDayOfWeekPipe
+    FormatDayOfWeekPipe,
+    AddressName
   ]
   ,
 })

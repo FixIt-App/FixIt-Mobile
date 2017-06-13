@@ -57,9 +57,10 @@ export class FindWorkPage implements OnInit {
   }
 
   initializeSlides() {
-    this.sleep(500).then(() => {
-      this.startingSlides = false;
-    });
+    //this.sleep(500).then(() => {
+    //  this.startingSlides = false;
+    //});
+     this.startingSlides = false;
     this.slides.changes.subscribe(
       (slides: QueryList<Slides>) => {
         slides.map(
@@ -70,12 +71,9 @@ export class FindWorkPage implements OnInit {
             else
               slide.slidesPerView = 3;
             slide.pager = true;
-            slide.paginationType = 'bullets';
-            // slide.freeMode = true;
           });
       }
     )
-
   }
 
   goToNextStep(selectedWork: WorkType) {

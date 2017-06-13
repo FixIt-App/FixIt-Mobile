@@ -95,7 +95,7 @@ export class WorkService {
                     .catch(this.handleError)
   }
 
-  dynamicPrice(work: Work) {
+  dynamicPrice(work: Work) : Observable<any> {
     let createWorkUrl: string = `${SERVER_URL}/api/dynamicprice/`;
       var headers = new Headers({ 'Content-Type': 'application/json', 
                                   'Accept': 'application/json',
