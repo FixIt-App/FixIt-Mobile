@@ -1,20 +1,125 @@
+.toolbar-background{
+  background-color: color($colors, kiss);
+}
+
+ion-icon#menu{
+  color: color($colors, iron-maiden)
+}
+
+.scroll-content{
+  padding-top: 0 !important;
+}
+
+.header-md{
+  &:after {
+    height: 0;
+  }
+}
+
+ion-content#body{
+  background-color: color($colors, kiss);
+
+  #state{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    margin-top: 10vmin; 
+    margin-bottom: 10vmin;
+
+    .dad{
+      height: 0;
+      font-size: 2em;
+      z-index: 100;
+      .spinner{
+        width: 100%;
+        div{
+          width: 5vmin;
+          height: 5vmin;
+          background-color:  color($colors, iron-maiden);
+        }
+      }
+    }
+  }
+
+  #assigning {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    span {
+      color: color($colors, black-sabbath);
+      text-align: center;
+      font-size: 1.6rem;
+      margin: 3vmin 6vmin 3vmin 6vmin;
+    }
+  }
+
+  #cover{
+    margin-top:0;
+    ion-card {
+      height: 150px;
+    }
+
+    #when{
+      ion-row{
+        display: flex;
+        align-items: center;
+        flex-wrap: nowrap;
+
+        span{
+          display: block;
+          white-space: normal;
+          word-wrap: break-word;
+        }
+        button{
+          border-radius: 50%;
+          height: 50px;
+          min-width: 50px;
+          margin: 17px;
+          ion-icon{
+            color: color($colors, whitesnake);
+            font-size: 2em;
+          }
+        }
+        #schedule{
+          background-color: color($colors, iron-maiden);
+        }
+        #now{
+          background-color: color($colors, warning);
+        }
+      }
+    }
+  }
+
+  #bill{
+    padding-left: 2vmin;
+    padding-right: 2vmin;
+    #header{
+      font-weight: bold;
+      background-color: color($colors, ac-dc);
+      padding: 2vmin;
+      padding-left: 5vmin;
+      width: 100%;
+      border-top-right-radius: 0.5em;
+      border-top-left-radius: 0.5em;
+      border-bottom: solid 5px color($colors, iron-maiden);
+    }
+    #details{
+      border-bottom: solid 5px color($colors, iron-maiden);
+      background-color: color($colors, whitesnake);
+      .icon{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+}
+
 page-work-details {
-  .work-title {
-    width: 100%;
-    font-size: 2em;
-    text-align: center;
-    color: color($colors, metallica);
-  }
-  .work-sub-title {
-    width: 100%;
-    font-size: 1.5em;
-    text-align: center;
-    color: color($colors, korn);
-  }
-  .time {
-    margin: auto;
-    color: color($colors, korn);
-  }
 
   .avatar {
     #check {
@@ -41,18 +146,7 @@ page-work-details {
     }
   }
 
-  .assigning {
-    div {
-      color: color($colors, alice-cooper);
-      text-align: center;
-      background-color: color($colors, primary);
-      padding: 12px;
-      border-radius: 15px;
-      p {
-        margin: 0px;
-      }
-    }
-  }
+  
   .icon-top {
     margin: 0 0 5px
   }

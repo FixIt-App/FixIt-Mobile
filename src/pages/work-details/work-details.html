@@ -1,45 +1,41 @@
 <ion-header>
   <ion-navbar>
     <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
+      <ion-icon id="menu" name="menu"></ion-icon>
     </button>
-    <ion-title>Fixit</ion-title>
   </ion-navbar>
 </ion-header>
 
 
-<ion-content padding>
+<ion-content id="body" padding >
   <ion-grid>
-    <ion-row>
-      <div class="work-title">
-        <!--<ion-icon name="hammer"></ion-icon>-->
-        {{ work.workType.name }}
-      </div>
-    </ion-row>
 
-    <ion-row>
-      <div class="work-sub-title">
-        <span *ngIf="work.state == 'ORDERED'"> Asignando... </span>
+    <ion-row id="state">
+        <div class="dad" *ngIf="work.state == 'ORDERED'">
+            <div class="spinner">
+                <div class="bounce1"></div>
+                <div class="bounce2"></div>
+                <div class="bounce3"></div>
+            </div>
+        </div>
         <span *ngIf="work.state == 'SCHEDULED'"> Programado </span>
         <span *ngIf="work.state == 'IN_PROGRESS'"> En Progresso </span>
         <span *ngIf="work.state == 'FINISHED'"> Terminado </span>
+    </ion-row>
+
+    <!-- This block enable when worker is not yet assigned -->
+    <ion-row *ngIf="!work.worker">
+      <div *ngIf="work.state != 'IN_PROGRESS'" id="assigning">
+          <span>
+            Estamos buscando el mejor trabajador para ti.
+          </span>
+          <span>
+            Pronto recibirás una notificación del trabajador asignado.
+          </span>
       </div>
     </ion-row>
 
-    <ion-row>
-      <div class="time">
-        <ion-icon name='calendar' icon-left></ion-icon>
-        <label>{{ work.date | formatDayOfWeek }}, {{work.date.getDate()}} de {{ work.date | formatMonth }}</label>
-        <ion-icon ios="ios-clock" md="md-clock"></ion-icon>
-        <label>
-          <span *ngIf="!work.needItNow" class="input-label">{{ work.date | formatTime }}</span>
-          <span *ngIf="work.needItNow" class="input-label  needItNow">Ahora mismo</span>
-        </label>
-      </div>
-    </ion-row>
-
-    <hr style="width: 95%; margin: 15px auto;">
-
+    <!-- This block enable when worker is asigned -->
     <ion-row *ngIf="work.worker">
       <ion-col col-6 class="avatar">
         <img id="avatar-img" [src]="work.worker.profile_pic">
@@ -61,14 +57,7 @@
         </button>
       </ion-col>
     </ion-row>
-    <ion-row *ngIf="!work.worker" class="assigning">
-      <div *ngIf="work.state != 'IN_PROGRESS'">
-        <h6>
-          Estamos buscando el mejor trabajador para ti, pronto recibirás una notificación del trabajador asignado.
-        </h6>
-      </div>
-    </ion-row>
-
+    
     <ion-row *ngIf="work.worker" style="margin: auto;">
         <button ion-button outline icon-left (click)="callWorker()">
           <ion-icon name="call"></ion-icon>
@@ -76,28 +65,62 @@
         </button>
     </ion-row>
     
-    <hr style="width: 95%; margin: 15px auto;">
-
-    <ion-row>
-      <ion-col col-6 class="row-left">
-        <button ion-button block clear (click)="goToDescription()">
-          <div>
-            <ion-icon class="icon-top" name='add-circle'></ion-icon>
-            <br>
-            <label>descripción</label>
+    <ion-row id="cover">
+      <ion-col col-4>
+        <ion-card>
+          <div class="cover">
+            <div class="cover-image-container" [ngStyle]="{'background-image':'url(' + work.workType.icon + ')'}">
+            </div>
           </div>
-        </button>
+        </ion-card>
       </ion-col>
-      <ion-col col-6 class="row-right">
-        <button ion-button block clear (click)="help()">
-          <div>
-            <ion-icon class="icon-top" name="information-circle"></ion-icon>
-            <br>
-            <label>Ayuda</label>
-          </div>
-        </button>
+      <ion-col col-8 id="when">
+        <ion-row>
+          <button id="schedule" (click)="goToDescription()">
+            <ion-icon ios="ios-calendar" md="md-calendar"></ion-icon>
+          </button>
+          <span>Cuéntanos más de tu problema</span>
+        </ion-row>
+        <ion-row>
+          <button id="now" (click)="help()">
+            <ion-icon ios="ios-flash" md="md-flash"></ion-icon>
+          </button>
+          <span>Preguntas frecuentes</span>
+        </ion-row>
       </ion-col>
     </ion-row>
+
+    <div id="bill">
+      <div id="header">
+        <span>{{ work.workType.name }}</span>
+      </div>
+      <div id="details">
+        <ion-row>
+          <ion-col col-1 class="icon">
+            <ion-icon ios="ios-pin" md="md-pin"></ion-icon>
+          </ion-col>
+          <ion-col col-11 >
+            {{ "ToDo: Colocar dirección" }}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-1 class="icon">
+            <ion-icon ios="ios-calendar" md="md-calendar"></ion-icon>
+          </ion-col>
+          <ion-col col-11>
+            {{ work.date | formatDayOfWeek }}, {{ work.date | formatMonth }} {{work.date.getDate() }}         
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-1 class="icon">
+            <ion-icon ios="ios-clock" md="md-clock"></ion-icon>
+          </ion-col>
+          <ion-col col-11 >
+            {{ work.date | formatTime }}
+          </ion-col>
+        </ion-row>
+      </div>
+    </div>
 
   </ion-grid>
 </ion-content>

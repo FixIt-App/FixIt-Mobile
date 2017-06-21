@@ -5,6 +5,36 @@ ion-content{
     ion-card {
       height: 150px;
     }
+
+    #when{
+      ion-row{
+        display: flex;
+        align-items: center;
+        flex-wrap: nowrap;
+
+        span{
+          display: block;
+          white-space: normal;
+          word-wrap: break-word;
+        }
+        button{
+          border-radius: 50%;
+          height: 50px;
+          min-width: 50px;
+          margin: 17px;
+          ion-icon{
+            color: color($colors, whitesnake);
+            font-size: 2em;
+          }
+        }
+        #schedule{
+          background-color: color($colors, iron-maiden);
+        }
+        #now{
+          background-color: color($colors, warning);
+        }
+      }
+    }
   }
 
   #body{
@@ -19,43 +49,13 @@ ion-content{
     background-color: #FFF;
     color: color($colors, iron-maiden);
     font-size: 2.5rem;
-    top: 20px;
-    left: 20px;
+    top: 15px;
+    left: 15px;
     position: absolute;
   }
 
   #logo{
     margin-top:10vmin;
-  }
-
-  #when{
-    ion-row{
-      display: flex;
-      align-items: center;
-      flex-wrap: nowrap;
-
-      span{
-        display: block;
-        white-space: normal;
-        word-wrap: break-word;
-      }
-      button{
-        border-radius: 50%;
-        height: 50px;
-        min-width: 50px;
-        margin: 17px;
-        ion-icon{
-          color: color($colors, whitesnake);
-          font-size: 2em;
-        }
-      }
-      #schedule{
-        background-color: color($colors, iron-maiden);
-      }
-      #now{
-        background-color: color($colors, warning);
-      }
-    }
   }
 
   #where{
@@ -127,8 +127,8 @@ ion-content{
       }
     }
     #breakdown{
-      ion-row:nth-child(even) {
-          background-color: color($colors, ac-dc);
+      ion-row:nth-child(odd) {
+          background-color: color($colors, green-day);
       }
     }
     #total{
