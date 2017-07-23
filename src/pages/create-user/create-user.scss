@@ -48,6 +48,11 @@ ion-content {
           background-color: color($colors, keane);
         }
       }
+      #tyc {
+         text-align: center;
+         padding-top: 30px;
+         display: grid;
+      }
       .country-code {
         ion-label {
           max-width: 100% !important;
@@ -55,5 +60,7 @@ ion-content {
         }
       }
     }
+
+    
   }
 }
