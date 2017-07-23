@@ -375,4 +375,9 @@ export class CreateUserPage {
   isSmsCodeOk(){
     return true;
   }
+
+  goToTerms() {
+    let modal = this.modalCtrl.create('TermsCondsPage');
+    modal.present();
+  }
 }
