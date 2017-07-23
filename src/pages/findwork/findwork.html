@@ -8,17 +8,10 @@
 </ion-header>
 
 <ion-content>
-  <div class="dad top-full-color" *ngIf="startingSlides">
-    <div class="spinner">
-      <div class="bounce1"></div>
-      <div class="bounce2"></div>
-      <div class="bounce3"></div>
-    </div>
-  </div>
-  <div class="category" *ngFor="let category of categories">
-    <div class="title-category">{{category.name}}</div>
-    <ion-slides>
-      <ion-slide *ngFor="let worktype of category.worktypes" >
+   <div class="category" *ngFor="let category of categories">
+    <div class="title-category">{{category.name}}</div> 
+    <ion-slides [slidesPerView]="3">
+      <ion-slide  *ngFor="let worktype of category.worktypes" >
         <ion-card (click)="goToNextStep(worktype)">
           <div class="cover">
             <div class="cover-image-container" [ngStyle]="{'background-image':'url(' + worktype.icon + ')'}">
@@ -37,8 +30,8 @@
               </p>
             </ion-row>
         </ion-card>
-      </ion-slide>
+      </ion-slide>  
     </ion-slides>
-  </div>
+   </div> 
 
 </ion-content> 

@@ -1,10 +1,10 @@
+import { Category } from './../../models/category';
 import { Component, OnInit, ViewChildren, QueryList, ViewChild, ElementRef } from '@angular/core';
-import { NavController, Slides, Content, Platform } from 'ionic-angular';
+import { NavController, Slides, Content, Platform, NavParams } from 'ionic-angular';
 import { WorkTypeService } from '../../providers/wortktype-service'
 import { SchedulePage } from '../schedule/schedule'
 import { UserDataService } from '../../providers/user-data-service';
 
-import { Category } from '../../models/category'
 import { WorkType } from '../../models/worktype'
 import { Customer } from '../../models/user';
 import { Work } from '../../models/work';
@@ -27,53 +27,23 @@ export class FindWorkPage implements OnInit {
   showheader:boolean;
   hideheader:boolean;
   headercontent:any;
-  startingSlides: boolean;
 
-  @ViewChildren(Slides) slides: QueryList<Slides>;
 
   constructor(private navController: NavController,
               private workTypeService: WorkTypeService,
               public userDataService: UserDataService,
+              public navParams: NavParams,
               private platform: Platform,
               public myElement: ElementRef)
   {
-    this.startingSlides = true;
     this.showheader = false;
     this.hideheader = true;
+    this.categories = this.navParams.get('categories');
   }
 
   ngOnInit() {
     this.listenToScroll();
-    this.customer = this.userDataService.getCustomer();
-    this.workTypeService.getWorkTypes().subscribe(
-      categories => {
-          this.categories = categories.reverse();
-          this.initializeSlides();
-      },
-      error => {
-          console.log(error);
-      });
-    
-  }
-
-  initializeSlides() {
-    //this.sleep(500).then(() => {
-    //  this.startingSlides = false;
-    //});
-     this.startingSlides = false;
-    this.slides.changes.subscribe(
-      (slides: QueryList<Slides>) => {
-        slides.map(
-          (slide) => {
-            console.log('Width: ' + this.platform.width());
-            if(this.platform.width() > 700)
-            slide.slidesPerView = 5;
-            else
-              slide.slidesPerView = 3;
-            slide.pager = true;
-          });
-      }
-    )
+    this.customer = this.userDataService.getCustomer();    
   }
 
   goToNextStep(selectedWork: WorkType) {

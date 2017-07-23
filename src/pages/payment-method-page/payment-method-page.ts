@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { AlertController, ModalController } from 'ionic-angular'
+import { WorkTypeService } from '../../providers/wortktype-service'
+import { FindWorkPage } from '../findwork/findwork';
 
 @IonicPage()
 @Component({
@@ -17,6 +19,7 @@ export class PaymentMethodPage {
   cvv: AbstractControl;
   country: AbstractControl;
   submitAttempt: boolean;
+  firstTime: boolean;
   selectedCountry: any = {
     "alpha2": "CO",
     "alpha3": "COL",
@@ -29,11 +32,15 @@ export class PaymentMethodPage {
   };
 
   constructor(public navCtrl: NavController,
+              private workTypeService: WorkTypeService,
               private formBuilder: FormBuilder,
               private modalCtrl: ModalController,
-              public alertCtrl: AlertController, 
+              public alertCtrl: AlertController,
+              private navController: NavController,
               public navParams: NavParams) 
   {
+    this.firstTime = this.navParams.get('firstTime');
+    this.firstTime == undefined ? false : this.firstTime;
     this.creditCard = {
       number: 0,
       expirationDate: "",
@@ -70,4 +77,13 @@ export class PaymentMethodPage {
        modal.present();
   }
 
+  goToFindWorks() {
+    this.workTypeService.getWorkTypes().subscribe(
+      categories => {
+        this.navController.setRoot(FindWorkPage, { categories: categories.reverse() });
+      },
+      error => {
+        console.log(error);
+      });
+  }
 }
