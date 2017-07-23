@@ -1,8 +1,17 @@
+<ion-header [ngClass]="{'hide-header':showheader,'show-header':hideheader}">
+  <ion-navbar color="transparent">
+    <button ion-button menuToggle color="metallica">
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>FixIt</ion-title>
+  </ion-navbar>
+</ion-header>
+
 <ion-content>
 <div id="body">
-  <button id="back" (click)="goBack()">
+  <!-- <button id="back" (click)="goBack()">
       <ion-icon ios="ios-arrow-round-back" md="md-arrow-round-back"></ion-icon>
-  </button>
+  </button> -->
   <ion-grid>
     <ion-row id="cover">
       <ion-col col-4>

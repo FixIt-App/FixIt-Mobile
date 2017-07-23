@@ -1,9 +1,21 @@
+page-schedule {
+  .bar-button {
+      color: color($colors, iron-maiden) !important;
+  }
+  .header-md::after {
+    background-image: none;
+  }
+
+  .scroll-content {
+    top: -25px;
+  }
+}
+
 ion-content{
 
   #cover{
-    margin-top:10vmin;
     ion-card {
-      height: 150px;
+      height: 130px;
     }
   }
 
@@ -13,7 +25,6 @@ ion-content{
     align-items: center;
     justify-content: center
   }
-
   #back{
     display: block;
     background-color: #FFF;
@@ -41,8 +52,8 @@ ion-content{
       }
       button{
         border-radius: 50%;
-        height: 50px;
-        min-width: 50px;
+        height: 40px;
+        min-width: 40px;
         margin: 17px;
         ion-icon{
           color: color($colors, whitesnake);
@@ -59,8 +70,7 @@ ion-content{
   }
 
   #where{
-    margin-top: 5vmin;
-    margin-bottom: 5vmin;
+    margin-bottom: 3vmin;
     #title{
       display: flex;
       flex-direction: column;
@@ -79,8 +89,8 @@ ion-content{
       button.not-selected{
         background-color: color($colors, ac-dc);
         border-radius: 50%;
-        height: 50px;
-        width: 50px;
+        height: 40px;
+        width: 40px;
         ion-icon{
           color: color($colors, whitesnake);
           font-size: 2em;
@@ -90,8 +100,8 @@ ion-content{
       button.selected{
         background-color: color($colors, iron-maiden);
         border-radius: 50%;
-        height: 50px;
-        width: 50px;
+        height: 40px;
+        width: 40px;
         ion-icon{
           color: color($colors, whitesnake);
           font-size: 2em;
@@ -109,16 +119,16 @@ ion-content{
     padding-right: 2vmin;
     #header{
       font-weight: bold;
-      background-color: color($colors, ac-dc);
+      color: color($colors, whitesnake);
+      background-color: color($colors, iron-maiden);
       padding: 2vmin;
       padding-left: 5vmin;
       width: 100%;
       border-top-right-radius: 0.5em;
       border-top-left-radius: 0.5em;
-      border-bottom: solid 5px color($colors, iron-maiden);
     }
     #details{
-      border-bottom: solid 5px color($colors, iron-maiden);
+      border-bottom: solid 3px color($colors, iron-maiden);
       .icon{
         display: flex;
         flex-direction: column;
@@ -133,9 +143,10 @@ ion-content{
     }
     #total{
       font-weight: bold;
-      background-color: color($colors, ac-dc);
-      padding-left: 5vmin;
+      color: color($colors, whitesnake);
+      background-color: color($colors, iron-maiden);
       width: 100%;
+      padding-bottom: 3px;
       border-bottom-right-radius: 0.5em;
       border-bottom-left-radius: 0.5em;
       border-top: solid 5px color($colors, iron-maiden);
@@ -165,7 +176,6 @@ img{
 }
 
   #cover {
-    
     .title-cover {
       font-size: 2.5rem;
       color: color($colors, guns-n-roses);
