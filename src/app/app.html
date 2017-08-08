@@ -2,7 +2,7 @@
   <ion-header>
     <ion-toolbar>
       <ion-list no-lines>
-        <button ion-item color="primary">
+        <button menuClose ion-item color="transparent" (click)="gotToUserSettings()">
           <ion-avatar item-left>
             <img src="assets/default_Profile_Picture.png">
           </ion-avatar>
@@ -15,7 +15,7 @@
   <ion-content>
     <ion-list no-lines>
       <button menuClose ion-item class="item-menu" *ngFor="let p of pages" (click)="openPage(p)">
-        <ion-icon [name]="p.icon" item-left></ion-icon>
+        <ion-icon [name]="p.icon" item-left color="metallica"></ion-icon>
         {{p.title}}
       </button>
     </ion-list>

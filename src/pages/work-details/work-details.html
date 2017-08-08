@@ -1,5 +1,5 @@
-<ion-header>
-  <ion-navbar>
+<ion-header [ngClass]="{'hide-header':showheader,'show-header':hideheader}">
+  <ion-navbar color="transparent">
     <button ion-button menuToggle>
       <ion-icon id="menu" name="menu"></ion-icon>
     </button>
@@ -77,13 +77,13 @@
       <ion-col col-8 id="when">
         <ion-row>
           <button id="schedule" (click)="goToDescription()">
-            <ion-icon ios="ios-calendar" md="md-calendar"></ion-icon>
+            <ion-icon name="information"></ion-icon>
           </button>
           <span>Cuéntanos más de tu problema</span>
         </ion-row>
         <ion-row>
           <button id="now" (click)="help()">
-            <ion-icon ios="ios-flash" md="md-flash"></ion-icon>
+            <ion-icon name="help"></ion-icon>
           </button>
           <span>Preguntas frecuentes</span>
         </ion-row>

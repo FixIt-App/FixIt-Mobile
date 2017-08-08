@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, ActionSheetController } from 'ionic-angular';
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import { IonicPage, NavController, NavParams, AlertController, ActionSheetController, Content } from 'ionic-angular';
 import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner';
 
 import { Work } from '../../models/work';
@@ -14,19 +14,32 @@ export class WorkDetailsPage {
 
   work: Work;
 
+  // for autohide header
+  @ViewChild(Content) content: Content;
+  start = 0;
+  threshold = 50;
+  slideHeaderPrevious = 0;
+  ionScroll:any;
+  showheader:boolean;
+  hideheader:boolean;
+  headercontent:any;
+
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               private workService: WorkService,
               private alertCtrl: AlertController,
               private actionSheetCtrl: ActionSheetController,
-              private barcodeScanner: BarcodeScanner) 
+              private barcodeScanner: BarcodeScanner,
+              public myElement: ElementRef) 
   {
+    this.showheader = false;
+    this.hideheader = true;
     this.work = navParams.get('work');
   }
 
 
   ionViewDidLoad() {
-    
+    this.listenToScroll();
   }
 
   callWorker() {
@@ -113,4 +126,26 @@ export class WorkDetailsPage {
       });
   }
 
+  // TODO (a-santamria): merge this not to repeat it every time
+  listenToScroll() {
+    this.ionScroll = this.myElement.nativeElement.getElementsByClassName('scroll-content')[0];
+    console.log(this.ionScroll)
+    // On scroll function
+    this.ionScroll.addEventListener("scroll", 
+      () => {
+        console.log('entre a scrol');
+        if(this.ionScroll.scrollTop - this.start > this.threshold) {
+          this.showheader =true;
+          this.hideheader = false;
+        } else {
+          this.showheader =false;
+          this.hideheader = true;
+        }
+        if (this.slideHeaderPrevious >= this.ionScroll.scrollTop - this.start) {
+          this.showheader =false;
+          this.hideheader = true;
+        }
+        this.slideHeaderPrevious = this.ionScroll.scrollTop - this.start;
+      });
+  }
 }

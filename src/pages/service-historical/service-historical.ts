@@ -21,7 +21,7 @@ export class ServiceHistoricalPage {
    // for autohide header
   @ViewChild(Content) content: Content;
   start = 0;
-  threshold = 100;
+  threshold = 50;
   slideHeaderPrevious = 0;
   ionScroll:any;
   showheader:boolean;
@@ -35,12 +35,15 @@ export class ServiceHistoricalPage {
               private navController: NavController,
               public myElement: ElementRef)
   {
+    this.showheader = false;
+    this.hideheader = true;
     this.today = new Date();
     this.tomorrow = new Date(this.today.getFullYear(), this.today.getMonth(), 
                               this.today.getDate() + 1);
   }
 
   ionViewDidLoad() {
+    this.listenToScroll();
     this.workService.getMyWorks(['ORDERED', 'SCHEDULED']).subscribe(
       (works) => {
         this.currentWorks = works;

@@ -188,5 +188,9 @@ export class MyApp {
         });
       });
   }
+
+  gotToUserSettings() {
+    this.nav.push('SettingsUserPage');
+  }
 }
 

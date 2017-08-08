@@ -5,4 +5,7 @@ page-payment-method-page {
   .label-md {
     margin: 11px 8px 0px 16px;
   }
+  .toolbar-title {
+    color: color($colors, primary) !important;
+  }
 }

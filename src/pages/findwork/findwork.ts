@@ -21,7 +21,7 @@ export class FindWorkPage implements OnInit {
   // for autohide header
   @ViewChild(Content) content: Content;
   start = 0;
-  threshold = 100;
+  threshold = 50;
   slideHeaderPrevious = 0;
   ionScroll:any;
   showheader:boolean;
@@ -61,6 +61,7 @@ export class FindWorkPage implements OnInit {
     }
   }
 
+  // TODO (a-santamria): merge this not to repeat it every time
   listenToScroll() {
     this.ionScroll = this.myElement.nativeElement.getElementsByClassName('scroll-content')[0];
     console.log(this.ionScroll)
