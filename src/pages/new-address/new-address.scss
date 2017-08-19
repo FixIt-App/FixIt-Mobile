@@ -4,7 +4,9 @@ page-new-address {
     max-width: 100%;
     text-align: center;
   }
-
+  .toolbar-title {
+    color: color($colors, metallica) !important;
+  }
   .item-md {
     padding-left: 0px;
   }

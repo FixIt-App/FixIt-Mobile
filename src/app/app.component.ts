@@ -10,6 +10,7 @@ import { FindWorkPage } from '../pages/findwork/findwork';
 import { Customer } from '../models/user';
 import { DeviceService } from '../providers/device-service';
 import { UserDataService } from '../providers/user-data-service';
+import { WorkTypeService } from '../providers/wortktype-service'
 
 @Component({
   templateUrl: 'app.html'
@@ -30,6 +31,7 @@ export class MyApp {
               private push: Push,
               private deviceService: DeviceService,
               private userDataService: UserDataService,
+              private workTypeService: WorkTypeService,
               public loadingCtrl: LoadingController)
   {
     // menu navigation pages
@@ -162,7 +164,13 @@ export class MyApp {
       );
     } else if(page.title == 'Pedir trabajo') {
       if(this.nav.getActive().name != 'FindWorkPage') {
-        this.nav.setRoot(page.component);
+        this.workTypeService.getWorkTypes().subscribe(
+          categories => {
+            this.nav.setRoot(FindWorkPage, { categories: categories.reverse() });
+          },
+          error => {
+            console.log(error);
+          });
       }
     } else {
       this.nav.push(page.component);
@@ -179,6 +187,10 @@ export class MyApp {
             this.initPushNotification();
         });
       });
+  }
+
+  gotToUserSettings() {
+    this.nav.push('SettingsUserPage');
   }
 }
 

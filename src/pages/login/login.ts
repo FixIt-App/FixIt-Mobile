@@ -9,6 +9,7 @@ import { AuthService } from '../../providers/auth-service';
 import { UserDataService } from '../../providers/user-data-service';
 import { SERVER_URL } from '../../providers/services.util';
 import { ConfirmationService } from '../../providers/confirmation-service';
+import { WorkTypeService } from '../../providers/wortktype-service'
 
 @Component({
   selector: 'page-login',
@@ -27,6 +28,7 @@ export class LoginPage {
 							public alertCtrl: AlertController,
 							public events: Events,
 							public userDataService: UserDataService,
+							private workTypeService: WorkTypeService,
 							public confirmationService: ConfirmationService,
 							public loadingCtrl: LoadingController)
 	{
@@ -87,7 +89,15 @@ export class LoginPage {
 				} else {
 					this.userDataService.setCustomer(customer);
 					console.log(customer);
-					this.navController.setRoot(FindWorkPage);
+
+					this.workTypeService.getWorkTypes().subscribe(
+						categories => {
+							this.navController.setRoot(FindWorkPage, { categories: categories.reverse() });
+						},
+						error => {
+							console.log(error);
+						});
+					
 				}
 				this.dismissLoader();
 			},  

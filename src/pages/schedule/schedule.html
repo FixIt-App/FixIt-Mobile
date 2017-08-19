@@ -1,22 +1,18 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>FixIt</ion-title>
-    <ion-buttons end>
-      <button ion-button icon-right disabled *ngIf="!work.date || !selectedAddress" (click)="sendWork()">
-         Pedir trabajo
-        <ion-icon name="send"></ion-icon>
-      </button>
-       <button ion-button icon-right *ngIf="work.date && selectedAddress" (click)="sendWork()">
-         Pedir trabajo
-        <ion-icon name="send"></ion-icon>
-      </button>
-    </ion-buttons>
+<ion-header [ngClass]="{'hide-header':showheader,'show-header':hideheader}">
+  <ion-navbar color="transparent">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
+<div id="body">
+  <!-- <button id="back" (click)="goBack()">
+      <ion-icon ios="ios-arrow-round-back" md="md-arrow-round-back"></ion-icon>
+  </button> -->
   <ion-grid>
-    <ion-row class="row-cover">
+    <ion-row id="cover">
       <ion-col col-4>
         <ion-card>
           <div class="cover">
@@ -25,87 +21,118 @@
           </div>
         </ion-card>
       </ion-col>
-
-      <ion-col col-8>
-        <div class="title-cover">{{ work.workType.name }}</div>
-        <ion-row *ngIf="!dynamicPrice">
-          <div class="sub-title-cover" *ngIf="work.workType.price_type == 'STANDARIZED' ">
+      <ion-col col-8 id="when">
+        <ion-row>
+          <button id="schedule" (click)="makeDate()">
+            <ion-icon ios="ios-calendar" md="md-calendar"></ion-icon>
+          </button>
+          <span>Agendar cita</span>
+        </ion-row>
+        <ion-row>
+          <button id="now" (click)="needItNow()">
+            <ion-icon ios="ios-flash" md="md-flash"></ion-icon>
+          </button>
+          <span>Lo necesito ahora mismo</span>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+    <ion-row id="where">
+      <ion-col col-3 id="title">
+        <span>¿Dónde?</span>
+      </ion-col>
+      <ion-col col-9 id="slider">
+        <ion-slides>
+           <ion-slide *ngFor="let address of addresses">
+            <div class="address-card" (click)="selectAddress(address)" >
+              <button [ngClass]="{'selected': address.selected, 'not-selected': !address.selected }">
+                <ion-icon ios="ios-home" md="md-home"></ion-icon>
+              </button>
+              <span> {{ address.name | addressName }} </span>
+            </div>
+          </ion-slide>
+          <ion-slide>
+            <div class="address-card" >
+              <button class="not-selected" (click)="newAddress()">
+                <ion-icon ios="ios-add" md="md-add"></ion-icon>
+              </button>
+              <span>Agregar</span>
+            </div>
+          </ion-slide>
+        </ion-slides>
+      </ion-col>
+    </ion-row>
+    <div id="bill">
+      <div id="header">
+        <span>{{ work.workType.name }}</span>
+      </div>
+      <div id="details">
+        <ion-row *ngIf="selectedAddress">
+          <ion-col col-1 class="icon">
+            <ion-icon ios="ios-pin" md="md-pin"></ion-icon>
+          </ion-col>
+          <ion-col col-11 >
+            {{ selectedAddress.address }}
+          </ion-col>
+        </ion-row>
+        <ion-row *ngIf="work.date">
+          <ion-col col-1 class="icon">
+            <ion-icon ios="ios-calendar" md="md-calendar"></ion-icon>
+          </ion-col>
+          <ion-col col-11>
+            {{ work.date | formatDayOfWeek }}, {{ work.date | formatMonth }} {{work.date.getDate() }}         
+          </ion-col>
+        </ion-row>
+        <ion-row *ngIf="work.date">
+          <ion-col col-1 class="icon">
+            <ion-icon ios="ios-clock" md="md-clock"></ion-icon>
+          </ion-col>
+          <ion-col col-11 >
+            {{ work.date | formatTime }}
+          </ion-col>
+        </ion-row>
+      </div>
+      <div id="breakdown" *ngIf="dynamicPrice">
+        <ion-row *ngFor="let p of dynamicPrice.breakdown">
+          <ion-col col-9>
+            <span>{{ p.name }}</span>
+          </ion-col>
+          <ion-col col-3>
+            {{ p.price | currency:'usd':true:'4.0' }}
+          </ion-col>
+        </ion-row>
+      </div>
+      <div id="breakdown" *ngIf="!dynamicPrice">
+        <ion-row>
+          <ion-col col-9>
+            <span>Servicio</span>
+          </ion-col>
+          <ion-col class="price" col-3>
+            <span>{{ work.workType.price | currency:'usd':true:'4.0' }}</span>
+          </ion-col>
+        </ion-row>
+      </div>
+      <div id="total">
+        <ion-row>
+          <ion-col col-9>
+            <span>Total</span>
+          </ion-col>
+          <ion-col col-3 *ngIf="dynamicPrice">
+            {{ dynamicPrice.total | currency:'usd':true:'4.0' }}
+          </ion-col>
+          <ion-col col-3 *ngIf="!dynamicPrice">
             {{ work.workType.price | currency:'usd':true:'4.0' }}
-          </div>
-          <div class="sub-title-cover" *ngIf="work.workType.price_type == 'NOT_STANDARIZED' ">
-            Desde: {{ work.workType.price | currency:'usd':true:'4.0' }}
-          </div>
+          </ion-col>
         </ion-row>
-
-        <ion-row *ngIf="dynamicPrice">
-          <div class="sub-title-cover" *ngIf="dynamicPrice.asap">Recargos</div>
-
-          <ion-item class="item-price" *ngIf="dynamicPrice.asap">
-            <ion-icon name="moon" item-left small></ion-icon>
-            <h5>Lo necesito ya</h5>
-            <p>{{ dynamicPrice.asap | currency:'usd':true:'4.0' }}</p>
-          </ion-item>
-          <ion-item class="item-price" *ngIf="dynamicPrice.time">
-            <ion-icon name="time" item-left small></ion-icon>
-            <h5>Horario</h5>
-            <p>{{ dynamicPrice.time | currency:'usd':true:'4.0' }}</p>
-          </ion-item>
-           <!--<ion-item class="item-price" *ngIf="dynamicPrice.price">
-            <ion-icon name="logo-usd" item-left small></ion-icon>
-            <h5>Precio Total</h5>
-            <p>{{ dynamicPrice.price | currency:'usd':true:'4.0' }}</p>
-          </ion-item>-->
-          <div class="sub-title-cover">Precio: {{ dynamicPrice.price | currency:'usd':true:'4.0' }}</div>
-        </ion-row>
-      </ion-col>
-    </ion-row>
-
-    <ion-row *ngIf="!work.date">
-      <ion-col>
-        <button ion-button block outline color="guns-n-roses" (click)="makeDate()">Agendar Cita</button>
-      </ion-col>
-      <ion-col>
-        <button ion-button block color="guns-n-roses" (click)="needItNow()">Lo necesito ya</button>
-      </ion-col>
-    </ion-row>
-
-    <ion-row *ngIf="work.date">
-      <ion-col>
-        <button ion-button icon-left color="guns-n-roses" (click)="editDate()" block>
-          <ion-icon name="create"></ion-icon> 
-          <span *ngIf="!work.asap">{{ work.date | date:'medium'  }}</span>
-          <span *ngIf="work.asap"> Lo Necesito ya: {{ work.date | date:'medium'  }} </span>
-        </button>  
-      </ion-col>
-    </ion-row>
-
-    <hr style="width: 95%; margin: 15px auto;">
-
-    <ion-row class="row-where">
-      <div class="title">¿Dónde enviamos tu servicio?</div>
-    </ion-row>
-
-    <ion-row class="row-where" *ngIf="selectedAddress">
-      <ion-col col-10>
-        <ion-select [(ngModel)]="selectedAddress">
-          <ion-option *ngFor="let address of addresses" [value]="address">
-            {{ address.name }}: {{ address.address }}
-          </ion-option>
-        </ion-select>
-      </ion-col>
-      <ion-col col-2>
-        <button ion-button icon-only clear round color="guns-n-roses" (click)="newAddress()" block>
-          <ion-icon name="add"></ion-icon>
-        </button>  
-      </ion-col>
-    </ion-row>
-
-     <ion-row class="row-where" *ngIf="!selectedAddress">
-       <ion-col>
-        <button ion-button icon-left block color="guns-n-roses" (click)="newAddress()" block>
-          <ion-icon name="add"></ion-icon> Agregar Dirección
-        </button>  
-       </ion-col>
-    </ion-row>
+      </div>
+    </div>
+    
   </ion-grid>
+  
+</div>
 </ion-content>
+
+<ion-footer id="request-service">
+  <button ion-button full [disabled]="!work.date || !selectedAddress" (click)="sendWork()">
+    Solicitar servicio
+  </button>
+</ion-footer>

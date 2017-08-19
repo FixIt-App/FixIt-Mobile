@@ -6,6 +6,7 @@ export class Address {
     country: string;
     latitude: number;
     longitude: number;
+    selected: boolean;
 
     constructor(data: any) {
       this.id = data.id;
@@ -15,5 +16,6 @@ export class Address {
       this.country = data.country;
       this.longitude = data.longitude;
       this.latitude = data.latitude;
+      this.selected = false;
     }
 }

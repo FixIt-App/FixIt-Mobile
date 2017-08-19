@@ -78,3 +78,24 @@ ion-backdrop {
   transition : top 0.25s ease;
   top: 0px;
 }
+ion-header {
+  ion-toolbar {
+    ion-list {
+      margin: 0 !important;
+    }
+    h1{
+      color: color($colors, metallica);
+    }
+  }
+}
+
+.header-ios .toolbar-background-ios {
+  border-style: none;
+}
+
+.bar-button {
+    color: color($colors, iron-maiden) !important;
+}
+.header-md::after {
+  background-image: none;
+}

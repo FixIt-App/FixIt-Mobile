@@ -32,5 +32,21 @@ page-service-historical {
       color: color($colors, metallica);
     }
   }
-  
+
+  // for hidding header on scroll
+  .swiper-pagination-fraction, 
+  .swiper-pagination-custom, 
+  .swiper-container-horizontal 
+  > .swiper-pagination-bullets {
+    bottom: 0px;
+  }
+
+  .scroll-content{
+    top:-70px !important;
+    padding-top: 60px !important;
+  }
+
+  .top-full-color {
+    z-index: 10000;
+  }
 }

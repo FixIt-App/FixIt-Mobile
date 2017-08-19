@@ -4,6 +4,7 @@ import { NavController, NavParams, IonicPage, Content } from 'ionic-angular';
 
 import { Work } from '../../models/work'
 import { WorkService } from '../../providers/work-service';
+import { WorkTypeService } from '../../providers/wortktype-service'
 
 @IonicPage()
 @Component({
@@ -20,7 +21,7 @@ export class ServiceHistoricalPage {
    // for autohide header
   @ViewChild(Content) content: Content;
   start = 0;
-  threshold = 100;
+  threshold = 50;
   slideHeaderPrevious = 0;
   ionScroll:any;
   showheader:boolean;
@@ -28,16 +29,21 @@ export class ServiceHistoricalPage {
   headercontent:any;
 
   constructor(public navCtrl: NavController, 
+              private workTypeService: WorkTypeService,
               public navParams: NavParams,
               private workService: WorkService,
+              private navController: NavController,
               public myElement: ElementRef)
   {
+    this.showheader = false;
+    this.hideheader = true;
     this.today = new Date();
     this.tomorrow = new Date(this.today.getFullYear(), this.today.getMonth(), 
                               this.today.getDate() + 1);
   }
 
   ionViewDidLoad() {
+    this.listenToScroll();
     this.workService.getMyWorks(['ORDERED', 'SCHEDULED']).subscribe(
       (works) => {
         this.currentWorks = works;
@@ -102,7 +108,13 @@ export class ServiceHistoricalPage {
   }
 
   goToFindWorks() {
-    this.navCtrl.setRoot(FindWorkPage);
+    this.workTypeService.getWorkTypes().subscribe(
+      categories => {
+        this.navController.setRoot(FindWorkPage, { categories: categories.reverse() });
+      },
+      error => {
+        console.log(error);
+      });
   }
 
   goToDetails(work: Work) {
