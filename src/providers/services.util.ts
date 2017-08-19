@@ -12,3 +12,8 @@ export const SERVER_URL = "";
  * Enable when using using in a real or emulated device. Remote server ("$ ionic run")
  */
 // export const SERVER_URL = "https://gleis.fix-it.com.co";
+
+/**
+ * TPAGA
+ */
+export const TPAGA_URL = "https://sandbox.tpaga.co/api";

@@ -1,4 +1,4 @@
-import { Component,  QueryList, ElementRef } from '@angular/core';
+import { Component,  QueryList } from '@angular/core';
 import { NavController, NavParams, ModalController, ToastController, Content, Platform } from 'ionic-angular';
 import { DatePicker } from '@ionic-native/date-picker';
 import { ViewChild, ViewChildren } from '@angular/core';

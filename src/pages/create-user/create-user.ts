@@ -7,9 +7,8 @@ import 'rxjs/add/operator/map';
 import { UserDataService } from '../../providers/user-data-service'
 import { Customer } from '../../models/user'
 import { CreditCard } from '../../models/credit-card'
-import { FindWorkPage } from '../findwork/findwork';
-import { ConfirmationService } from '../../providers/confirmation-service';
-import { AuthService } from '../../providers/auth-service';
+import { ConfirmationService } from '../../providers/confirmation-service'
+import { AuthService } from '../../providers/auth-service'
 import { WorkTypeService } from '../../providers/wortktype-service'
 
 @Component({
@@ -253,7 +252,7 @@ export class CreateUserPage {
                       "a través de un mensaje de texto, ingresa el código a continuación." + 
                       "Si demora, también puedes revisar en tu correo.";
                   
-                  let username = this.customer.username == null ? this.customer.email : this.customer.username;
+                  // let username = this.customer.username == null ? this.customer.email : this.customer.username;
 
                   this.authService.login(this.customer.email, this.customer.password).subscribe(
                     (token) => {
