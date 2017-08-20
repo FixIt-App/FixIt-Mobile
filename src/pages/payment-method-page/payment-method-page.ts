@@ -1,11 +1,11 @@
-import { CreditCard } from './../../models/credit-card';
-import { PaymentService } from './../../providers/payment-service';
 import { Component } from '@angular/core'
 import { IonicPage, NavController, NavParams } from 'ionic-angular'
+import { AlertController, ModalController, LoadingController, Loading } from 'ionic-angular'
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms'
-import { AlertController, ModalController } from 'ionic-angular'
 import { WorkTypeService } from '../../providers/wortktype-service'
 import { FindWorkPage } from '../findwork/findwork'
+import { CreditCard } from './../../models/credit-card';
+import { PaymentService } from './../../providers/payment-service';
 
 @IonicPage()
 @Component({
@@ -34,7 +34,6 @@ export class PaymentMethodPage {
     "ioc": "COL",
     "name": "Colombia",
   };
-
   mapaCampos = {
     "cardHolderName": "Nombre de tarjeta",
     "primaryAccountNumber": "Número de tarjeta",
@@ -50,7 +49,8 @@ export class PaymentMethodPage {
               public alertCtrl: AlertController,
               private navController: NavController,
               public navParams: NavParams,
-              private paymentService: PaymentService) 
+              private paymentService: PaymentService,
+              public loadingCtrl: LoadingController)
   {
     this.firstTime = this.navParams.get('firstTime');
     this.firstTime == undefined ? false : this.firstTime;
@@ -101,7 +101,9 @@ export class PaymentMethodPage {
   saveCreditCard() {
     this.submitAttempt = true;
     if (this.form.valid) {
-      this.creditCard = new CreditCard();
+      let loader = this.loadingCtrl.create({spinner: 'crescent'});
+      loader.present();
+      this.creditCard = new CreditCard({});
       this.creditCard.cardHolderName = this.name.value;
       this.creditCard.number = this.number.value;
       this.creditCard.expirationMonth = this.expirationMonth.value;
@@ -112,16 +114,29 @@ export class PaymentMethodPage {
       this.paymentService.saveCreditCard(this.creditCard).subscribe(
         (response) => {
           console.log(response.token);
-          this.paymentService.saveCreditCard(response.token).subscribe(
+          this.paymentService.saveTokenToServer(response.token).subscribe(
             (status) => {
-              this.navCtrl.pop();
+              if (this.firstTime) {
+                this.goToFindWorks();
+              } else {
+                this.navCtrl.pop();
+              }
+              loader.dismiss();
             },
             (error) => {
-
+              console.log(error);
+              loader.dismiss();
+              let errAlert = this.alertCtrl.create({
+                title: "Error",
+                message: "No se pudo procesar la tarjeta, por favor intenta mas tarde ",
+                buttons: ['Dismiss']
+              })
+              errAlert.present();
             }
           )
         },
         (error) => {
+          loader.dismiss();
           if (error.status == 422) {
             let campos = error.json().errors.map( ob => this.mapaCampos[ob.field]);
             let mess = campos[0] + " inválido";
@@ -146,4 +161,5 @@ export class PaymentMethodPage {
       console.log("form not valid");
     }
   }
+
 }

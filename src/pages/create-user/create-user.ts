@@ -65,7 +65,7 @@ export class CreateUserPage {
       this.customer = this.navParams.get('customer');
     else {
       this.customer = new Customer({});
-      this.customer.creditCard = new CreditCard();
+      this.customer.creditCard = new CreditCard({});
       this.customer.creditCard.number = "";
     }
     this.isConfirmingSMS = this.navParams.get('isConfirmingSMS');
@@ -81,6 +81,7 @@ export class CreateUserPage {
     this.customer.username = this.customer.email;
     this.customer.phone = this.selectedCountry.countryCallingCodes[0] + this.phone;
     this.customer.city = 'Bogotá, Colombia';
+    console.log('voy a guardar customer');
     return this.userService.saveCustomer(this.customer).map(
       customer => {
         this.isConfirmingSMS = true;

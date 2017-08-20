@@ -122,7 +122,7 @@ export class LoginPage {
 
 	presentLoader() {
 		this.loader = this.loadingCtrl.create({spinner: 'crescent'});
-    this.loader.present();
+    	this.loader.present();
 	}
 
 	dismissLoader() {

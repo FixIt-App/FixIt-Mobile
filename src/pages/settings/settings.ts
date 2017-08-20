@@ -1,11 +1,12 @@
+import { CreditCard } from './../../models/credit-card';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, LoadingController, Loading } from 'ionic-angular';
 
 import { Customer } from '../../models/user';
 import { Address } from '../../models/address';
 import { UserDataService } from '../../providers/user-data-service';
 import { AddressService } from '../../providers/address-service';
-
+import { PaymentService } from '../../providers/payment-service';
 @IonicPage()
 @Component({
   selector: 'page-settings',
@@ -15,17 +16,33 @@ export class SettingsPage {
 
   customer: Customer;
   addresses: Address[];
+  creditCard: CreditCard;
+
   constructor(public navCtrl: NavController, 
               private userDataService: UserDataService,
               public navParams: NavParams,
               private modalCtrl: ModalController,
-              private addressService: AddressService) 
+              private addressService: AddressService,
+              private paymentService: PaymentService,
+              public loadingCtrl: LoadingController)
   {
     this.customer = this.userDataService.getCustomer();
     console.log(this.customer)
   }
 
   ionViewDidLoad() {
+    let loader = this.loadingCtrl.create({spinner: 'crescent'});
+    loader.present();
+    this.paymentService.getCreditCard().subscribe(
+      (card) => {
+        this.creditCard = card;
+        loader.dismiss();
+      },
+      (error) => {
+        console.log(error);
+        loader.dismiss();
+      }
+    )
     this.addressService.getCustomerAddresses().subscribe(
       addresses => {
         this.addresses = addresses;
@@ -42,7 +59,6 @@ export class SettingsPage {
 
   editPaymentMethod() {
     //TODO (a-santamaria): edit payment method
-
   }
 
   addPaymentMethod() {

@@ -4,6 +4,15 @@ export class CreditCard {
     expirationYear: string;
     expirationMonth: string;
     cardHolderName: string;
+    type: string;
+
+    constructor(data: any) {
+        this.number = "**** **** **** " + data.lastFour;
+        this.expirationYear = data.expirationYear;
+        this.expirationMonth = data.expirationYear;
+        this.cardHolderName = data.cardHolderName;
+        this.type = data.type;
+    }   
 
     exportTPaga(): any {
         var obj: any = {};
@@ -14,4 +23,5 @@ export class CreditCard {
         obj.cardHolderName = this.number;
         return obj;
     }
+    
 }
