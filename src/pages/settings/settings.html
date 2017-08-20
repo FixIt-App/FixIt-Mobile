@@ -33,7 +33,7 @@
     </ion-list-header>
     <ion-item class="no-lines" *ngIf="creditCard" (click)="editPaymentMethod()">
       <ion-icon name="card" item-left></ion-icon>
-      {{ creditCard.number }}
+      **** **** **** {{ creditCard.lastFour }}
       <ion-icon name="trash" color="danger" item-right (click)="deletePaymentMethod()"></ion-icon>
     </ion-item>
     <button ion-button clear full *ngIf="!creditCard" (click)="addPaymentMethod()">

@@ -1,5 +1,6 @@
 export class CreditCard {
-	number: string;
+    number: string;
+    lastFour: string;
     cvc: string;
     expirationYear: string;
     expirationMonth: string;
@@ -7,7 +8,8 @@ export class CreditCard {
     type: string;
 
     constructor(data: any) {
-        this.number = "**** **** **** " + data.lastFour;
+        console.log('adentro ' + data.lastFour);
+        this.lastFour = data.lastFour;
         this.expirationYear = data.expirationYear;
         this.expirationMonth = data.expirationYear;
         this.cardHolderName = data.cardHolderName;

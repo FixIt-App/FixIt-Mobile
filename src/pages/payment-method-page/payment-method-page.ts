@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
 import { IonicPage, NavController, NavParams } from 'ionic-angular'
-import { AlertController, ModalController, LoadingController, Loading } from 'ionic-angular'
+import { AlertController, ModalController, LoadingController, Loading, ViewController } from 'ionic-angular'
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms'
 import { WorkTypeService } from '../../providers/wortktype-service'
 import { FindWorkPage } from '../findwork/findwork'
@@ -49,6 +49,7 @@ export class PaymentMethodPage {
               public alertCtrl: AlertController,
               private navController: NavController,
               public navParams: NavParams,
+              private viewCtrl: ViewController,
               private paymentService: PaymentService,
               public loadingCtrl: LoadingController)
   {
@@ -119,7 +120,10 @@ export class PaymentMethodPage {
               if (this.firstTime) {
                 this.goToFindWorks();
               } else {
-                this.navCtrl.pop();
+                this.creditCard.lastFour = this.creditCard.number.substr(this.creditCard.number.length-5, 4);
+                this.viewCtrl.dismiss({
+                  card: this.creditCard
+                });
               }
               loader.dismiss();
             },

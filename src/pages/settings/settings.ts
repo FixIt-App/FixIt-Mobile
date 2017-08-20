@@ -1,7 +1,7 @@
-import { CreditCard } from './../../models/credit-card';
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, LoadingController, Loading } from 'ionic-angular';
+import { Component, NgZone } from '@angular/core';
+import { IonicPage, NavController, NavParams, ModalController, LoadingController, AlertController, ToastController } from 'ionic-angular';
 
+import { CreditCard } from './../../models/credit-card';
 import { Customer } from '../../models/user';
 import { Address } from '../../models/address';
 import { UserDataService } from '../../providers/user-data-service';
@@ -22,8 +22,11 @@ export class SettingsPage {
               private userDataService: UserDataService,
               public navParams: NavParams,
               private modalCtrl: ModalController,
+              private alertCtrl: AlertController,
+              private toastCtrl: ToastController,
               private addressService: AddressService,
               private paymentService: PaymentService,
+              private zone: NgZone,
               public loadingCtrl: LoadingController)
   {
     this.customer = this.userDataService.getCustomer();
@@ -62,12 +65,45 @@ export class SettingsPage {
   }
 
   addPaymentMethod() {
-    this.navCtrl.push('PaymentMethodPage');
+    let modal = this.modalCtrl.create('PaymentMethodPage');
+    modal.onDidDismiss( (card) => {
+      console.log(card.card);
+      this.creditCard = card.card;
+    });
+
+    modal.present();
   } 
 
   deletePaymentMethod() {
-    // TODO(a-santamaria): delete payment method
-    console.log('todo delete payment method');
+    let alert = this.alertCtrl.create({
+      title: 'Confirmación',
+      message: '¿Quieres eliminar la tarjeta terminda en ' + this.creditCard.lastFour + '?',
+      buttons: [
+        {
+          text: 'Eliminar',
+          handler: () => {
+            this.paymentService.deleteCreditCard().subscribe(
+              (status) => {
+                this.creditCard = undefined;
+              },
+              (error) => {
+                let toast = this.toastCtrl.create({
+                  message: "Error, por favor intenta más tarde",
+                  duration: 5000,
+                  showCloseButton: true
+                })
+                toast.present();
+              }
+            )
+          }
+        },
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+        },
+      ]
+    });
+    alert.present();
   }
 
   newAddress() {
