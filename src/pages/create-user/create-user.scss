@@ -29,6 +29,10 @@ ion-content {
       .country-code {
         padding-left: 0px !important;
         padding-right: 0px !important;
+        img {
+          height: 16px;
+          width: 16px;
+        }
       }
 
       #buttons {

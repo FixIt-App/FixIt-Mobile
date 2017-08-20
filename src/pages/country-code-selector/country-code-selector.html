@@ -18,7 +18,7 @@
    <ion-list radio-group>
      <span *ngFor="let country of countryCodes">
       <ion-item *ngIf="country.emoji && country.countryCallingCodes">
-          <ion-label>  {{ country.emoji }} &nbsp; {{ country.countryCallingCodes[0] }} {{ country.name }}</ion-label>
+          <ion-label>  <img [src]="country.flag" style="height: 16px; width: 16px"> &nbsp; {{ country.countryCallingCodes[0] }} {{ country.name }}</ion-label>
           <ion-radio checked="false" (click)="select(country)" [value]="country"></ion-radio>
       </ion-item>
      </span>

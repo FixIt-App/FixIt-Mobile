@@ -24,6 +24,7 @@ export class CreateUserPage {
     "countryCallingCodes": [
       "+57"
     ],
+    "flag": "assets/colombia_flag.png",
     "emoji": "🇨🇴",
     "ioc": "COL",
     "name": "Colombia",
