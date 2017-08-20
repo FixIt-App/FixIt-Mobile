@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
 import { IonicPage, NavController, NavParams } from 'ionic-angular'
-import { AlertController, ModalController, LoadingController, Loading, ViewController } from 'ionic-angular'
+import { AlertController, ModalController, LoadingController, ViewController } from 'ionic-angular'
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms'
 import { WorkTypeService } from '../../providers/wortktype-service'
 import { FindWorkPage } from '../findwork/findwork'
