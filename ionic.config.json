@@ -8,5 +8,9 @@
       "path": "/api",
       "proxyUrl": "https://gleis.fix-it.com.co/api"
     }
-  ]
+  ],
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
 }
