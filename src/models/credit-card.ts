@@ -1,15 +1,29 @@
 export class CreditCard {
-	number: string;
-    securityNumber: string;
+    number: string;
+    lastFour: string;
+    cvc: string;
     expirationYear: string;
-	expirationMonth: string;
+    expirationMonth: string;
+    cardHolderName: string;
+    type: string;
 
-    export(): any {
+    constructor(data: any) {
+        console.log('adentro ' + data.lastFour);
+        this.lastFour = data.lastFour;
+        this.expirationYear = data.expirationYear;
+        this.expirationMonth = data.expirationYear;
+        this.cardHolderName = data.cardHolderName;
+        this.type = data.type;
+    }   
+
+    exportTPaga(): any {
         var obj: any = {};
-        obj.number = this.number;
-        obj.securityNumber = this.securityNumber;
+        obj.primaryAccountNumber = this.number;
+        obj.cvc = this.cvc;
         obj.expirationYear = this.expirationYear;
         obj.expirationMonth = this.expirationMonth;
-        return obj
+        obj.cardHolderName = this.number;
+        return obj;
     }
+    
 }

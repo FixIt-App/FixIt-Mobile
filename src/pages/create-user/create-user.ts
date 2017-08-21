@@ -7,9 +7,8 @@ import 'rxjs/add/operator/map';
 import { UserDataService } from '../../providers/user-data-service'
 import { Customer } from '../../models/user'
 import { CreditCard } from '../../models/credit-card'
-import { FindWorkPage } from '../findwork/findwork';
-import { ConfirmationService } from '../../providers/confirmation-service';
-import { AuthService } from '../../providers/auth-service';
+import { ConfirmationService } from '../../providers/confirmation-service'
+import { AuthService } from '../../providers/auth-service'
 import { WorkTypeService } from '../../providers/wortktype-service'
 
 @Component({
@@ -25,6 +24,7 @@ export class CreateUserPage {
     "countryCallingCodes": [
       "+57"
     ],
+    "flag": "assets/colombia_flag.png",
     "emoji": "🇨🇴",
     "ioc": "COL",
     "name": "Colombia",
@@ -66,7 +66,7 @@ export class CreateUserPage {
       this.customer = this.navParams.get('customer');
     else {
       this.customer = new Customer({});
-      this.customer.creditCard = new CreditCard();
+      this.customer.creditCard = new CreditCard({});
       this.customer.creditCard.number = "";
     }
     this.isConfirmingSMS = this.navParams.get('isConfirmingSMS');
@@ -82,6 +82,7 @@ export class CreateUserPage {
     this.customer.username = this.customer.email;
     this.customer.phone = this.selectedCountry.countryCallingCodes[0] + this.phone;
     this.customer.city = 'Bogotá, Colombia';
+    console.log('voy a guardar customer');
     return this.userService.saveCustomer(this.customer).map(
       customer => {
         this.isConfirmingSMS = true;
@@ -253,7 +254,7 @@ export class CreateUserPage {
                       "a través de un mensaje de texto, ingresa el código a continuación." + 
                       "Si demora, también puedes revisar en tu correo.";
                   
-                  let username = this.customer.username == null ? this.customer.email : this.customer.username;
+                  // let username = this.customer.username == null ? this.customer.email : this.customer.username;
 
                   this.authService.login(this.customer.email, this.customer.password).subscribe(
                     (token) => {

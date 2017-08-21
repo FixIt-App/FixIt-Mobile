@@ -31,12 +31,12 @@
     <ion-list-header>
       Métodos de pago
     </ion-list-header>
-    <ion-item class="no-lines" (click)="editPaymentMethod()">
+    <ion-item class="no-lines" *ngIf="creditCard" (click)="editPaymentMethod()">
       <ion-icon name="card" item-left></ion-icon>
-      *** 2353 (mock)
+      **** **** **** {{ creditCard.lastFour }}
       <ion-icon name="trash" color="danger" item-right (click)="deletePaymentMethod()"></ion-icon>
     </ion-item>
-    <button ion-button clear full (click)="addPaymentMethod()">
+    <button ion-button clear full *ngIf="!creditCard" (click)="addPaymentMethod()">
       Agregar metodo de pago
     </button>
 
@@ -45,7 +45,7 @@
     </ion-list-header>
     <ion-item class="no-lines" *ngFor="let address of addresses">
       {{ address.name }}: {{ address.address }}
-      <ion-icon name="trash" color="danger" item-right (click)="deleteAddress()"></ion-icon>
+      <!-- <ion-icon name="trash" color="danger" item-right (click)="deleteAddress()"></ion-icon> -->
     </ion-item>
     <button ion-button clear full (click)="newAddress()">
       Agregar dirección

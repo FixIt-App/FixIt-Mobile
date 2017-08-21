@@ -20,7 +20,7 @@
     <button ion-button outline round color="metallica" (click)="goToFindWorks()"> pedir nuevo trabajo</button>
   </div>
 
-  <ion-list no-lines>
+  <ion-list no-lines *ngIf="(currentWorks && currentWorks.length != 0) || (finishedWorks && finishedWorks.length != 0)">
     <ion-item-divider color="guns-n-roses">Próximos</ion-item-divider>
 
     <ion-item class="item-work" *ngFor="let work of currentWorks" (click)="goToDetails(work)">

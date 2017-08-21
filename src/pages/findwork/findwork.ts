@@ -1,6 +1,6 @@
 import { Category } from './../../models/category';
-import { Component, OnInit, ViewChildren, QueryList, ViewChild, ElementRef } from '@angular/core';
-import { NavController, Slides, Content, Platform, NavParams } from 'ionic-angular';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { NavController, Content, Platform, NavParams } from 'ionic-angular';
 import { WorkTypeService } from '../../providers/wortktype-service'
 import { SchedulePage } from '../schedule/schedule'
 import { UserDataService } from '../../providers/user-data-service';

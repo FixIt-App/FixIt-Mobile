@@ -24,7 +24,7 @@
             <ion-row>
                 <ion-col col-3>
                     <ion-item class="country-code" (click)="goToSelectCountry()">
-                        <span *ngIf="selectedCountry"> {{ selectedCountry.emoji }} {{ selectedCountry.countryCallingCodes[0] }} </span>
+                        <span *ngIf="selectedCountry"> <img [src]="selectedCountry.flag"> {{ selectedCountry.countryCallingCodes[0] }} </span>
                     </ion-item>
                 </ion-col>
                 <ion-col col-8 offset-1>
@@ -65,19 +65,19 @@
             </ion-grid>
         </div>
 
+        <ion-row id="tyc" *ngIf="stepNumber == 4">
+            Al dar clic en finalizar estas aceptando los <button ion-button small clear (click)="goToTerms()"> Terminos y condiciones </button>.
+        </ion-row>
         
         <ion-row id="buttons">
             <button col-3 id="previous" ion-button round full color="light-green" (click)="stepBack()">
                  <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
             </button> 
             <button col-8 offset-1 *ngIf="stepNumber != 4" id="next" ion-button round full color="light-green" (click)="nextStep()" [disabled]="disableNext()"> Siguiente</button>
-            <button col-8 offset-1 *ngIf="stepNumber == 4" id="next" ion-button round full color="light-green" (click)="nextStep()" [disabled]="disableNext()"> Crear</button>
+            <button col-8 offset-1 *ngIf="stepNumber == 4" id="next" ion-button round full color="light-green" (click)="nextStep()" [disabled]="disableNext()"> Finalizar</button>
             <button col-8 offset-1 id="next" ion-button round full color="light-green" *ngIf="showSkipButton" (click)="nextStep()">Omitir</button>
         </ion-row>
 
-        <ion-row id="tyc" *ngIf="stepNumber == 4">
-            Al crear un usuario en Fixit se aceptan los <button ion-button small clear (click)="goToTerms()"> Terminos y condiciones </button>.
-        </ion-row>
     </form>
 
     

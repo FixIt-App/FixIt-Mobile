@@ -24,6 +24,7 @@ import { UserDataService } from '../providers/user-data-service';
 import { WorkService } from '../providers/work-service';
 import { ConfirmationService } from '../providers/confirmation-service';
 import { DeviceService } from '../providers/device-service';
+import { PaymentService } from '../providers/payment-service';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { DeviceService } from '../providers/device-service';
     UserDataService,
     WorkService,
     ConfirmationService,
-    DeviceService
+    DeviceService,
+    PaymentService
   ]
 })
 export class AppModule {}
