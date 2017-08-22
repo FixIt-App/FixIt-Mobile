@@ -1,66 +1,88 @@
 <ion-content>
-    <form *ngIf="!isConfirmingSMS">
+    <form>
 
-        <h1 *ngIf="this.title != null">{{title}}</h1>
-        <h2 *ngIf="this.title != null && this.subtitle != null">{{subtitle}}</h2>
+        <div *ngIf="stepNumber == 1">
+            <h1> ¿Cómo te llamas? </h1>
+            <ion-item>
+                <ion-input placeholder="Nombre" name="name" [(ngModel)]="customer.firstName" type="text"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-input placeholder="Apellido" name="lastname" [(ngModel)]="customer.lastName" type="text"></ion-input>
+            </ion-item>
+        </div>
 
-        <ion-item *ngIf="stepNumber == 1">
-            <ion-input placeholder="Nombre" name="name" [(ngModel)]="customer.firstName" type="text"></ion-input>
-        </ion-item>
 
-        <ion-item *ngIf="stepNumber == 1">
-            <ion-input placeholder="Apellido" name="lastname" [(ngModel)]="customer.lastName" type="text"></ion-input>
-        </ion-item>
+        <div *ngIf="stepNumber == 2">
+            <h1> Contraseña </h1>
+            <h2> Recuerda que debe ser mínimo de 8 caracteres </h2>
+            <ion-item>
+                <ion-input placeholder="Contraseña" name="password" [(ngModel)]="customer.password" type="password"></ion-input>
+            </ion-item>
+        </div>
 
-        <ion-item *ngIf="stepNumber == 2">
-            <ion-input placeholder="Contraseña" name="password" [(ngModel)]="customer.password" type="password"></ion-input>
-        </ion-item>
+        <div *ngIf="stepNumber == 3">
+            <h1> Correo electrónico </h1>
+            <h2> No spam, prometido </h2>
+            <ion-item>
+                <ion-input placeholder="Correo" name="email" [(ngModel)]="customer.email" type="email"></ion-input>
+            </ion-item>
+        </div>
 
-        <ion-item *ngIf="stepNumber == 3">
-            <ion-input placeholder="Correo" name="email" [(ngModel)]="customer.email" type="email"></ion-input>
-        </ion-item>
+        <div *ngIf="stepNumber == 4">
+            <h1> Número de teléfono móvil </h1>
+            <ion-grid no-padding>
+                <ion-row>
+                    <ion-col col-3>
+                        <ion-item class="country-code" (click)="goToSelectCountry()">
+                            <span *ngIf="selectedCountry"> <img [src]="selectedCountry.flag"> {{ selectedCountry.countryCallingCodes[0] }} </span>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col col-8 offset-1>
+                        <ion-item>
+                            <ion-input placeholder="Teléfono" name="phone" [(ngModel)]="phone" type="tel"></ion-input>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
 
-        <ion-grid no-padding  *ngIf="stepNumber == 4">
-            <ion-row>
-                <ion-col col-3>
-                    <ion-item class="country-code" (click)="goToSelectCountry()">
-                        <span *ngIf="selectedCountry"> <img [src]="selectedCountry.flag"> {{ selectedCountry.countryCallingCodes[0] }} </span>
-                    </ion-item>
-                </ion-col>
-                <ion-col col-8 offset-1>
-                    <ion-item>
-                        <ion-input placeholder="Teléfono" name="phone" [(ngModel)]="phone" type="tel"></ion-input>
-                    </ion-item>
-                </ion-col>
-            </ion-row>
-        </ion-grid>
+        <div *ngIf="stepNumber == 5">
+            <h1> Confirma tu número </h1>
+            <h2> Hemos un enviado mensaje de texto con el código de confirmación 
+                a tu teléfono, ingresa el código a continuación.
+                También puedes revisar en tu correo.
+            </h2>
+        
+            <ion-item>
+                <ion-input placeholder="XXXX" name="smsCode" [(ngModel)]="smsCode" type="number"></ion-input>
+            </ion-item>
+        </div>
 
-        <ion-item *ngIf="stepNumber == 5">
-            <ion-input placeholder="XXXX" name="smsCode" [(ngModel)]="smsCode" type="number"></ion-input>
-        </ion-item>
-
-        <div id="credit-card" *ngIf="stepNumber == 6">   
+        <div id="credit-card" *ngIf="stepNumber == 6">
+                <h1> Tarjeta de crédito </h1>
+                <h2> Puedes ingresarla más adelante si lo deseas, pero vas a necesitarla para usar nuestros servicios </h2>
+        
             <ion-item>
                 <ion-input placeholder="Tarjeta de crédito" name="creditCardNumber" [(ngModel)]="customer.creditCard.number" type="number"></ion-input>
             </ion-item>
             <ion-grid>
             <ion-row id="expiration-date-and-security-number">
-                 <ion-col col-3>
+                <ion-col col-3>
                     <ion-item>
                         <ion-input placeholder="MM" name="expirationMonth" [(ngModel)]="customer.creditCard.expirationMonth" type="number"></ion-input>
                     </ion-item>
-                 </ion-col>
-                 <ion-col col-3>    
+                </ion-col>
+                <ion-col col-3>    
                     <ion-item>
                         <ion-input placeholder="YY" name="expirationYear" [(ngModel)]="customer.creditCard.expirationYear" type="number"></ion-input>
                     </ion-item>
-                 </ion-col>
+                </ion-col>
 
-                 <ion-col col-4 offset-2>
+                <ion-col col-4 offset-2>
                     <ion-item>
                         <ion-input placeholder="CVV" name="securityNumber" [(ngModel)]="customer.creditCard.securityNumber" type="number"></ion-input>
                     </ion-item>
-                 </ion-col>
+                </ion-col>
             </ion-row>
             </ion-grid>
         </div>
@@ -70,28 +92,24 @@
         </ion-row>
         
         <ion-row id="buttons">
-            <button col-3 id="previous" ion-button round full color="light-green" (click)="stepBack()">
+            <button col-3 ion-button round full color="iron-maiden" (click)="stepBack()">
                  <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
             </button> 
-            <button col-8 offset-1 *ngIf="stepNumber != 4" id="next" ion-button round full color="light-green" (click)="nextStep()" [disabled]="disableNext()"> Siguiente</button>
-            <button col-8 offset-1 *ngIf="stepNumber == 4" id="next" ion-button round full color="light-green" (click)="nextStep()" [disabled]="disableNext()"> Finalizar</button>
-            <button col-8 offset-1 id="next" ion-button round full color="light-green" *ngIf="showSkipButton" (click)="nextStep()">Omitir</button>
+            <button col-8 offset-1 ion-button round full color="keane" (click)="nextStep()" *ngIf="stepNumber <= 4" [disabled]="disableNext()"> 
+                Siguiente
+            </button>
+            <button col-8 offset-1 ion-button round full color="keane" *ngIf="stepNumber == 5" (click)="confirmSMS()"> 
+                Confirmar SMS
+            </button>
+            <button col-8 offset-1 ion-button round full color="keane" *ngIf="showSkipButton" (click)="nextStep()">
+                Omitir
+            </button>
+        </ion-row>
+        <ion-row id="confirmCorreo" *ngIf="stepNumber == 5">
+                <button col-12 ion-button round outline color="metallica" (click)="confirmedEmail()"> 
+                    Ya confirmé desde el correo
+                </button>
         </ion-row>
 
     </form>
-
-    
-
-    <div *ngIf="isConfirmingSMS">
-        <form>
-            <h1 *ngIf="this.title != null">{{title}}</h1>
-            <h2 *ngIf="this.title != null && this.subtitle != null">{{subtitle}}</h2>
-            <ion-item>
-                <ion-input placeholder="Código" name="codigo" [(ngModel)]="smsCode" type="number"></ion-input>
-            </ion-item>
-            <ion-row id="buttons">
-                <button col-10 offset-1 id="next" ion-button round full color="light-green" *ngIf="isConfirmingSMS" (click)="confirmSMS()"> Confirmar</button>
-            </ion-row>
-        </form>
-    </div>
 </ion-content>

@@ -23,7 +23,8 @@ export class User {
         obj.username = this.username
         obj.first_name = this.firstName
         obj.last_name = this.lastName
-        obj.password = this.password
+        if(this.password != undefined)
+            obj.password = this.password
         obj.email = this.email
         obj.phone = this.phone
         return obj
