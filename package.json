@@ -47,5 +47,25 @@
     "ionic-plugin-keyboard"
   ],
   "cordovaPlatforms": [],
-  "description": "fixit: An Ionic project"
+  "description": "fixit: An Ionic project",
+  "cordova": {
+      "plugins": {
+          "cordova-plugin-camera": {},
+          "cordova-plugin-console": {},
+          "cordova-plugin-datepicker": {},
+          "cordova-plugin-device": {},
+          "cordova-plugin-geolocation": {},
+          "cordova-plugin-splashscreen": {},
+          "cordova-plugin-statusbar": {},
+          "cordova-plugin-whitelist": {},
+          "ionic-plugin-keyboard": {},
+          "phonegap-plugin-barcodescanner": {},
+          "phonegap-plugin-push": {
+              "SENDER_ID": "615968990679"
+          }
+      },
+      "platforms": [
+          "android"
+      ]
+  }
 }

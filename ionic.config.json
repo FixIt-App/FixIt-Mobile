@@ -1,12 +1,14 @@
 {
   "name": "fixit",
   "app_id": "08142b23",
-  "v2": true,
-  "typescript": true,
   "proxies": [
     {
       "path": "/api",
       "proxyUrl": "https://gleis.fix-it.com.co/api"
     }
-  ]
+  ],
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
 }

@@ -33,4 +33,5 @@ before_script:
 
 script:
   - npm run build
+  - cordova platform add android
   - cordova prepare
