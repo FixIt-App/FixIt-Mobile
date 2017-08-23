@@ -2,6 +2,12 @@
 
   <ion-navbar color="transparent">
     <ion-title color="metallica">Método de pago</ion-title>
+    <ion-buttons start *ngIf="!firstTime">
+      <button ion-button color="light" (click)="dismiss()">
+        <span showWhen="ios">Cerrar</span>
+        <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -18,43 +24,47 @@
      <ion-item>
       <ion-input type="text" [(formControl)]="name"></ion-input>
     </ion-item>
+    <div class="errorBox" *ngIf="!name.valid  && (name.dirty || submitAttempt)">
+        * requerido.
+    </div>
+
      <ion-label>Número de tarjeta</ion-label>
      <ion-item>
        <ion-icon name="card" item-left></ion-icon>
-      <ion-input type="text" [(formControl)]="number"></ion-input>
+      <ion-input type="number" [(formControl)]="number"></ion-input>
     </ion-item>
     <div class="errorBox" *ngIf="!number.valid  && (number.dirty || submitAttempt)">
-        * requerido.
+        * El número debe tener entre 13 y 18 dígitos.
     </div>
     <ion-row>
 
        <ion-col>
         <ion-label>Mes Exp</ion-label>
         <ion-item>
-          <ion-input type="text" placeholder="MM" [(formControl)]="expirationMonth"></ion-input>
+          <ion-input type="number" placeholder="MM" [(formControl)]="expirationMonth"></ion-input>
         </ion-item>
         <div class="errorBox" *ngIf="!expirationMonth.valid  && (expirationMonth.dirty || submitAttempt)">
-            * requerido.
+            * formato MM.
         </div>  
       </ion-col>
 
       <ion-col>
         <ion-label>Año Exp.</ion-label>
         <ion-item>
-          <ion-input type="text" placeholder="YYYY" [(formControl)]="expirationYear"></ion-input>
+          <ion-input type="number" placeholder="YYYY" [(formControl)]="expirationYear"></ion-input>
         </ion-item>
         <div class="errorBox" *ngIf="!expirationYear.valid  && (expirationYear.dirty || submitAttempt)">
-            * requerido.
+            * formato YYYY.
         </div>  
       </ion-col>
 
       <ion-col>
         <ion-label>CVC</ion-label>
         <ion-item>
-          <ion-input type="text" [(formControl)]="cvc"></ion-input>
+          <ion-input type="number" placeholder="xxx" [(formControl)]="cvc"></ion-input>
         </ion-item>
         <div class="errorBox" *ngIf="!cvc.valid  && (cvc.dirty || submitAttempt)">
-            * requerido.
+            * 3 ó 4 dígitos.
         </div>
       </ion-col>
 

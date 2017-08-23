@@ -8,4 +8,10 @@ page-payment-method-page {
   .toolbar-title {
     color: color($colors, primary) !important;
   }
+
+  ion-navbar {
+    ion-icon {
+      font-size: 2em;
+    }
+  }
 }

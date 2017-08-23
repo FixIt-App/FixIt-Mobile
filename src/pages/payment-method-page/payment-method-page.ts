@@ -59,10 +59,10 @@ export class PaymentMethodPage {
     
     this.form = this.formBuilder.group({
         name: ['', Validators.compose([Validators.required])],
-        number: ['', Validators.compose([Validators.required])],
-        expirationMonth:   ['', Validators.compose([Validators.required])],
-        expirationYear:   ['', Validators.compose([Validators.required])],
-        cvc: ['', Validators.compose([Validators.required])],
+        number: ['', Validators.compose([Validators.required, Validators.minLength(13), Validators.maxLength(19)])],
+        expirationMonth:   ['', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(2)])],
+        expirationYear:   ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(4)])],
+        cvc: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(4)])],
         // country: ['', Validators.compose([Validators.required])]
       });
     this.name = this.form.controls['name'];
@@ -164,6 +164,10 @@ export class PaymentMethodPage {
     } else {
       console.log("form not valid");
     }
+  }
+
+  dismiss() {
+    this.viewCtrl.dismiss();
   }
 
 }

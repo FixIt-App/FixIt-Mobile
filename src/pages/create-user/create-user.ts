@@ -40,6 +40,7 @@ export class CreateUserPage {
   disableNextButton: boolean;
   showSkipButton: boolean;
   emailRegExp = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  unregisterCustomBackActionFunction: any;
 
   constructor(private userService: UserDataService,
               private navParams: NavParams,
@@ -75,7 +76,7 @@ export class CreateUserPage {
     }
 
     platform.ready().then(() => {
-      platform.registerBackButtonAction(() => {
+      this.unregisterCustomBackActionFunction = platform.registerBackButtonAction(() => {
         this.stepBack();
       })
     })
@@ -167,6 +168,7 @@ export class CreateUserPage {
           if ( customer.confirmations.some(conf => conf.state == true) ) {
             this.userDataService.setCustomer(customer);
             console.log(customer);
+            this.unregisterCustomBackActionFunction();
             this.navController.setRoot('PaymentMethodPage', {firstTime: true});
           } else {
             this.presentErrorAlert('Error', 'Aun no has confirmado ni el correo ni el telefono')
@@ -189,6 +191,7 @@ export class CreateUserPage {
               if ( customer.confirmations.some(conf => conf.state == true) ) {
                 this.userDataService.setCustomer(customer);
                 console.log(customer);
+                this.unregisterCustomBackActionFunction();
                 this.navController.setRoot('PaymentMethodPage', {firstTime: true});
               } else {
                 this.presentErrorAlert('Error', 'Aun no has confirmado el correo')
@@ -214,6 +217,7 @@ export class CreateUserPage {
 				this.events.publish('customer:logged', customer);
 				this.userDataService.setCustomer(customer);
         console.log(customer);
+        this.unregisterCustomBackActionFunction();
         this.navController.setRoot('PaymentMethodPage', {firstTime: true});
 			},  
 			error => {
@@ -395,6 +399,7 @@ export class CreateUserPage {
   stepBack() {
     if(this.stepNumber == 1) {
       localStorage.clear();
+      this.unregisterCustomBackActionFunction();
       this.navController.setRoot(LoginPage);
     } else {
       this.stepNumber--;

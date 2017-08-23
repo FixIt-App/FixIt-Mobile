@@ -1,6 +1,6 @@
 import { Work } from './../models/work';
 import { Component, ViewChild } from '@angular/core';
-import { Platform, MenuController, Nav, Events, AlertController, LoadingController } from 'ionic-angular';
+import { Platform, MenuController, Nav, Events, AlertController, LoadingController, App } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Push, PushOptions, PushObject, NotificationEventResponse } from '@ionic-native/push';
 
@@ -24,6 +24,7 @@ export class MyApp {
   customer: Customer;
 
   constructor(public platform: Platform,
+              private app: App,
               public menu: MenuController,
               public events: Events,
               public splashScreen: SplashScreen,

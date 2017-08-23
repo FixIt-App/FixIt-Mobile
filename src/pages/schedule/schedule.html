@@ -23,17 +23,23 @@
       </ion-col>
       <ion-col col-8 id="when">
         <ion-row>
-          <button id="schedule" (click)="makeDate()">
+          <button ion-button  outline full icon-start (click)="editDate()">
             <ion-icon ios="ios-calendar" md="md-calendar"></ion-icon>
+            <span *ngIf="!work.date"> Agendar cita </span>
+            <span *ngIf="work.date"> Editar fecha </span>
           </button>
-          <span>Agendar cita</span>
         </ion-row>
-        <ion-row>
-          <button id="now" (click)="needItNow()">
-            <ion-icon ios="ios-flash" md="md-flash"></ion-icon>
+          <!-- <button id="schedule" (click)="makeDate()">
+            <ion-icon ios="ios-calendar" md="md-calendar"></ion-icon>
+
+          </button> -->
+        <ion-row *ngIf="!work.asap">
+          <button ion-button outline full icon-start (click)="needItNow()">
+            <ion-icon ios="ios-flash" color="warning" md="md-flash"></ion-icon>
+             Lo necesito ahora mismo
           </button>
-          <span>Lo necesito ahora mismo</span>
         </ion-row>
+
       </ion-col>
     </ion-row>
     <ion-row id="where">
@@ -45,7 +51,10 @@
            <ion-slide *ngFor="let address of addresses">
             <div class="address-card" (click)="selectAddress(address)" >
               <button [ngClass]="{'selected': address.selected, 'not-selected': !address.selected }">
-                <ion-icon ios="ios-home" md="md-home"></ion-icon>
+                <ion-icon *ngIf="address.name == 'Casa'" name="home"></ion-icon>
+                <ion-icon *ngIf="address.name == 'Trabajo'" name="briefcase"></ion-icon>
+                <ion-icon *ngIf="address.name == 'Apto'" name="flag"></ion-icon>
+                <ion-icon *ngIf="address.name != 'Casa' && address.name != 'Trabajo' && address.name != 'Apto'" name="cube"></ion-icon>
               </button>
               <span> {{ address.name | addressName }} </span>
             </div>
@@ -63,7 +72,7 @@
     </ion-row>
     <div id="bill">
       <div id="header">
-        <span>{{ work.workType.name }}</span>
+        <span>Servicio: {{ work.workType.name }}</span>
       </div>
       <div id="details">
         <ion-row *ngIf="selectedAddress">
@@ -86,9 +95,12 @@
           <ion-col col-1 class="icon">
             <ion-icon ios="ios-clock" md="md-clock"></ion-icon>
           </ion-col>
-          <ion-col col-11 >
+          <ion-col *ngIf="!work.asap" col-11 >
             {{ work.date | formatTime }}
           </ion-col>
+          <ion-col *ngIf="work.asap" col-11 >
+              Lo más rápido posible
+            </ion-col>
         </ion-row>
       </div>
       <div id="breakdown" *ngIf="dynamicPrice">

@@ -24,6 +24,7 @@ export class SettingsUserPage {
     "ioc": "COL",
     "name": "Colombia",
   };
+  unregisterCustomBackActionFunction: any;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
@@ -54,7 +55,7 @@ export class SettingsUserPage {
 
   ionViewDidLoad() {
     this.platform.ready().then(() => {
-      this.platform.registerBackButtonAction(() => {
+      this.unregisterCustomBackActionFunction = this.platform.registerBackButtonAction(() => {
         this.goBack();
       });
     });
@@ -65,6 +66,7 @@ export class SettingsUserPage {
       this.field = '';
       this.fieldValue = '';
     } else if(this.navCtrl.canGoBack()){
+      this.unregisterCustomBackActionFunction();
       this.navCtrl.pop();
     }
   }

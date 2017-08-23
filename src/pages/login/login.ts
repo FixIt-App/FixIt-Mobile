@@ -77,7 +77,7 @@ export class LoginPage {
 			customer => {
 				this.events.publish('customer:logged', customer);
 				console.log(customer);
-				let confirmSMS = customer.confirmations.find(conf => conf.confirmation_type == 'SMS');
+				// let confirmSMS = customer.confirmations.find(conf => conf.confirmation_type == 'SMS');
 				// if(confirmSMS && !confirmSMS.state) {
 				// if any confirmation is true 
 				if ( customer.confirmations.some(conf => conf.state == true) ) {
