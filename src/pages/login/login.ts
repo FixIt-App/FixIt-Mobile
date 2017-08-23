@@ -52,7 +52,6 @@ export class LoginPage {
 			token => {
 				console.log(token);
 				localStorage.setItem('token', token);
-				this.authService.reloadToken();
 				this.getAuthenticatedCustomer();
 			},
 			err => {
@@ -79,14 +78,9 @@ export class LoginPage {
 				this.events.publish('customer:logged', customer);
 				console.log(customer);
 				let confirmSMS = customer.confirmations.find(conf => conf.confirmation_type == 'SMS');
-				console.log(confirmSMS);
-				if(confirmSMS && !confirmSMS.state) {
-					console.log('ir a confirmar sms');
-					this.navController.setRoot(CreateUserPage, {
-						isConfirmingSMS: true,
-						customer: customer
-					})
-				} else {
+				// if(confirmSMS && !confirmSMS.state) {
+				// if any confirmation is true 
+				if ( customer.confirmations.some(conf => conf.state == true) ) {
 					this.userDataService.setCustomer(customer);
 					console.log(customer);
 
@@ -97,6 +91,12 @@ export class LoginPage {
 						error => {
 							console.log(error);
 						});
+				} else {
+					console.log('ir a confirmar sms or mail');
+					this.navController.setRoot(CreateUserPage, {
+						isConfirmingSMS: true,
+						customer: customer
+					})
 					
 				}
 				this.dismissLoader();
@@ -106,7 +106,6 @@ export class LoginPage {
 				this.dismissLoader();
 			}
 		);
-			
 	}
 
 	signUp(){

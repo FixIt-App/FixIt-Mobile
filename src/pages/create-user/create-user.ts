@@ -1,7 +1,7 @@
 import { LoginPage } from './../login/login';
 import { Component } from '@angular/core'
 import { NavController, Events, NavParams, LoadingController, Platform } from 'ionic-angular'
-import { AlertController, ModalController } from 'ionic-angular'
+import { AlertController, ModalController, ToastController } from 'ionic-angular'
 
 import 'rxjs/add/operator/map';
 
@@ -45,6 +45,7 @@ export class CreateUserPage {
               private navParams: NavParams,
               private platform: Platform,
               public alertCtrl: AlertController,
+              public toastCtrl: ToastController,
               private navController: NavController,
               private modalCtrl: ModalController,
               private confirmationService: ConfirmationService,
@@ -130,13 +131,13 @@ export class CreateUserPage {
           },
           (error) => {
             console.log(error);
+            this.presentErrorAlert('Error', 'El código es incorrecto');
           });
       } else {
         this.authService.login(this.customer.username, this.customer.password).subscribe(
           token => {
             console.log(token);
             localStorage.setItem('token', token);
-            this.authService.reloadToken();
             this.confirmationService.confirmSMS(this.smsCode).subscribe(
             (status) => {
               console.log(status);
@@ -146,17 +147,65 @@ export class CreateUserPage {
             },
             (error) => {
               console.log(error);
+              this.presentErrorAlert('Error', 'El código es incorrecto');
             });
           },
           error => {
             console.log(error);
+            this.presentErrorAlert('Error', 'Por favor intenta más tarde');
           });
       }
     }
   }
 
   confirmedEmail() {
-    // TODO
+    if(!this.customer.password) {
+      this.authService.getAuthCustomer().subscribe(
+        customer => {
+          this.events.publish('customer:logged', customer);
+          this.userDataService.setCustomer(customer);
+          if ( customer.confirmations.some(conf => conf.state == true) ) {
+            this.userDataService.setCustomer(customer);
+            console.log(customer);
+            this.navController.setRoot('PaymentMethodPage', {firstTime: true});
+          } else {
+            this.presentErrorAlert('Error', 'Aun no has confirmado ni el correo ni el telefono')
+          }
+        },  
+        error => {
+          console.log(error);
+          this.presentErrorAlert('Error', 'Por favor intenta más tarde');
+        }
+      );
+    } else {
+      this.authService.login(this.customer.username, this.customer.password).subscribe(
+        token => {
+          console.log(token);
+          localStorage.setItem('token', token);
+          this.authService.getAuthCustomer().subscribe(
+            customer => {
+              this.events.publish('customer:logged', customer);
+              this.userDataService.setCustomer(customer);
+              if ( customer.confirmations.some(conf => conf.state == true) ) {
+                this.userDataService.setCustomer(customer);
+                console.log(customer);
+                this.navController.setRoot('PaymentMethodPage', {firstTime: true});
+              } else {
+                this.presentErrorAlert('Error', 'Aun no has confirmado el correo')
+              }
+            },  
+            error => {
+              console.log(error);
+              this.presentErrorAlert('Error', 'Por favor intenta más tarde');
+            }
+          );
+        },
+        error => {
+          console.log(error);
+          this.presentErrorAlert('Error', 'Por favor intenta más tarde');
+        });
+    }
+    
   }
 
   getAuthenticatedCustomer() {
@@ -174,7 +223,15 @@ export class CreateUserPage {
 
   sendCodeAgain() {
     this.confirmationService.resendSMSCode().subscribe(
-      data => { console.log(data) },
+      data => { 
+        console.log(data)
+        let toast = this.toastCtrl.create({
+          message: "Código de confirmación reenviado",
+          showCloseButton: true,
+          duration: 3000
+        })
+        toast.present();
+      },
       error => { console.log(error) }
     );
   }
@@ -242,16 +299,18 @@ export class CreateUserPage {
                   this.stepNumber++;
                   console.log(this.stepNumber);
                   // let username = this.customer.username == null ? this.customer.email : this.customer.username;
-                  this.authService.login(this.customer.email, this.customer.password).subscribe(
-                    (token) => {
-                      console.log(token);
-                      localStorage.setItem("token", token);
-                    },
-                    (error) => {
-                      error.log(error);
-                      this.presentErrorAlert('Error', 'error al autenticar usuario');
-                    }
-                  );
+                  if (!localStorage.getItem("token")) {
+                    this.authService.login(this.customer.email, this.customer.password).subscribe(
+                      (token) => {
+                        console.log(token);
+                        localStorage.setItem("token", token);
+                      },
+                      (error) => {
+                        error.log(error);
+                        this.presentErrorAlert('Error', 'error al autenticar usuario');
+                      }
+                    );
+                  }
                   this.showNextButton = true;
                   this.showSkipButton = false;
                 });
@@ -293,7 +352,7 @@ export class CreateUserPage {
       case 4: //phone
         return !this.isPhoneValid();
       case 5: // sms
-        return false;
+        return !this.isSMSCodeValid();
       case 6: // payment method
        return false;
     }
@@ -311,10 +370,7 @@ export class CreateUserPage {
     if(!this.customer.password) {
       return false;
     } else {
-      if(this.customer.password.length >= 8) 
-        return true;
-      else 
-        return false;
+      return this.customer.password.length >= 8
     }
   }
 
@@ -327,14 +383,18 @@ export class CreateUserPage {
   isPhoneValid() {
     if(!this.phone)
       return false;
-    if((''+this.phone).length >= 9 && (''+this.phone).length <= 10)
-      return true;
-    else 
+    return ((''+this.phone).length >= 9 && (''+this.phone).length <= 10)
+  }
+
+  isSMSCodeValid() {
+    if(!this.smsCode)
       return false;
+    return (''+this.smsCode).length == 3
   }
 
   stepBack() {
     if(this.stepNumber == 1) {
+      localStorage.clear();
       this.navController.setRoot(LoginPage);
     } else {
       this.stepNumber--;

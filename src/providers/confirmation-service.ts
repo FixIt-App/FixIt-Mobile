@@ -8,17 +8,16 @@ import { SERVER_URL } from './services.util'
 
 @Injectable()
 export class ConfirmationService {
-  token: string;
 
   constructor(public http: Http) {
   }
 
   confirmSMS(smsCode: number) { 
-    this.token = localStorage.getItem('token');
+    let token = localStorage.getItem('token');
     let confirmSMSUrl: string = `${SERVER_URL}/api/phone/confirmations/`;
     var headers = new Headers({ 'Content-Type': 'application/json', 
                                 'Accept': 'application/json',
-                                'Authorization': `Token ${this.token}`
+                                'Authorization': `Token ${token}`
                             });
     var body = JSON.stringify({
       code: smsCode
@@ -30,11 +29,11 @@ export class ConfirmationService {
   }
 
   resendSMSCode() {
-    this.token = localStorage.getItem('token');
+    let token = localStorage.getItem('token');
     let resendSMSUrl: string = `${SERVER_URL}/api/resend-sms-code/`;
     var headers = new Headers({ 'Content-Type': 'application/json', 
                                 'Accept': 'application/json',
-                                'Authorization': `Token ${this.token}`
+                                'Authorization': `Token ${token}`
                             });
     var options = new RequestOptions({ headers: headers });
     return this.http.get(resendSMSUrl, options)

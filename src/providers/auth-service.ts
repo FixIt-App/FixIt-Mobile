@@ -8,10 +8,8 @@ import { Customer } from '../models/user';
 
 @Injectable()
 export class AuthService {
-    token: string;
 
     constructor(public http: Http) {
-        this.token = localStorage.getItem('token');
     }
 
     login(username: string, password: string): Observable<string>{
@@ -28,20 +26,16 @@ export class AuthService {
     }
 
     getAuthCustomer(): Observable<Customer> {
+        let token = localStorage.getItem('token');
         let authCustomerUrl: string = `${SERVER_URL}/api/customer/authenticated/`;
         var headers = new Headers({ 'Content-Type': 'application/json', 
                                   'Accept': 'application/json',
-                                  'Authorization': `Token ${this.token}`
+                                  'Authorization': `Token ${token}`
                                 });
         var options = new RequestOptions({ headers: headers });
         return this.http.get(authCustomerUrl, options)
                         .map(response => { console.log(response); return new Customer(response.json())})
                         .catch(this.handleError)
-    }
-
-    reloadToken() {
-        this.token = localStorage.getItem('token');
-        console.log('token updated: ' + this.token);
     }
     
     private handleError(error: any): Observable<any> {

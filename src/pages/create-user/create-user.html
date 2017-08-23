@@ -49,12 +49,15 @@
         <div *ngIf="stepNumber == 5">
             <h1> Confirma tu número </h1>
             <h2> Hemos un enviado mensaje de texto con el código de confirmación 
-                a tu teléfono, ingresa el código a continuación.
+                a tu teléfono <strong>{{ customer.phone }}</strong>.
+            </h2>
+            <h2>
+                Ingresa el código a continuación.
                 También puedes revisar en tu correo.
             </h2>
         
             <ion-item>
-                <ion-input placeholder="XXXX" name="smsCode" [(ngModel)]="smsCode" type="number"></ion-input>
+                <ion-input placeholder="XXX" name="smsCode" [(ngModel)]="smsCode" type="number"></ion-input>
             </ion-item>
         </div>
 
@@ -98,7 +101,7 @@
             <button col-8 offset-1 ion-button round full color="keane" (click)="nextStep()" *ngIf="stepNumber <= 4" [disabled]="disableNext()"> 
                 Siguiente
             </button>
-            <button col-8 offset-1 ion-button round full color="keane" *ngIf="stepNumber == 5" (click)="confirmSMS()"> 
+            <button col-8 offset-1 ion-button round full color="keane" *ngIf="stepNumber == 5" (click)="confirmSMS()" [disabled]="disableNext()"> 
                 Confirmar SMS
             </button>
             <button col-8 offset-1 ion-button round full color="keane" *ngIf="showSkipButton" (click)="nextStep()">
@@ -106,6 +109,9 @@
             </button>
         </ion-row>
         <ion-row id="confirmCorreo" *ngIf="stepNumber == 5">
+                <button col-12 ion-button round outline color="metallica" (click)="sendCodeAgain()"> 
+                    Volver a enviar código sms
+                </button>
                 <button col-12 ion-button round outline color="metallica" (click)="confirmedEmail()"> 
                     Ya confirmé desde el correo
                 </button>
