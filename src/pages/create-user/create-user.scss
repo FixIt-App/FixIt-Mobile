@@ -40,18 +40,13 @@ ion-content {
         padding:0;
         button{
           margin-top: 0px;
-          color: color($colors, whitesnake);
           border-radius: 10px;
         }
-
-        #previous{
-          background-color: color($colors, iron-maiden);
-        }
-
-        #next{
-          background-color: color($colors, keane);
-        }
       }
+      #confirmCorreo {
+        padding-top: 20px;
+      }
+      
       #tyc {
          text-align: center;
          padding-top: 30px;

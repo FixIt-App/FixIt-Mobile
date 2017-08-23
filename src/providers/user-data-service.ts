@@ -25,14 +25,31 @@ export class UserDataService {
   }
 
   saveCustomer(customer: Customer): Observable<Customer> {
-     let createCustomerURI: string = `${SERVER_URL}/api/customers/`
-     var headers = new Headers({ 'Content-Type': 'application/json', 
+     
+    
+     
+     if(!customer.idCustomer) {
+      let createCustomerURI: string = `${SERVER_URL}/api/customers/`
+      var headers = new Headers({ 'Content-Type': 'application/json', 
+                                  'Accept': 'application/json'})
+      var options = new RequestOptions({ headers: headers });
+       console.log('call create');
+       return this.http.post(createCustomerURI, customer.export(), options)
+         .map(response => new Customer(response.json()))
+         .catch(this.handleError)
+     } else {
+      let customerURI: string = `${SERVER_URL}/api/customers/${customer.idCustomer}/`
+      let token = localStorage.getItem('token');
+      var headers = new Headers({ 'Content-Type': 'application/json', 
                                   'Accept': 'application/json',
-     })
-     var options = new RequestOptions({ headers: headers });
-     return this.http.post(createCustomerURI, customer.export(), options)
-                .map(response => response.json() as Customer)
-                .catch(this.handleError)
+                                  'Authorization': `Token ${token}`});
+      var options = new RequestOptions({ headers: headers });
+      console.log('call edit');
+      console.log(customer.export())
+      return this.http.put(customerURI, customer.export(), options)
+        .map(response => new Customer(response.json()))
+        .catch(this.handleError)
+     }
   }
 
   updateCustomer(idCustomer: number, fieldName: string, fieldValue: string): Observable<Customer> {
@@ -54,8 +71,17 @@ export class UserDataService {
 
   isEmailAvailable(email: string): Observable<boolean> {
     let emailAvailableURI: string = `${SERVER_URL}/api/customer/email/${email}/available/`
-    var headers = new Headers({ 'Content-Type': 'application/json', 
-                                'Accept': 'application/json'});
+    var headers;
+    let token = localStorage.getItem('token');
+    if(token) {
+      console.log('si hay token ' + token);
+      headers = new Headers({ 'Content-Type': 'application/json', 
+                                'Accept': 'application/json',
+                                'Authorization': `Token ${token}`});
+    } else {
+      headers = new Headers({ 'Content-Type': 'application/json', 
+                               'Accept': 'application/json'});
+    }
     console.log(emailAvailableURI);
     var options = new RequestOptions({ headers: headers });
     return this.http.get(emailAvailableURI, options)
@@ -64,8 +90,16 @@ export class UserDataService {
 
   isPhoneAvailable(phone: string): Observable<boolean> {
     let phoneAvailableURI: string = `${SERVER_URL}/api/customer/phone/${phone}/available/`
-    var headers = new Headers({ 'Content-Type': 'application/json', 
-                                'Accept': 'application/json'});
+    var headers;
+    let token = localStorage.getItem('token');
+    if(token)
+      headers = new Headers({ 'Content-Type': 'application/json', 
+                                'Accept': 'application/json',
+                                'Authorization': `Token ${token}`});
+    else {
+      headers = new Headers({ 'Content-Type': 'application/json', 
+                               'Accept': 'application/json'});
+    }
     console.log(phoneAvailableURI);
     var options = new RequestOptions({ headers: headers });
     return this.http.get(phoneAvailableURI, options)
