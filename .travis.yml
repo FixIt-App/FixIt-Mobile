@@ -9,12 +9,10 @@ services:
 
 before_install:
 - docker pull fixitapp/ionic
-- docker run -d -v $(pwd):/root/fixitapp/ fixitapp/ionic /bin/sh -c "cd /root/fixitapp; npm rebuild node-sass"
-- docker ps -a
+# - docker run -d -v $(pwd):/root/fixitapp/ fixitapp/ionic /bin/sh -c "cd /root/fixitapp; npm rebuild node-sass"
+# - docker ps -a
 - docker run -d -v $(pwd):/root/fixitapp/ fixitapp/ionic /bin/sh -c "cd /root/fixitapp; cordova platform add android"
-- docker run -d -v $(pwd):/root/fixitapp/ fixitapp/ionic /bin/sh -c "cd /root/fixitapp; npm run build"
-- docker run -d -v $(pwd):/root/fixitapp/ fixitapp/ionic /bin/sh -c "cd /root/fixitapp; cordova prepare"
 
 script:
-  - npm run build
-  - cordova prepare
+  - docker run -d -v $(pwd):/root/fixitapp/ fixitapp/ionic /bin/sh -c "cd /root/fixitapp; npm run build"
+  - docker run -d -v $(pwd):/root/fixitapp/ fixitapp/ionic /bin/sh -c "cd /root/fixitapp; cordova prepare"
