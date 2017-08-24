@@ -73,9 +73,8 @@ export class SchedulePage {
     if(this.work.asap) {
       this.work.asap = false;
       this.work.date = undefined;
-    } else {
-      this.makeDate();
     }
+    this.makeDate();
   }
 
   getDynamicPrice() {
