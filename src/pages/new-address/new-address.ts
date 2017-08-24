@@ -188,6 +188,14 @@ export class NewAddressPage {
       },
       (error) => {
         console.log('error');
+        let toast = this.toastCtrl.create({
+          message: "No se puede encontrar la hubicación en el momento",
+          duration: 5000,
+          closeButtonText: "cerrar",
+          showCloseButton: true
+        })
+        toast.present();
+        this.loader.dismiss();
       }
     )
   }

@@ -69,13 +69,12 @@ export class SchedulePage {
   }
 
   editDate() {
-    this.dynamicPrice = undefined;
+    // this.dynamicPrice = undefined;
     if(this.work.asap) {
       this.work.asap = false;
       this.work.date = undefined;
-    } else {
-      this.makeDate();
     }
+    this.makeDate();
   }
 
   getDynamicPrice() {

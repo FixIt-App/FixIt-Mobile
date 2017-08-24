@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform, LoadingController, ModalController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform, LoadingController, ModalController, AlertController, ToastController } from 'ionic-angular';
 
 import { Customer } from '../../models/user';
 import { UserDataService } from '../../providers/user-data-service';
+import { ConfirmationService } from '../../providers/confirmation-service';
 
 @IonicPage()
 @Component({
@@ -14,6 +15,7 @@ export class SettingsUserPage {
   customer: Customer;
   field: string;
   fieldValue: any;
+  smsCode: number;
   selectedCountry: any = {
     "alpha2": "CO",
     "alpha3": "COL",
@@ -24,17 +26,23 @@ export class SettingsUserPage {
     "ioc": "COL",
     "name": "Colombia",
   };
-
+  unregisterCustomBackActionFunction: any;
+  smsIsConfirmed: boolean;
+  mailIsConfirmed: boolean;
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               private platform :Platform,
               public loadingCtrl: LoadingController,
+              public toastCtrl: ToastController,
               private modalCtrl: ModalController,
               private alertCtrl: AlertController,
+              private confirmationService: ConfirmationService,
               private userDataService: UserDataService) 
   {
     this.field = '';
     this.customer = this.userDataService.getCustomer();
+    this.smsIsConfirmed = this.customer.confirmations.find(conf => conf.confirmation_type == 'SMS').state;
+    this.mailIsConfirmed = this.customer.confirmations.find(conf => conf.confirmation_type == 'MAIL').state;
     // console.log(this.customer);
     // this.customer = {
     //   username: "alfredo-santamaria@outlook.com", 
@@ -54,7 +62,7 @@ export class SettingsUserPage {
 
   ionViewDidLoad() {
     this.platform.ready().then(() => {
-      this.platform.registerBackButtonAction(() => {
+      this.unregisterCustomBackActionFunction = this.platform.registerBackButtonAction(() => {
         this.goBack();
       });
     });
@@ -65,6 +73,7 @@ export class SettingsUserPage {
       this.field = '';
       this.fieldValue = '';
     } else if(this.navCtrl.canGoBack()){
+      this.unregisterCustomBackActionFunction();
       this.navCtrl.pop();
     }
   }
@@ -76,6 +85,15 @@ export class SettingsUserPage {
 
   edit(s: string) {
     this.field = s;
+    if(this.field == 'phone') {
+      this.fieldValue = this.customer.phone.substr(3, this.customer.phone.length-3);
+    } else if (this.field == 'first_name') {
+      this.fieldValue = this.customer.firstName;
+    } else if (this.field == 'last_name') {
+      this.fieldValue = this.customer.lastName;
+    } else if (this.field == 'email') {
+      this.fieldValue = this.customer.email;
+    }
     console.log(this.field);
   }
 
@@ -124,6 +142,73 @@ export class SettingsUserPage {
     )
   }
 
+  confirmSMS() {
+    this.confirmationService.confirmSMS(this.smsCode).subscribe(
+      (status) => {
+        console.log(status);
+        this.smsIsConfirmed = this.customer.confirmations.find(conf => conf.confirmation_type == 'SMS').state = true;
+        this.field = '';
+      },
+      (error) => {
+        console.log(error);
+        this.presentErrorAlert('Error', 'El código es incorrecto');
+      });
+  }
+
+  confirmMail() {
+    this.confirmationService.getMyConfirmations().subscribe(
+      (confirmations) => {
+        this.customer.confirmations = confirmations;
+        this.mailIsConfirmed = this.customer.confirmations.find(conf => conf.confirmation_type == 'MAIL').state;
+        if (this.mailIsConfirmed) {
+          let toast = this.toastCtrl.create({
+            message: "Correo confirmado exitosamente",
+            showCloseButton: true,
+            duration: 3000
+          })
+          this.field = '';
+          toast.present();
+        } else {
+          this.presentErrorAlert('Error', 'Aún no has confirmado el correo electrónico.');
+        }
+      },
+      (error) => {
+        console.log(error);
+        this.presentErrorAlert('Error', 'Por favor intenta más tarde.');
+      }
+    )
+  }
+
+  sendCodeAgain() {
+    this.confirmationService.resendSMSCode().subscribe(
+      data => { 
+        console.log(data)
+        let toast = this.toastCtrl.create({
+          message: "Código de confirmación reenviado",
+          showCloseButton: true,
+          duration: 3000
+        })
+        toast.present();
+      },
+      error => { console.log(error) }
+    );
+  }
+
+  sendConfirmEmailAgain() {
+    this.confirmationService.resendConfirmMail().subscribe(
+      data => { 
+        console.log(data)
+        let toast = this.toastCtrl.create({
+          message: "Correo de confirmación reenviado",
+          showCloseButton: true,
+          duration: 3000
+        })
+        toast.present();
+      },
+      error => { console.log(error) }
+    );
+  }
+
   gotToSelectCountry() {
     let modal = this.modalCtrl.create('CountryCodeSelectorPage');
        modal.onDidDismiss(
@@ -136,4 +221,12 @@ export class SettingsUserPage {
        modal.present();
   }
 
+  presentErrorAlert(title: string, msg: string) {
+    let alert = this.alertCtrl.create({
+      title: title,
+      message: msg,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
 }

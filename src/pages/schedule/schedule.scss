@@ -11,40 +11,17 @@ page-schedule {
   }
 }
 
-ion-content{
+ion-content {
 
-  #cover{
+  #cover {
     ion-card {
       height: 130px;
     }
 
-    #when{
-      ion-row{
-        display: flex;
-        align-items: center;
-        flex-wrap: nowrap;
-
-        span{
-          display: block;
-          white-space: normal;
-          word-wrap: break-word;
-        }
-        button{
-          border-radius: 50%;
-          height: 50px;
-          min-width: 50px;
-          margin: 17px;
-          ion-icon{
-            color: color($colors, whitesnake);
-            font-size: 2em;
-          }
-        }
-        #schedule{
-          background-color: color($colors, iron-maiden);
-        }
-        #now{
-          background-color: color($colors, warning);
-        }
+    #when {
+      margin: auto;
+      .button-inner {
+        justify-content: left
       }
     }
   }
@@ -67,36 +44,6 @@ ion-content{
 
   #logo{
     margin-top:10vmin;
-  }
-
-  #when{
-    ion-row{
-      display: flex;
-      align-items: center;
-      flex-wrap: nowrap;
-
-      span{
-        display: block;
-        white-space: normal;
-        word-wrap: break-word;
-      }
-      button{
-        border-radius: 50%;
-        height: 40px;
-        min-width: 40px;
-        margin: 17px;
-        ion-icon{
-          color: color($colors, whitesnake);
-          font-size: 2em;
-        }
-      }
-      #schedule{
-        background-color: color($colors, iron-maiden);
-      }
-      #now{
-        background-color: color($colors, warning);
-      }
-    }
   }
 
   #where{
@@ -185,20 +132,20 @@ ion-content{
 }
 
 #request-service {
-    &:before {
-      background-image: none;
-    }
-    padding-left: 2vmin;
-    padding-right: 2vmin;
-    button{
-      margin-top: 4vmin;
-      background-color: color($colors, keane);
-      border-radius: 0.5em;
-      &:disabled{
-        background-color: color($colors, cranberries);
-      }
+  &:before {
+    background-image: none;
+  }
+  padding-left: 2vmin;
+  padding-right: 2vmin;
+  button{
+    margin-top: 4vmin;
+    background-color: color($colors, keane);
+    border-radius: 0.5em;
+    &:disabled{
+      background-color: color($colors, cranberries);
     }
   }
+}
 
 img{
   width: 80px;

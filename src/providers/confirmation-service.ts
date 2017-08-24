@@ -1,3 +1,4 @@
+import { Confirmation } from './../models/confirmation';
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
@@ -38,6 +39,32 @@ export class ConfirmationService {
     var options = new RequestOptions({ headers: headers });
     return this.http.get(resendSMSUrl, options)
                     .map(response => response.status)
+                    .catch(this.handleError)
+  }
+
+  resendConfirmMail() {
+    let token = localStorage.getItem('token');
+    let resendSMSUrl: string = `${SERVER_URL}/api/resend-confirmation-email/`;
+    var headers = new Headers({ 'Content-Type': 'application/json', 
+                                'Accept': 'application/json',
+                                'Authorization': `Token ${token}`
+                            });
+    var options = new RequestOptions({ headers: headers });
+    return this.http.get(resendSMSUrl, options)
+                    .map(response => response.status)
+                    .catch(this.handleError)
+  }
+
+  getMyConfirmations(): Observable<Confirmation[]> {
+    let token = localStorage.getItem('token');
+    let resendSMSUrl: string = `${SERVER_URL}/api/myconfirmations/`;
+    var headers = new Headers({ 'Content-Type': 'application/json', 
+                                'Accept': 'application/json',
+                                'Authorization': `Token ${token}`
+                            });
+    var options = new RequestOptions({ headers: headers });
+    return this.http.get(resendSMSUrl, options)
+                    .map(response => response.json().map(rawData => new Confirmation(rawData)))
                     .catch(this.handleError)
   }
 

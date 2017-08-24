@@ -67,8 +67,7 @@ export class SettingsPage {
   addPaymentMethod() {
     let modal = this.modalCtrl.create('PaymentMethodPage');
     modal.onDidDismiss( (card) => {
-      console.log(card.card);
-      this.creditCard = card.card;
+      if(card) this.creditCard = card.card;
     });
 
     modal.present();

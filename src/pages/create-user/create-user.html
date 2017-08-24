@@ -57,7 +57,7 @@
             </h2>
         
             <ion-item>
-                <ion-input placeholder="XXX" name="smsCode" [(ngModel)]="smsCode" type="number"></ion-input>
+                <ion-input placeholder="XXXX" name="smsCode" [(ngModel)]="smsCode" type="number"></ion-input>
             </ion-item>
         </div>
 
@@ -102,7 +102,7 @@
                 Siguiente
             </button>
             <button col-8 offset-1 ion-button round full color="keane" *ngIf="stepNumber == 5" (click)="confirmSMS()" [disabled]="disableNext()"> 
-                Confirmar SMS
+                Confirmar télefono móvil
             </button>
             <button col-8 offset-1 ion-button round full color="keane" *ngIf="showSkipButton" (click)="nextStep()">
                 Omitir
@@ -110,7 +110,7 @@
         </ion-row>
         <ion-row id="confirmCorreo" *ngIf="stepNumber == 5">
                 <button col-12 ion-button round outline color="metallica" (click)="sendCodeAgain()"> 
-                    Volver a enviar código sms
+                        Reenviar código SMS
                 </button>
                 <button col-12 ion-button round outline color="metallica" (click)="confirmedEmail()"> 
                     Ya confirmé desde el correo
