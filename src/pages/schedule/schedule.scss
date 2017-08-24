@@ -132,20 +132,20 @@ ion-content {
 }
 
 #request-service {
-    &:before {
-      background-image: none;
-    }
-    padding-left: 2vmin;
-    padding-right: 2vmin;
-    button{
-      margin-top: 4vmin;
-      background-color: color($colors, keane);
-      border-radius: 0.5em;
-      &:disabled{
-        background-color: color($colors, cranberries);
-      }
+  &:before {
+    background-image: none;
+  }
+  padding-left: 2vmin;
+  padding-right: 2vmin;
+  button{
+    margin-top: 4vmin;
+    background-color: color($colors, keane);
+    border-radius: 0.5em;
+    &:disabled{
+      background-color: color($colors, cranberries);
     }
   }
+}
 
 img{
   width: 80px;

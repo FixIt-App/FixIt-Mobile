@@ -12,7 +12,7 @@
 
 
 <ion-content>
-  <ion-list no-lines *ngIf="field == ''">
+  <ion-list id="display" no-lines *ngIf="field == ''">
     <ion-item clear class="avatar" (click)="editProfile()">
       <!--TODO (a-santamari): USER AVATAR-->
       <img id="avatar-img" src="assets/default_Profile_Picture.png">
@@ -38,30 +38,40 @@
     <ion-list-header color="ac-dc">
       Celular
     </ion-list-header>
-    <ion-item (click)="edit('phone')">
+    <ion-item *ngIf="smsIsConfirmed" (click)="edit('phone')">
       {{ customer.phone }}
       <ion-icon name="call" color="metallica" item-left></ion-icon>
     </ion-item>
+    <ion-item *ngIf="!smsIsConfirmed" class="not-confirmed" (click)="edit('phone')">
+      <ion-icon name="call" color="danger" item-left></ion-icon>
+      {{ customer.phone }}
+      <ion-icon name="warning" color="danger" item-right></ion-icon>
+    </ion-item>
 
     <ion-list-header color="ac-dc">
-      Email
+      Correo
     </ion-list-header>
-    <ion-item (click)="edit('email')">
-      {{ customer.email }}
+    <ion-item *ngIf="mailIsConfirmed" (click)="edit('email')">
       <ion-icon name="at" color="metallica" item-left></ion-icon>
+      {{ customer.email }}
+    </ion-item>
+    <ion-item *ngIf="!mailIsConfirmed" class="not-confirmed" (click)="edit('email')">
+      <ion-icon name="at" color="danger" item-left></ion-icon>
+      {{ customer.email }}
+      <ion-icon name="warning" color="danger" item-right></ion-icon>
     </ion-item>
 
     <ion-list-header color="ac-dc">
       Contraseña
     </ion-list-header>
     <ion-item (click)="edit('password')">
-      ****
+      ********
       <ion-icon name="lock" color="metallica" item-left></ion-icon>
     </ion-item>
     
 
   </ion-list>
-  <div *ngIf="field != ''" style="padding: 16px;">
+  <div *ngIf="field != ''" id="edit-fields">
     <form>
       <ion-item *ngIf="field == 'first_name'">
         <ion-label stacked>Nombre</ion-label>
@@ -71,30 +81,74 @@
         <ion-label stacked>Apellido</ion-label>
         <ion-input name="lastName" type="text" [(ngModel)]="fieldValue"></ion-input>
       </ion-item>
-      <ion-grid no-padding *ngIf="field == 'phone'">
+      <div *ngIf="field == 'phone'">
+          <div class="info-top">
+              <strong *ngIf="!smsIsConfirmed">
+                Hemos enviado un mensaje de texto con el código de verificación.
+                Por favor ingresa el código para verificar el teléfono móvil.
+              </strong>
+              <strong *ngIf="smsIsConfirmed">
+                A travez de este celular se podrán comunicar los trabajadores contigo.
+              </strong>
+          </div>
           <ion-row>
-              <ion-col col-4>
-                  <ion-item class="country-code" (click)="gotToSelectCountry()">
+              <ion-col col-3>
+                  <ion-item class="country-code">
                       <span *ngIf="selectedCountry"> {{ selectedCountry.emoji }} 	&nbsp; {{ selectedCountry.countryCallingCodes[0] }} </span>
                   </ion-item>
               </ion-col>
-              <ion-col col-8>
+              <ion-col col-9>
                   <ion-item>
-                      <ion-input placeholder="Celular" name="phone" [(ngModel)]="fieldValue" type="tel"></ion-input>
+                      <ion-input placeholder="Celular" disabled="true" name="phone" [(ngModel)]="fieldValue" type="tel"></ion-input>
                   </ion-item>
               </ion-col>
           </ion-row>
-      </ion-grid>
-      <ion-item *ngIf="field == 'email'">
-        <ion-label stacked>Email</ion-label>
-        <ion-input name="email" type="text" [(ngModel)]="fieldValue"></ion-input>
-      </ion-item>
+          <ion-label  color="metallica" *ngIf="smsIsConfirmed"> 
+            Tu télefono móvil ya está verificado 
+            <ion-icon color="metallica" name="checkmark-circle"></ion-icon> 
+          </ion-label> 
+          <ion-item *ngIf="!smsIsConfirmed">
+              <ion-label>Código:</ion-label>
+              <ion-input placeholder="XXXX" name="smsCode" [(ngModel)]="smsCode" type="number"></ion-input>
+          </ion-item>
+          <button col-12 ion-button round clear color="metallica" *ngIf="!smsIsConfirmed" (click)="sendCodeAgain()"> 
+                  Reenviar código SMS
+          </button>
+        </div>
+
+      <div *ngIf="field == 'email'">
+        <div class="info-top">
+          <strong *ngIf="!mailIsConfirmed">
+            Hemos enviado un correo de verificación.
+            Por favor abre el link para verificar tu correo.
+          </strong>
+          <strong *ngIf="mailIsConfirmed">
+              Usamos este correo para iniciar sesión y recuperación de la clave.
+          </strong>
+        </div>
+        <ion-item *ngIf="field == 'email'">
+          <ion-label stacked>Correo</ion-label>
+          <ion-input name="email" disabled="true" type="text" [(ngModel)]="fieldValue"></ion-input>
+        </ion-item>
+        <ion-label  color="metallica" *ngIf="mailIsConfirmed"> 
+          Tu correo ya está verificado 
+          <ion-icon color="metallica" name="checkmark-circle"></ion-icon> 
+        </ion-label> 
+        <button col-12 ion-button round clear color="metallica" *ngIf="!mailIsConfirmed" (click)="sendConfirmEmailAgain()"> 
+                Reenviar correo de confirmación
+        </button>
+      </div>
+
       <ion-item *ngIf="field == 'password'">
         <ion-label stacked>Nueva contraseña</ion-label>
         <ion-input name="email" type="password" [(ngModel)]="fieldValue"></ion-input>
       </ion-item>
     </form>
-    <br>
-    <button ion-button block (click)="saveField()">Guardar</button>
+    
   </div>
 </ion-content>
+<ion-footer *ngIf="field != ''" id="footer-button">
+  <button *ngIf="field != 'phone' && field != 'email'" ion-button block (click)="saveField()">Guardar</button>
+  <button *ngIf="field == 'phone' && !smsIsConfirmed" ion-button block (click)="confirmSMS()">Confirmar télefono móvil</button>
+  <button *ngIf="field == 'email' && !mailIsConfirmed" ion-button block (click)="confirmMail()">Ya confirmé el correo</button>
+</ion-footer>

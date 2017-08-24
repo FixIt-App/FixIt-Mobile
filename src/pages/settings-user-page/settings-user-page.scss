@@ -13,6 +13,19 @@ page-settings-user-page {
       margin: 8px 8px 8px 0; 
     }
   }
+  #display {
+    .item-inner {
+      margin-left: 5px;
+      font-size: 1.4rem;
+      font-style: bold;
+    }
+    .not-confirmed {
+      color: color($colors, danger);
+    }
+  }
+  .label {
+    margin-left: 13px
+  }
   
   .avatar {
     text-align: center;
@@ -44,6 +57,39 @@ page-settings-user-page {
     .item-inner {
       padding-right: 0px !important;
       border-bottom: none !important;
+    }
+  }
+  #edit-fields {
+    margin: 0px 30px;
+    .info-top {
+      margin: 5px;
+      padding: 13px 0px;
+      font-size: 1.5rem;
+      line-height: 1.5;
+      color: color($colors, metallica);
+      text-align: center;
+    }
+    .item-md {
+      padding: 0px;
+    }
+    .label {
+      margin-left: 0px;
+    }
+  }
+
+  #footer-button {
+    &:before {
+      background-image: none;
+    }
+    padding-left: 2vmin;
+    padding-right: 2vmin;
+    button{
+      margin-top: 4vmin;
+      background-color: color($colors, deff-leppard);
+      border-radius: 0.5em;
+      &:disabled{
+        background-color: color($colors, cranberries);
+      }
     }
   }
 }

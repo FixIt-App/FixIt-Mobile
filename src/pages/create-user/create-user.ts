@@ -393,7 +393,7 @@ export class CreateUserPage {
   isSMSCodeValid() {
     if(!this.smsCode)
       return false;
-    return (''+this.smsCode).length == 3
+    return (''+this.smsCode).length == 3 || (''+this.smsCode).length == 4
   }
 
   stepBack() {

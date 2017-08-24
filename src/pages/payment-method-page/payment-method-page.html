@@ -14,11 +14,9 @@
 
 
 <ion-content padding>
-  <ion-card *ngIf="firstTime">
-    <ion-card-content color="metallica">
-      Puedes ingresar los datos de pago más tarde. Ten en cuenta que se necesitarán para solicitar un servicio.
-    </ion-card-content>
-  </ion-card>
+  <div class="info-top" *ngIf="firstTime">
+    Puedes ingresar los datos de pago más tarde. Ten en cuenta que se necesitarán para solicitar un servicio.
+  </div>
   <form [formGroup]="form">
      <ion-label>Nombre como aparece en la tarjeta</ion-label>
      <ion-item>
