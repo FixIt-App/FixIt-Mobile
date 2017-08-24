@@ -14,5 +14,5 @@ before_install:
 - docker run -d -v $(pwd):/root/fixitapp/ fixitapp/ionic /bin/sh -c "cd /root/fixitapp; cordova platform add android"
 
 script:
-  - docker run -d -v $(pwd):/root/fixitapp/ fixitapp/ionic /bin/sh -c "cd /root/fixitapp; npm run build"
-  - docker run -d -v $(pwd):/root/fixitapp/ fixitapp/ionic /bin/sh -c "cd /root/fixitapp; cordova prepare"
+  - docker run -v $(pwd):/root/fixitapp/ fixitapp/ionic /bin/sh -c "cd /root/fixitapp; npm run build"
+  - docker run -v $(pwd):/root/fixitapp/ fixitapp/ionic /bin/sh -c "cd /root/fixitapp; cordova prepare"
