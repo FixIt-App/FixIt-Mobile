@@ -24,10 +24,7 @@ export class UserDataService {
     this.customer = customer;
   }
 
-  saveCustomer(customer: Customer): Observable<Customer> {
-     
-    
-     
+  createCustomer(customer: Customer): Observable<Customer> {
      if(!customer.idCustomer) {
       let createCustomerURI: string = `${SERVER_URL}/api/customers/`
       var headers = new Headers({ 'Content-Type': 'application/json', 

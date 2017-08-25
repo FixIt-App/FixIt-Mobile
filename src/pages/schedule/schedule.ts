@@ -1,5 +1,7 @@
+import { CreateUserPage } from './../create-user/create-user';
+import { CreditCard } from './../../models/credit-card';
 import { Component,  QueryList } from '@angular/core';
-import { NavController, NavParams, ModalController, ToastController, Content, Platform } from 'ionic-angular';
+import { NavController, NavParams, ModalController, ToastController, Content, Platform, LoadingController, Loading, AlertController } from 'ionic-angular';
 import { DatePicker } from '@ionic-native/date-picker';
 import { ViewChild, ViewChildren } from '@angular/core';
 import { Slides } from 'ionic-angular';
@@ -8,6 +10,7 @@ import { Work } from '../../models/work';
 import { Address } from '../../models/address';
 import { AddressService } from '../../providers/address-service';
 import { WorkService } from '../../providers/work-service';
+import { PaymentService } from '../../providers/payment-service';
 
 @Component({
   selector: 'page-schedule',
@@ -22,6 +25,8 @@ export class SchedulePage {
   addresses: Address[];
   selectedAddress: Address;
   dynamicPrice: any;
+  creditCard: CreditCard;
+  loader: Loading;
 
   @ViewChild(Content) content: Content;
   @ViewChildren(Slides) slides: QueryList<Slides>;
@@ -29,10 +34,13 @@ export class SchedulePage {
   constructor(private navController: NavController,
               private navParams: NavParams,
               private toastCtrl: ToastController,
+              private alertCtrl: AlertController,
               private datePicker: DatePicker,
               private modalCtrl: ModalController,
+              private loadingCtrl: LoadingController,
               private workService: WorkService,
               private addressService: AddressService,
+              private paymentService: PaymentService,
               private platform: Platform)
   {
     this.work = navParams.get('work');
@@ -109,35 +117,75 @@ export class SchedulePage {
   }
 
   newAddress() {
-    // lazzy loading new address page
       let modal = this.modalCtrl.create('NewAddressPage');
       modal.onDidDismiss(
         (newAddress) => {
           if(newAddress) {
             this.addresses.push(newAddress);
-            this.selectedAddress = this.addresses[this.addresses.length-1];
+            this.addresses.map(address => address.selected = false);
+            this.selectedAddress = this.addresses[this.addresses.length-1]
+            this.addresses[this.addresses.length-1].selected = true;
           }
         }
       );
       modal.present();
   }
 
+  addPaymentMethod() {
+      let modal = this.modalCtrl.create('PaymentMethodPage', {orderingWork: true});
+      modal.onDidDismiss( (card) => {
+        if(card) this.creditCard = card.card;
+      });
+      modal.present();
+  }
+
+  preSendWork() {
+    this.loader = this.loadingCtrl.create({spinner: 'crescent'});
+    this.loader.present();
+    if (this.creditCard) {
+      console.log('ya tegnto credit card');
+      this.sendWork();
+    } else {
+      this.paymentService.getCreditCard().subscribe(
+        (card) => {
+          console.log(card);
+          this.sendWork();
+        },
+        (error) => {
+          console.log(error);
+          if (error.status == 404) {
+            this.loader.dismiss();
+            this.addPaymentMethod();
+          } else {
+            let alert = this.alertCtrl.create({
+              title: "Error",
+              message: "Por favor intenta más tarde",
+              buttons: ['Ok'] 
+            })
+            alert.present();
+          }
+        }
+      )
+    }
+  }
+
   sendWork() {
     this.work.address = this.selectedAddress;
-
+    
     this.workService.createWork(this.work).subscribe(
       (work) => {
         //TODO (a-santamaria): el need it now deberia guardarse en el servidor
         let asap = this.work.asap;
         this.work = work;
         this.work.asap = asap;
-        
+        this.loader.dismiss();
         this.navController.setRoot('WorkDetailsPage', {
           work: this.work
         });
       },
       (error) => {
         console.log(error);
+        this.loader.dismiss();
         let toast = this.toastCtrl.create({
           message: 'Error, por favor intenta más tarde',
           duration: 3000,

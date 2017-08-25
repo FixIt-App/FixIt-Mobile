@@ -17,6 +17,9 @@
   <div class="info-top" *ngIf="firstTime">
     Puedes ingresar los datos de pago más tarde. Ten en cuenta que se necesitarán para solicitar un servicio.
   </div>
+  <div class="info-top" *ngIf="orderingWork">
+    Para pedir un trabajo debes tener un método de pago registrado.
+  </div>
   <form [formGroup]="form">
      <ion-label>Nombre como aparece en la tarjeta</ion-label>
      <ion-item>

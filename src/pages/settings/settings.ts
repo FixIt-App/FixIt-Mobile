@@ -7,6 +7,7 @@ import { Address } from '../../models/address';
 import { UserDataService } from '../../providers/user-data-service';
 import { AddressService } from '../../providers/address-service';
 import { PaymentService } from '../../providers/payment-service';
+
 @IonicPage()
 @Component({
   selector: 'page-settings',
