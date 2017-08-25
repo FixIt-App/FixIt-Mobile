@@ -18,7 +18,7 @@
   </div>
 
   <ion-list no-lines *ngIf="(currentWorks && currentWorks.length != 0) || (finishedWorks && finishedWorks.length != 0)">
-    <ion-item-divider>Próximos</ion-item-divider>
+    <ion-item-divider *ngIf="currentWorks && currentWorks.length > 0">Próximos</ion-item-divider>
 
     <ion-item class="item-work" *ngFor="let work of currentWorks" (click)="goToDetails(work)">
       <ion-thumbnail item-left>
@@ -31,7 +31,7 @@
       <ion-icon item-right ios="ios-arrow-forward" md="md-arrow-dropright"></ion-icon>
     </ion-item>
 
-    <ion-item-divider>Finalizados</ion-item-divider>
+    <ion-item-divider *ngIf="finishedWorks && finishedWorks.length > 0">Finalizados</ion-item-divider>
 
     <ion-item class="item-work" *ngFor="let work of finishedWorks" (click)="goToDetails(work)">
       <ion-thumbnail item-left>

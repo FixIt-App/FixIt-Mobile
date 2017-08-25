@@ -1,114 +1,21 @@
-.toolbar-background{
-  background-color: $kiss;
-}
-
-ion-icon#menu{
-  color: $iron-maiden;
-}
-
-.scroll-content{
-  padding-top: 0 !important;
-}
-
-.header-md{
-  &:after {
-    height: 0;
-  }
-}
-
-ion-content#body{
-  background-color: $kiss;
-
-  #state{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    margin-top: 10vmin; 
-    margin-bottom: 10vmin;
-
-    .dad{
-      height: 0;
-      font-size: 2em;
-      z-index: 100;
-      .spinner{
-        width: 100%;
-        div{
-          width: 5vmin;
-          height: 5vmin;
-          background-color:  $iron-maiden;
-        }
-      }
-    }
+page-work-details {
+  .scroll-content {
+    padding: 0px 16px;
   }
 
-  #assigning {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    span {
-      color: $black-sabbath;
+  #bill {
+    #header {
+      font-size: 2rem;
       text-align: center;
-      font-size: 1.6rem;
-      margin: 3vmin 6vmin 3vmin 6vmin;
-    }
-  }
-
-  #cover{
-    margin-top:0;
-    ion-card {
-      height: 150px;
-    }
-
-    #when{
-      ion-row{
-        display: flex;
-        align-items: center;
-        flex-wrap: nowrap;
-
-        span{
-          display: block;
-          white-space: normal;
-          word-wrap: break-word;
-        }
-        button{
-          border-radius: 50%;
-          height: 50px;
-          min-width: 50px;
-          margin: 17px;
-          ion-icon{
-            color: $whitesnake;
-            font-size: 2em;
-          }
-        }
-        #schedule{
-          background-color: $iron-maiden;
-        }
-        #now{
-          background-color: $warning;
-        }
-      }
-    }
-  }
-
-  #bill{
-    padding-left: 2vmin;
-    padding-right: 2vmin;
-    #header{
       font-weight: bold;
-      background-color: $ac-dc;
+      color: $whitesnake;
+      background-color: #94c3c1;
       padding: 2vmin;
-      padding-left: 5vmin;
-      width: 100%;
       border-top-right-radius: 0.5em;
       border-top-left-radius: 0.5em;
-      border-bottom: solid 5px $iron-maiden;
+      border-bottom: solid 3px $iron-maiden;
     }
-    #details{
-      border-bottom: solid 5px $iron-maiden;
-      background-color: $whitesnake;
+    #details {
       .icon{
         display: flex;
         flex-direction: column;
@@ -117,64 +24,72 @@ ion-content#body{
       }
     }
   }
-}
 
-page-work-details {
-
-  .avatar {
-    #check {
-      font-size: 4.2em;
-      margin: 15px;
-      color: $iron-maiden;
-    }
+  .info-middle {
+    border-top: solid 2px #f4f4f4;
+    border-bottom: solid 2px #f4f4f4;
+    color: $metallica;
     text-align: center;
-    #avatar-img {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      overflow: hidden;
+    padding: 12px;
+
+    .work-sub-title {
+      width: 100%;
+      span {
+        width: 100%;
+      }
+      text-align: center;
     }
-    #qr-button {
-      height: 100%;
-      text-transform: none;
-      white-space: inherit;
-      #qr-img {
+
+    .avatar {
+      color: black;
+      font-size: 1.2rem;
+      #check {
+        font-size: 5.2em;
+        margin: 15px;
+        color: $iron-maiden;
+      }
+      text-align: center;
+      #avatar-img {
         width: 80px;
         height: 80px;
+        border-radius: 50%;
         overflow: hidden;
+      }
+      #qr-button {
+        height: 100%;
+        text-transform: none;
+        white-space: inherit;
+        font-size: 1.2rem;
+        color: black;
+        #qr-img {
+          width: 80px;
+          height: 80px;
+          overflow: hidden;
+        }
       }
     }
   }
-
-  
   .icon-top {
     margin: 0 0 5px
   }
-  .row-left {
-    border-right: #f4f4f4;
-    border-right-width: 1px;
-    border-right-style: solid;
-  }
-  .row-right {
-    border-left: #f4f4f4;
-    border-left-width: 1px;
-    border-left-style: solid;
-  }
 
-  // for hidding header on scroll
-  .swiper-pagination-fraction, 
-  .swiper-pagination-custom, 
-  .swiper-container-horizontal 
-  > .swiper-pagination-bullets {
-    bottom: 0px;
-  }
-
-  .scroll-content{
-    top:-70px !important;
-    padding-top: 60px !important;
-  }
-
-  .top-full-color {
-    z-index: 10000;
+  #buttons {
+    .button-md {
+      text-transform: uppercase;
+    }
+    .button-ios {
+      text-transform: uppercase;
+    }
+    margin-top: 15px;
+    .row-left {
+      border-right: #f4f4f4;
+      border-right-width: 1px;
+      border-right-style: solid;
+    }
+    .row-right {
+      border-left: #f4f4f4;
+      border-left-width: 1px;
+      border-left-style: solid;
+    }
   }
 }

@@ -9,148 +9,147 @@ page-schedule {
   .scroll-content {
     top: -25px;
   }
-}
 
-ion-content {
+  ion-content {
 
-  #cover {
-    ion-card {
-      height: 130px;
-    }
+    #cover {
+      ion-card {
+        height: 130px;
+      }
 
-    #when {
-      margin: auto;
-      .button-inner {
-        justify-content: left
+      #when {
+        margin: auto;
+        .button-inner {
+          justify-content: left
+        }
       }
     }
-  }
 
-  #body{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center
-  }
-  #back{
-    display: block;
-    background-color: #FFF;
-    color: $iron-maiden;
-    font-size: 2.5rem;
-    top: 15px;
-    left: 15px;
-    position: absolute;
-  }
-
-  #logo{
-    margin-top:10vmin;
-  }
-
-  #where{
-    margin-bottom: 3vmin;
-    #title{
+    #body{
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      flex-wrap: nowrap;
-      font-weight: bold;
-      font-size: 1.7rem;
+      justify-content: center
     }
-    .address-card{
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      flex-wrap: nowrap;
-      button.not-selected{
-        background-color: $ac-dc;
-        border-radius: 50%;
-        height: 40px;
-        width: 40px;
-        ion-icon{
-          color: $whitesnake;
-          font-size: 2em;
-        }
-      }
+    #back{
+      display: block;
+      background-color: #FFF;
+      color: $iron-maiden;
+      font-size: 2.5rem;
+      top: 15px;
+      left: 15px;
+      position: absolute;
+    }
 
-      button.selected{
-        background-color: $iron-maiden;
-        border-radius: 50%;
-        height: 40px;
-        width: 40px;
-        ion-icon{
-          color: $whitesnake;
-          font-size: 2em;
-        }
-      }
-      span{
-        font-size: 1.4rem;
-        white-space: nowrap;
-      }
+    #logo{
+      margin-top:10vmin;
     }
-  }
 
-  #bill{
-    padding-left: 2vmin;
-    padding-right: 2vmin;
-    #header{
-      font-weight: bold;
-      color: $whitesnake;
-      background-color: $iron-maiden;
-      padding: 2vmin;
-      padding-left: 5vmin;
-      width: 100%;
-      border-top-right-radius: 0.5em;
-      border-top-left-radius: 0.5em;
-    }
-    #details{
-      border-bottom: solid 3px $iron-maiden;
-      .icon{
+    #where{
+      margin-bottom: 3vmin;
+      #title{
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        flex-wrap: nowrap;
+        font-weight: bold;
+        font-size: 1.7rem;
+      }
+      .address-card{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: nowrap;
+        button.not-selected{
+          background-color: $ac-dc;
+          border-radius: 50%;
+          height: 40px;
+          width: 40px;
+          ion-icon{
+            color: $whitesnake;
+            font-size: 2em;
+          }
+        }
+
+        button.selected{
+          background-color: $iron-maiden;
+          border-radius: 50%;
+          height: 40px;
+          width: 40px;
+          ion-icon{
+            color: $whitesnake;
+            font-size: 2em;
+          }
+        }
+        span{
+          font-size: 1.4rem;
+          white-space: nowrap;
+        }
       }
     }
-    #breakdown{
-      ion-row:nth-child(odd) {
-          background-color: $green-day;
+
+    #bill{
+      padding-left: 2vmin;
+      padding-right: 2vmin;
+      #header{
+        font-weight: bold;
+        color: $whitesnake;
+        background-color: $iron-maiden;
+        padding: 2vmin;
+        padding-left: 5vmin;
+        width: 100%;
+        border-top-right-radius: 0.5em;
+        border-top-left-radius: 0.5em;
+      }
+      #details{
+        border-bottom: solid 3px $iron-maiden;
+        .icon{
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+      #breakdown{
+        ion-row:nth-child(odd) {
+            background-color: $green-day;
+        }
+      }
+      #total{
+        font-weight: bold;
+        color: $whitesnake;
+        background-color: $iron-maiden;
+        width: 100%;
+        padding-bottom: 3px;
+        border-bottom-right-radius: 0.5em;
+        border-bottom-left-radius: 0.5em;
+        border-top: solid 5px $iron-maiden;
       }
     }
-    #total{
-      font-weight: bold;
-      color: $whitesnake;
-      background-color: $iron-maiden;
-      width: 100%;
-      padding-bottom: 3px;
-      border-bottom-right-radius: 0.5em;
-      border-bottom-left-radius: 0.5em;
-      border-top: solid 5px $iron-maiden;
+  }
+
+  #request-service {
+    &:before {
+      background-image: none;
+    }
+    padding-left: 2vmin;
+    padding-right: 2vmin;
+    button{
+      margin-top: 4vmin;
+      background-color: $keane;
+      border-radius: 0.5em;
+      &:disabled{
+        background-color: $cranberries;
+      }
     }
   }
-}
 
-#request-service {
-  &:before {
-    background-image: none;
+  img{
+    width: 80px;
+    height: auto;
   }
-  padding-left: 2vmin;
-  padding-right: 2vmin;
-  button{
-    margin-top: 4vmin;
-    background-color: $keane;
-    border-radius: 0.5em;
-    &:disabled{
-      background-color: $cranberries;
-    }
-  }
-}
-
-img{
-  width: 80px;
-  height: auto;
-}
 
   #cover {
     .title-cover {
@@ -179,3 +178,4 @@ img{
     }
   }
   
+}

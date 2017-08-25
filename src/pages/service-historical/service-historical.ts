@@ -44,7 +44,7 @@ export class ServiceHistoricalPage {
 
   ionViewDidLoad() {
     this.listenToScroll();
-    this.workService.getMyWorks(['ORDERED', 'SCHEDULED']).subscribe(
+    this.workService.getMyWorks(['ORDERED', 'SCHEDULED', 'IN_PROGRESS']).subscribe(
       (works) => {
         this.currentWorks = works;
         console.log(this.currentWorks);
