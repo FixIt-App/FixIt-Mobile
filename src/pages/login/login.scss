@@ -4,7 +4,7 @@ page-login {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(-60deg, color($colors, kiss) 64%, #ffffff 64%);
+    background: linear-gradient(-60deg, $kiss 64%, #ffffff 64%);
   }
 
   .logo-fixit {
@@ -19,21 +19,21 @@ page-login {
   form {
     padding: 0 20px;
     .item {
-      border: 1px solid color($colors, whitesnake);
+      border: 1px solid $whitesnake;
       border-radius: 10px;
-      border-color: color($colors, the-strokes);
+      border-color: $the-strokes;
       margin: 10px 0 0;
-      color: color($colors, cinderella);
+      color: $cinderella;
       .top-icon {
         z-index: 100;
       }
     }
 
     #login-button{ 
-      background-color: color($colors, keane);
+      background-color: $keane;
       margin: 20px 0;
       border-radius: 10px;
-      border-color: color($colors, the-strokes);
+      border-color: $the-strokes;
     }    
   }
 
@@ -42,11 +42,11 @@ page-login {
     #signup-button{
       margin: 20px 0;
       border-radius: 10px;
-      background-color: color($colors, deff-leppard);
+      background-color: $deff-leppard;
     }
   }  
   #signup-text{
     text-align: center;
-    color: color($colors, radiohead);
+    color: $radiohead;
   }
 }

@@ -84,7 +84,7 @@ ion-header {
       margin: 0 !important;
     }
     h1{
-      color: color($colors, metallica);
+      color: $metallica;
     }
   }
 }
@@ -94,7 +94,7 @@ ion-header {
 }
 
 .bar-button {
-    color: color($colors, iron-maiden) !important;
+    color: $iron-maiden !important;
 }
 .header-md::after {
   background-image: none;

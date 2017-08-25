@@ -1,6 +1,6 @@
 page-schedule {
   .bar-button {
-      color: color($colors, iron-maiden) !important;
+      color: $iron-maiden !important;
   }
   .header-md::after {
     background-image: none;
@@ -35,7 +35,7 @@ ion-content {
   #back{
     display: block;
     background-color: #FFF;
-    color: color($colors, iron-maiden);
+    color: $iron-maiden;
     font-size: 2.5rem;
     top: 15px;
     left: 15px;
@@ -64,23 +64,23 @@ ion-content {
       justify-content: center;
       flex-wrap: nowrap;
       button.not-selected{
-        background-color: color($colors, ac-dc);
+        background-color: $ac-dc;
         border-radius: 50%;
         height: 40px;
         width: 40px;
         ion-icon{
-          color: color($colors, whitesnake);
+          color: $whitesnake;
           font-size: 2em;
         }
       }
 
       button.selected{
-        background-color: color($colors, iron-maiden);
+        background-color: $iron-maiden;
         border-radius: 50%;
         height: 40px;
         width: 40px;
         ion-icon{
-          color: color($colors, whitesnake);
+          color: $whitesnake;
           font-size: 2em;
         }
       }
@@ -96,8 +96,8 @@ ion-content {
     padding-right: 2vmin;
     #header{
       font-weight: bold;
-      color: color($colors, whitesnake);
-      background-color: color($colors, iron-maiden);
+      color: $whitesnake;
+      background-color: $iron-maiden;
       padding: 2vmin;
       padding-left: 5vmin;
       width: 100%;
@@ -105,7 +105,7 @@ ion-content {
       border-top-left-radius: 0.5em;
     }
     #details{
-      border-bottom: solid 3px color($colors, iron-maiden);
+      border-bottom: solid 3px $iron-maiden;
       .icon{
         display: flex;
         flex-direction: column;
@@ -115,18 +115,18 @@ ion-content {
     }
     #breakdown{
       ion-row:nth-child(odd) {
-          background-color: color($colors, green-day);
+          background-color: $green-day;
       }
     }
     #total{
       font-weight: bold;
-      color: color($colors, whitesnake);
-      background-color: color($colors, iron-maiden);
+      color: $whitesnake;
+      background-color: $iron-maiden;
       width: 100%;
       padding-bottom: 3px;
       border-bottom-right-radius: 0.5em;
       border-bottom-left-radius: 0.5em;
-      border-top: solid 5px color($colors, iron-maiden);
+      border-top: solid 5px $iron-maiden;
     }
   }
 }
@@ -139,10 +139,10 @@ ion-content {
   padding-right: 2vmin;
   button{
     margin-top: 4vmin;
-    background-color: color($colors, keane);
+    background-color: $keane;
     border-radius: 0.5em;
     &:disabled{
-      background-color: color($colors, cranberries);
+      background-color: $cranberries;
     }
   }
 }
@@ -155,14 +155,14 @@ img{
   #cover {
     .title-cover {
       font-size: 2.5rem;
-      color: color($colors, guns-n-roses);
+      color: $guns-n-roses;
       margin: 5px 8px 5px 0;
       padding-left: 16px;
       font-weight: bold;
     }
     .sub-title-cover {
       font-size: 1.5rem;
-      color: color($colors, korn);
+      color: $korn;
       margin: 0px 8px 0px 0;
       padding-left: 16px;
       font-weight: bold;

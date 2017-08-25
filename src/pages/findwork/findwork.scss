@@ -1,7 +1,7 @@
 page-find-work {
   .title-category {
     font-size: 2rem;
-    color: color($colors, primary);
+    color: $primary;
     margin: 13px 8px 13px 0;
     padding-left: 16px;
     font-weight: bold;
@@ -35,11 +35,11 @@ page-find-work {
 
     .swiper-pagination-progress 
     .swiper-pagination-progressbar {
-      background: color($colors, primary);
+      background: $primary;
     }
 
     .swiper-pagination-bullet-active {
-      background: color($colors, primary);
+      background: $primary;
     }
 
     .row-bottom {
@@ -58,7 +58,7 @@ page-find-work {
       margin: 0px 5px;
       align-items: center;
       .name {
-        color: color($colors, primary);
+        color: $primary;
         font-weight: 500;
       }
     }

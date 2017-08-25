@@ -20,7 +20,7 @@ page-settings-user-page {
       font-style: bold;
     }
     .not-confirmed {
-      color: color($colors, danger);
+      color: $danger;
     }
   }
   .label {
@@ -34,7 +34,7 @@ page-settings-user-page {
       height: 80px;
       border-radius: 50%;
       overflow: hidden;
-      border-color: color($colors, metallica);
+      border-color: $metallica;
       border-width: 2px;
       border-style: solid;
     }
@@ -43,8 +43,8 @@ page-settings-user-page {
       top: 60%;
       left: 42%;
       margin: 0px;
-      color: color($colors, whitesnake);
-      background-color: color($colors, metallica);
+      color: $whitesnake;
+      background-color: $metallica;
     }
   }
   .country-code {
@@ -66,7 +66,7 @@ page-settings-user-page {
       padding: 13px 0px;
       font-size: 1.5rem;
       line-height: 1.5;
-      color: color($colors, metallica);
+      color: $metallica;
       text-align: center;
     }
     .item-md {
@@ -85,10 +85,10 @@ page-settings-user-page {
     padding-right: 2vmin;
     button{
       margin-top: 4vmin;
-      background-color: color($colors, deff-leppard);
+      background-color: $deff-leppard;
       border-radius: 0.5em;
       &:disabled{
-        background-color: color($colors, cranberries);
+        background-color: $cranberries;
       }
     }
   }
