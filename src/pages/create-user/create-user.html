@@ -95,24 +95,24 @@
         </ion-row>
         
         <ion-row id="buttons">
-            <button col-3 ion-button round full color="iron-maiden" (click)="stepBack()">
+            <button col-3 ion-button full (click)="stepBack()">
                  <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
             </button> 
-            <button col-8 offset-1 ion-button round full color="keane" (click)="nextStep()" *ngIf="stepNumber <= 4" [disabled]="disableNext()"> 
+            <button col-8 offset-1 ion-button full (click)="nextStep()" *ngIf="stepNumber <= 4" [disabled]="disableNext()"> 
                 Siguiente
             </button>
-            <button col-8 offset-1 ion-button round full color="keane" *ngIf="stepNumber == 5" (click)="confirmSMS()" [disabled]="disableNext()"> 
+            <button col-8 offset-1 ion-button full *ngIf="stepNumber == 5" (click)="confirmSMS()" [disabled]="disableNext()"> 
                 Confirmar télefono móvil
             </button>
-            <button col-8 offset-1 ion-button round full color="keane" *ngIf="showSkipButton" (click)="nextStep()">
+            <button col-8 offset-1 ion-button full *ngIf="showSkipButton" (click)="nextStep()">
                 Omitir
             </button>
         </ion-row>
         <ion-row id="confirmCorreo" *ngIf="stepNumber == 5">
-                <button col-12 ion-button round outline color="metallica" (click)="sendCodeAgain()"> 
+                <button col-12 ion-button outline (click)="sendCodeAgain()"> 
                         Reenviar código SMS
                 </button>
-                <button col-12 ion-button round outline color="metallica" (click)="confirmedEmail()"> 
+                <button col-12 ion-button outline (click)="confirmedEmail()"> 
                     Ya confirmé desde el correo
                 </button>
         </ion-row>

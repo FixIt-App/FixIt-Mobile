@@ -19,40 +19,40 @@
       <!--<ion-icon id="item-edit" isActive="false" name="create" item-right></ion-icon>-->
     </ion-item>
 
-    <ion-list-header color="ac-dc">
+    <ion-list-header>
       Nombre
     </ion-list-header>
     <ion-item (click)="edit('first_name')">
       {{ customer.firstName }}
-      <ion-icon name="person" color="metallica" item-left></ion-icon>
+      <ion-icon name="person" color="primary" item-left></ion-icon>
     </ion-item>
 
-    <ion-list-header color="ac-dc">
+    <ion-list-header>
       Apellido
     </ion-list-header>
     <ion-item (click)="edit('last_name')">
       {{ customer.lastName }}
-      <ion-icon name="person" color="metallica" item-left></ion-icon>
+      <ion-icon name="person" color="primary" item-left></ion-icon>
     </ion-item>
 
-    <ion-list-header color="ac-dc">
+    <ion-list-header>
       Celular
     </ion-list-header>
     <ion-item *ngIf="smsIsConfirmed" (click)="edit('phone')">
       {{ customer.phone }}
-      <ion-icon name="call" color="metallica" item-left></ion-icon>
+      <ion-icon name="call" color="primary" item-left></ion-icon>
     </ion-item>
     <ion-item *ngIf="!smsIsConfirmed" class="not-confirmed" (click)="edit('phone')">
-      <ion-icon name="call" color="danger" item-left></ion-icon>
+      <ion-icon name="call" item-left></ion-icon>
       {{ customer.phone }}
       <ion-icon name="warning" color="danger" item-right></ion-icon>
     </ion-item>
 
-    <ion-list-header color="ac-dc">
+    <ion-list-header>
       Correo
     </ion-list-header>
     <ion-item *ngIf="mailIsConfirmed" (click)="edit('email')">
-      <ion-icon name="at" color="metallica" item-left></ion-icon>
+      <ion-icon name="at" color="primary" item-left></ion-icon>
       {{ customer.email }}
     </ion-item>
     <ion-item *ngIf="!mailIsConfirmed" class="not-confirmed" (click)="edit('email')">
@@ -61,12 +61,12 @@
       <ion-icon name="warning" color="danger" item-right></ion-icon>
     </ion-item>
 
-    <ion-list-header color="ac-dc">
+    <ion-list-header>
       Contraseña
     </ion-list-header>
     <ion-item (click)="edit('password')">
       ********
-      <ion-icon name="lock" color="metallica" item-left></ion-icon>
+      <ion-icon name="lock" color="primary" item-left></ion-icon>
     </ion-item>
     
 
@@ -103,15 +103,15 @@
                   </ion-item>
               </ion-col>
           </ion-row>
-          <ion-label  color="metallica" *ngIf="smsIsConfirmed"> 
+          <ion-label  color="primary" *ngIf="smsIsConfirmed"> 
             Tu télefono móvil ya está verificado 
-            <ion-icon color="metallica" name="checkmark-circle"></ion-icon> 
+            <ion-icon color="primary" name="checkmark-circle"></ion-icon> 
           </ion-label> 
           <ion-item *ngIf="!smsIsConfirmed">
               <ion-label>Código:</ion-label>
               <ion-input placeholder="XXXX" name="smsCode" [(ngModel)]="smsCode" type="number"></ion-input>
           </ion-item>
-          <button col-12 ion-button round clear color="metallica" *ngIf="!smsIsConfirmed" (click)="sendCodeAgain()"> 
+          <button col-12 ion-button round clear color="primary" *ngIf="!smsIsConfirmed" (click)="sendCodeAgain()"> 
                   Reenviar código SMS
           </button>
         </div>
@@ -130,11 +130,11 @@
           <ion-label stacked>Correo</ion-label>
           <ion-input name="email" disabled="true" type="text" [(ngModel)]="fieldValue"></ion-input>
         </ion-item>
-        <ion-label  color="metallica" *ngIf="mailIsConfirmed"> 
+        <ion-label  color="primary" *ngIf="mailIsConfirmed"> 
           Tu correo ya está verificado 
-          <ion-icon color="metallica" name="checkmark-circle"></ion-icon> 
+          <ion-icon color="primary" name="checkmark-circle"></ion-icon> 
         </ion-label> 
-        <button col-12 ion-button round clear color="metallica" *ngIf="!mailIsConfirmed" (click)="sendConfirmEmailAgain()"> 
+        <button col-12 ion-button round clear color="primary" *ngIf="!mailIsConfirmed" (click)="sendConfirmEmailAgain()"> 
                 Reenviar correo de confirmación
         </button>
       </div>
