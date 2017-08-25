@@ -3,7 +3,6 @@ node_js:
   - "5.1"
 
 env:
-  CXX=g++-4.8
   IONIC_VERSION=3.9.2
   CORDOVA_VERSION=6.5.0
 
