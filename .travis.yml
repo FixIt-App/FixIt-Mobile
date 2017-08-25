@@ -1,17 +1,17 @@
-sudo: required
-
 language: node_js
 node_js:
   - "5.1"
 
-services:
-  - docker
+env:
+  CXX=g++-4.8
+  IONIC_VERSION=3.9.2
+  CORDOVA_VERSION=6.5.0
 
-before_install:
-  - docker pull fixitapp/ionic
-  - docker run -v $(pwd):/root/fixitapp/ fixitapp/ionic /bin/sh -c "cd /root/fixitapp; cordova platform add android"
-  - docker ps -a
+install:
+  - npm install -g cordova@$CORDOVA_VERSION ionic@$IONIC_VERSION
+  - npm install
 
 script:
-  - docker run -v $(pwd):/root/fixitapp/ fixitapp/ionic /bin/sh -c "cd /root/fixitapp; npm run build"
-  - docker run -v $(pwd):/root/fixitapp/ fixitapp/ionic /bin/sh -c "cd /root/fixitapp; cordova prepare"
+  - npm run build
+  - cordova platform add android
+  - cordova prepare

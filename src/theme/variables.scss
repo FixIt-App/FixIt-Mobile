@@ -23,31 +23,38 @@ $font-path: "../assets/fonts";
 // colors so you can add, rename and remove colors as needed.
 // The "primary" color is the only required color in the map.
 
-$colors: (
-  slipknot:     #2F3333,
-  korn:         #42464C,
-  cinderella:   #5D5D5D,
-  metallica:    #277467,
-  deff-leppard: #23A299,
-  guns-n-roses: #5FA9A0,
-  iron-maiden:  #1EA29A,
-  ac-dc:        #A5DAD7,
-  ozzy-osbourne:#E6F3EB,
-  kiss:         #F5F9E8,
-  aerosmith:    #9AA52D,
-  pearl-jam:    #AAB24A,
-  cranberries:  #A2BD31,
-  keane:        #93C120,
-  oasis:        #C6D36B,
-  green-day:    #EDF2D0,
-  black-sabbath:#222222,
-  radiohead:    #526B76,
-  the-strokes:  #DFDFDF,
-  nirvana:      #8C9FA9,
-  blur:         #CDD5D9,
-  alice-cooper: #f4f4f4,
-  whitesnake:   #ffffff,
+$slipknot:     #2F3333;
+$korn:         #42464C;
+$cinderella:   #5D5D5D;
+$metallica:    #277467;
+$deff-leppard: #23A299;
+$guns-n-roses: #5FA9A0;
+$iron-maiden:  #1EA29A;
+$ac-dc:        #A5DAD7;
+$ozzy-osbourne:#E6F3EB;
+$kiss:         #F5F9E8;
+$aerosmith:    #9AA52D;
+$pearl-jam:    #AAB24A;
+$cranberries:  #A2BD31;
+$keane:        #93C120;
+$oasis:        #C6D36B;
+$green-day:    #EDF2D0;
+$black-sabbath:#222222;
+$radiohead:    #526B76;
+$the-strokes:  #DFDFDF;
+$nirvana:      #8C9FA9;
+$blur:         #CDD5D9;
+$alice-cooper: #f4f4f4;
+$whitesnake:   #ffffff;
+$primary:     #12A19B;
+$secondary:   #93C120;
+$danger:      #f53d3d;
+$warning:     #FE8402;
+$dark:        #222;
+$light:       #f4f4f4;
+$transparent: rgba(0, 0, 0, 0);
 
+$colors: (
   primary:     #12A19B,
   secondary:   #93C120,
   danger:      #f53d3d,

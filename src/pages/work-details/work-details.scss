@@ -1,9 +1,9 @@
 .toolbar-background{
-  background-color: color($colors, kiss);
+  background-color: $kiss;
 }
 
 ion-icon#menu{
-  color: color($colors, iron-maiden)
+  color: $iron-maiden;
 }
 
 .scroll-content{
@@ -17,7 +17,7 @@ ion-icon#menu{
 }
 
 ion-content#body{
-  background-color: color($colors, kiss);
+  background-color: $kiss;
 
   #state{
     display: flex;
@@ -37,7 +37,7 @@ ion-content#body{
         div{
           width: 5vmin;
           height: 5vmin;
-          background-color:  color($colors, iron-maiden);
+          background-color:  $iron-maiden;
         }
       }
     }
@@ -49,7 +49,7 @@ ion-content#body{
     flex-direction: column;
     flex-wrap: nowrap;
     span {
-      color: color($colors, black-sabbath);
+      color: $black-sabbath;
       text-align: center;
       font-size: 1.6rem;
       margin: 3vmin 6vmin 3vmin 6vmin;
@@ -79,15 +79,15 @@ ion-content#body{
           min-width: 50px;
           margin: 17px;
           ion-icon{
-            color: color($colors, whitesnake);
+            color: $whitesnake;
             font-size: 2em;
           }
         }
         #schedule{
-          background-color: color($colors, iron-maiden);
+          background-color: $iron-maiden;
         }
         #now{
-          background-color: color($colors, warning);
+          background-color: $warning;
         }
       }
     }
@@ -98,17 +98,17 @@ ion-content#body{
     padding-right: 2vmin;
     #header{
       font-weight: bold;
-      background-color: color($colors, ac-dc);
+      background-color: $ac-dc;
       padding: 2vmin;
       padding-left: 5vmin;
       width: 100%;
       border-top-right-radius: 0.5em;
       border-top-left-radius: 0.5em;
-      border-bottom: solid 5px color($colors, iron-maiden);
+      border-bottom: solid 5px $iron-maiden;
     }
     #details{
-      border-bottom: solid 5px color($colors, iron-maiden);
-      background-color: color($colors, whitesnake);
+      border-bottom: solid 5px $iron-maiden;
+      background-color: $whitesnake;
       .icon{
         display: flex;
         flex-direction: column;
@@ -125,7 +125,7 @@ page-work-details {
     #check {
       font-size: 4.2em;
       margin: 15px;
-      color: color($colors, iron-maiden);
+      color: $iron-maiden;
     }
     text-align: center;
     #avatar-img {
