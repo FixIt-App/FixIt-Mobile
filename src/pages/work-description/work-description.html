@@ -4,7 +4,7 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-buttons end>
-      <button ion-button icon-right clear color="light" (click)="nextStep()">
+      <button ion-button icon-right clear color="primary" (click)="nextStep()">
          {{ textButtonTop }}
         <ion-icon name="send"></ion-icon>
       </button>
@@ -25,7 +25,7 @@
   <div class="contThump">
     <div padding text-center *ngIf="images.length == 0" class="addImage">
         <h3 color="primary">¿Quieres agregar imágenes?</h3>
-        <p color="light-gray">Agrega imágenes con la cámara en el botón <ion-icon class="roundIcon" name='camera'></ion-icon>, o
+        <p>Agrega imágenes con la cámara en el botón <ion-icon class="roundIcon" name='camera'></ion-icon>, o
         desde la galería en el botón <ion-icon class="roundIcon" name='image'></ion-icon></p>
     </div>
     <span *ngFor="let image of images">

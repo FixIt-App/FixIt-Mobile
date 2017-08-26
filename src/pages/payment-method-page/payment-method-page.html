@@ -1,9 +1,9 @@
 <ion-header>
 
   <ion-navbar color="transparent">
-    <ion-title color="metallica">Método de pago</ion-title>
+    <ion-title>Método de pago</ion-title>
     <ion-buttons start *ngIf="!firstTime">
-      <button ion-button color="light" (click)="dismiss()">
+      <button ion-button (click)="dismiss()">
         <span showWhen="ios">Cerrar</span>
         <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
       </button>
@@ -16,6 +16,9 @@
 <ion-content padding>
   <div class="info-top" *ngIf="firstTime">
     Puedes ingresar los datos de pago más tarde. Ten en cuenta que se necesitarán para solicitar un servicio.
+  </div>
+  <div class="info-top" *ngIf="orderingWork">
+    Para pedir un trabajo debes tener un método de pago registrado.
   </div>
   <form [formGroup]="form">
      <ion-label>Nombre como aparece en la tarjeta</ion-label>

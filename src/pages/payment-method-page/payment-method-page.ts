@@ -24,6 +24,7 @@ export class PaymentMethodPage {
   country: AbstractControl;
   submitAttempt: boolean;
   firstTime: boolean;
+  orderingWork: boolean;
   selectedCountry: any = {
     "alpha2": "CO",
     "alpha3": "COL",
@@ -55,6 +56,7 @@ export class PaymentMethodPage {
   {
     this.firstTime = this.navParams.get('firstTime');
     this.firstTime == undefined ? false : this.firstTime;
+    this.orderingWork = this.navParams.get('orderingWork');
     this.submitAttempt = false;
     
     this.form = this.formBuilder.group({

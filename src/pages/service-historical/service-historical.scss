@@ -6,6 +6,11 @@ page-service-historical {
     h3 {
       color: $metallica;
     }
+    button {
+      border-color: $metallica;
+      color: $metallica;
+      border-radius: 10px;
+    }
     p {
       color: #717171 !important;
       font-size: 13px !important;
@@ -16,7 +21,21 @@ page-service-historical {
     }
   }
   
-  .item-work{
+  .item-divider-md {
+    color: $guns-n-roses;
+    font-weight: 500;
+    font-size: 1.6rem;
+    border-bottom: 1px solid $guns-n-roses;
+  }
+
+  .item-divider-ios {
+    color: $guns-n-roses;
+    font-weight: 500;
+    font-size: 1.6rem;
+    border-bottom: 1px solid $guns-n-roses;
+  }
+
+  .item-work {
     margin: 15px 0px;
     padding-left: 0px;
     background-color: $alice-cooper;
@@ -30,6 +49,9 @@ page-service-historical {
     }
     p {
       color: $metallica;
+    }
+    ion-icon {
+      color: $deff-leppard;
     }
   }
 

@@ -87,7 +87,7 @@ export class CreateUserPage {
     this.customer.phone = this.selectedCountry.countryCallingCodes[0] + this.phone;
     this.customer.city = 'Bogotá, Colombia';
     console.log('voy a guardar customer');
-    return this.userService.saveCustomer(this.customer).map(
+    return this.userService.createCustomer(this.customer).map(
       customer => {
         this.customer.idCustomer = customer.idCustomer;
         this.isConfirmingSMS = true;

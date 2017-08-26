@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform, LoadingController, ModalController, AlertController, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform, LoadingController, ModalController, AlertController, ToastController, Events } from 'ionic-angular';
 
 import { Customer } from '../../models/user';
 import { UserDataService } from '../../providers/user-data-service';
@@ -36,6 +36,7 @@ export class SettingsUserPage {
               public toastCtrl: ToastController,
               private modalCtrl: ModalController,
               private alertCtrl: AlertController,
+              public events: Events,
               private confirmationService: ConfirmationService,
               private userDataService: UserDataService) 
   {
@@ -115,6 +116,7 @@ export class SettingsUserPage {
       (customer) => {
         console.log(customer);
         this.customer = customer;
+        this.events.publish('customer:updated', this.customer);
         this.field = '';
         this.fieldValue = '';
         loader.dismiss();

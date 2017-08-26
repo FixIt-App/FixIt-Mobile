@@ -13,15 +13,12 @@
 <span *ngIf="currentWorks || finishedWorks">
   <div *ngIf="(currentWorks && currentWorks.length == 0) && (finishedWorks && finishedWorks.length == 0)" padding text-center class="noWorks">
     <ion-icon name="construct"></ion-icon>
-    <!--<h3>Aun no tienes trabajos en el hisotrial.</h3>
-    <p>Acá apareceran los trabajos al finalizar.</p>
-    <button ion-button outline round color="metallica" (click)="goToFindWorks()"> pedir nuevo trabajo</button>-->
     <h3>No tienes trabajos pendientes.</h3>
-    <button ion-button outline round color="metallica" (click)="goToFindWorks()"> pedir nuevo trabajo</button>
+    <button ion-button outline round (click)="goToFindWorks()"> pedir nuevo trabajo</button>
   </div>
 
   <ion-list no-lines *ngIf="(currentWorks && currentWorks.length != 0) || (finishedWorks && finishedWorks.length != 0)">
-    <ion-item-divider color="guns-n-roses">Próximos</ion-item-divider>
+    <ion-item-divider *ngIf="currentWorks && currentWorks.length > 0">Próximos</ion-item-divider>
 
     <ion-item class="item-work" *ngFor="let work of currentWorks" (click)="goToDetails(work)">
       <ion-thumbnail item-left>
@@ -31,10 +28,10 @@
       <label *ngIf="work.worker"> {{ work.worker.first_name }} {{ work.worker.last_name }} </label>
       <label *ngIf="!work.worker">Asignando ...</label>
       <p>{{ work.date | formatDayOfWeek }}, {{work.date.getDate()}} de {{ work.date | formatMonth }}</p>
-      <ion-icon item-right ios="ios-arrow-forward" md="md-arrow-dropright" color="deff-leppard"></ion-icon>
+      <ion-icon item-right ios="ios-arrow-forward" md="md-arrow-dropright"></ion-icon>
     </ion-item>
 
-    <ion-item-divider color="guns-n-roses">Finalizados</ion-item-divider>
+    <ion-item-divider *ngIf="finishedWorks && finishedWorks.length > 0">Finalizados</ion-item-divider>
 
     <ion-item class="item-work" *ngFor="let work of finishedWorks" (click)="goToDetails(work)">
       <ion-thumbnail item-left>
@@ -44,7 +41,7 @@
       <label *ngIf="work.worker"> {{ work.worker.first_name }} {{ work.worker.last_name }} </label>
       <label *ngIf="!work.worker">Asignando ...</label>
       <p>{{ work.date | formatDayOfWeek }}, {{work.date.getDate()}} de {{ work.date | formatMonth }}</p>
-      <ion-icon item-right ios="ios-arrow-forward" md="md-arrow-dropright" color="deff-leppard"></ion-icon>
+      <ion-icon item-right ios="ios-arrow-forward" md="md-arrow-dropright"></ion-icon>
     </ion-item>
   </ion-list>
 </span>

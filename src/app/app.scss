@@ -47,6 +47,9 @@
   font-size: 130% !important;
   margin: 10px 0px;
   color: rgba(0, 0, 0, 0.7);
+  ion-icon {
+    color: $metallica;
+  }
 }
 
 ion-backdrop {
@@ -85,6 +88,11 @@ ion-header {
     }
     h1{
       color: $metallica;
+    }
+  }
+  #tool-menu {
+    .toolbar-background {
+      background-color: #94c3c1;
     }
   }
 }

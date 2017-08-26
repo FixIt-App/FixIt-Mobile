@@ -43,6 +43,7 @@ export class MyApp {
       { title: 'Cerrar sesión', component: null, icon: 'power' }
     ];
     this.listenToCustomerLogged();
+    this.listenToCustomerUpdated();
     this.initializeApp();
   }
 
@@ -182,11 +183,21 @@ export class MyApp {
     this.events.subscribe('customer:logged', 
       (customer) => {
         this.customer = customer;
-        this.userDataService.saveCustomer(this.customer);
+        this.userDataService.setCustomer(this.customer);
         this.platform.ready().then(() => {
           if(this.platform.is('cordova'))
             this.initPushNotification();
         });
+      });
+  }
+
+  listenToCustomerUpdated() {
+    this.events.subscribe('customer:updated', 
+      (customer) => {
+        console.log('entre a updatecustomer');
+        console.log(this.customer);
+        this.customer = customer;
+        this.userDataService.setCustomer(customer);
       });
   }
 
