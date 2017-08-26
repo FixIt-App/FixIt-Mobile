@@ -127,6 +127,21 @@
         </button>
       </ion-col>
     </ion-row>
-
   </ion-grid>
+  <ion-footer>
+    <ion-grid>
+        <ion-row>
+            <ion-col offset-1>
+              <button ion-button class="footer-button" (click)='goToMainView()'>
+                <span>Volver al menú principal</span>
+              </button>
+            </ion-col>
+            <ion-col>
+              <button ion-button class="footer-button" (click)='goToCalendar()'>
+                <span>Ver mis trabajos</span>
+              </button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+  </ion-footer>
 </ion-content>

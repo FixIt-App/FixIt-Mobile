@@ -92,4 +92,17 @@ page-work-details {
       border-left-style: solid;
     }
   }
+
+  ion-footer{
+
+    &:before {
+        visibility: hidden;
+    }
+
+    .footer-button{
+      background-color: $keane;
+      border-radius: 0.5em;
+    }
+  }
+  
 }

@@ -5,6 +5,10 @@ import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-sca
 import { Work } from '../../models/work';
 import { WorkService } from "../../providers/work-service";
 
+import { FindWorkPage } from '../findwork/findwork';
+import { ServiceHistoricalPage } from '../service-historical/service-historical';
+import { WorkTypeService } from "../../providers/wortktype-service";
+
 @IonicPage()
 @Component({
   selector: 'page-work-details',
@@ -30,6 +34,7 @@ export class WorkDetailsPage {
               private alertCtrl: AlertController,
               private actionSheetCtrl: ActionSheetController,
               private barcodeScanner: BarcodeScanner,
+              private workTypeService: WorkTypeService,
               public myElement: ElementRef) 
   {
     this.showheader = false;
@@ -147,5 +152,19 @@ export class WorkDetailsPage {
         }
         this.slideHeaderPrevious = this.ionScroll.scrollTop - this.start;
       });
+  }
+
+  goToMainView() {
+    this.workTypeService.getWorkTypes().subscribe(
+      categories => {
+        this.navCtrl.setRoot(FindWorkPage, { categories: categories.reverse() });
+      },
+      error => {
+        console.log(error);
+      });
+  }
+
+  goToCalendar(){
+    this.navCtrl.push('ServiceHistoricalPage');
   }
 }
