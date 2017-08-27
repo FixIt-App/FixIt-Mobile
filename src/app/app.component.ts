@@ -24,7 +24,6 @@ export class MyApp {
   pages: Array<{title: string, component: any, icon: string}>;
   customer: Customer;
   pageAfterLogin: string = "FindWorksPage";
-  workSentByPush: Work;
 
   constructor(public platform: Platform,
               private app: App,
@@ -87,7 +86,7 @@ export class MyApp {
         } else {
           if(work) {
             this.pageAfterLogin = 'WorkDetailsPage';
-            this.workSentByPush = work;
+            this.nav.setRoot('WorkDetailsPage', { work: work });
           }
           console.log('no foreground');
         }
@@ -161,17 +160,12 @@ export class MyApp {
         this.userDataService.setCustomer(this.customer);
 
         // decide what page to set as root after login
-        if (this.pageAfterLogin == 'WorkDetailsPage') {
-          console.log('allready set to work details');
-          this.nav.setRoot('WorkDetailsPage', { work: this.workSentByPush });
-        } else {
+        if (this.pageAfterLogin == 'FindWorksPage') {
           if ( customer.confirmations.some(conf => conf.state == true) ) {
             this.workTypeService.getWorkTypes().subscribe(
               categories => {
                 console.log('voy a preguntar adentro');
-                if (this.pageAfterLogin == 'WorkDetailsPage') {
-                  this.nav.setRoot('WorkDetailsPage', { work: this.workSentByPush });
-                } else {
+                if (this.pageAfterLogin == 'FindWorksPage') {
                   this.nav.setRoot(FindWorkPage, { categories: categories.reverse() });
                 }
               },
@@ -187,6 +181,8 @@ export class MyApp {
               })
               
             }
+        } else {
+          console.log('allready set to work details');
         }
       });
   }
