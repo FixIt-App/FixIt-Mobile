@@ -48,6 +48,7 @@ export class LoginPage {
 
 	login() {
 		this.presentLoader();
+		this.username = this.username.toLowerCase();
 		this.authService.login(this.username, this.password).subscribe(
 			token => {
 				console.log(token);
