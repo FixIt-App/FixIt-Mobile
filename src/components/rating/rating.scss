@@ -1,0 +1,44 @@
+rating {
+    .range-md [range-left] {
+        margin: 0px;
+    }
+    .range-ios [range-left] {
+        margin: 0px;
+    }
+    ion-range {
+        position: relative;
+        padding: 0px !important;
+        ion-icon {
+            font-size: 4rem;
+        }
+        .range-knob, .range-bar, .range-bar-active, .range-tick {
+            background: $transparent !important;
+            border: none !important;
+        }
+        #star1 {
+            color: $primary;
+            position: absolute;
+            left: calc(0% - 16px);
+        }
+        #star2 {
+            color: $primary;
+            position: absolute;
+            left: calc(25% - 16px);
+        }
+        #star3 {
+            color: $primary;
+            position: absolute;
+            left: calc(50% - 16px);
+        }
+        #star4 {
+            color: $primary;
+            position: absolute;
+            left: calc(75% - 16px);
+        }
+        #star5 {
+            color: $primary;
+            position: absolute;
+            left: calc(100% - 16px);
+        }
+    }
+}
