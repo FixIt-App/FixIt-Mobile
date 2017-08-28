@@ -24,13 +24,13 @@ export class LoginPage {
 	loader: Loading;
 
 	constructor(private navController: NavController,
-							private authService: AuthService,
-							public alertCtrl: AlertController,
-							public events: Events,
-							public userDataService: UserDataService,
-							private workTypeService: WorkTypeService,
-							public confirmationService: ConfirmationService,
-							public loadingCtrl: LoadingController)
+				private authService: AuthService,
+				public alertCtrl: AlertController,
+				public events: Events,
+				public userDataService: UserDataService,
+				private workTypeService: WorkTypeService,
+				public confirmationService: ConfirmationService,
+				public loadingCtrl: LoadingController)
 	{
 		this.authenticatingUser = true;
 		this.passwordType = "password";
@@ -76,30 +76,8 @@ export class LoginPage {
 	getAuthenticatedCustomer() {
 		this.authService.getAuthCustomer().subscribe(
 			customer => {
+				// this event sets the page after log in
 				this.events.publish('customer:logged', customer);
-				console.log(customer);
-				// let confirmSMS = customer.confirmations.find(conf => conf.confirmation_type == 'SMS');
-				// if(confirmSMS && !confirmSMS.state) {
-				// if any confirmation is true 
-				if ( customer.confirmations.some(conf => conf.state == true) ) {
-					this.userDataService.setCustomer(customer);
-					console.log(customer);
-
-					this.workTypeService.getWorkTypes().subscribe(
-						categories => {
-							this.navController.setRoot(FindWorkPage, { categories: categories.reverse() });
-						},
-						error => {
-							console.log(error);
-						});
-				} else {
-					console.log('ir a confirmar sms or mail');
-					this.navController.setRoot(CreateUserPage, {
-						isConfirmingSMS: true,
-						customer: customer
-					})
-					
-				}
 				this.dismissLoader();
 			},  
 			error => {

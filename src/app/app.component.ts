@@ -6,6 +6,7 @@ import { Push, PushOptions, PushObject, NotificationEventResponse } from '@ionic
 
 import { LoginPage } from '../pages/login/login';
 import { FindWorkPage } from '../pages/findwork/findwork';
+import { CreateUserPage } from './../pages/create-user/create-user';
 
 import { Customer } from '../models/user';
 import { DeviceService } from '../providers/device-service';
@@ -22,6 +23,7 @@ export class MyApp {
   rootPage: any = LoginPage;
   pages: Array<{title: string, component: any, icon: string}>;
   customer: Customer;
+  pageAfterLogin: string = "FindWorksPage";
 
   constructor(public platform: Platform,
               private app: App,
@@ -42,108 +44,76 @@ export class MyApp {
       { title: 'Configuraciones', component: 'SettingsPage', icon: 'settings' },
       { title: 'Cerrar sesión', component: null, icon: 'power' }
     ];
+    this.initializeApp();
     this.listenToCustomerLogged();
     this.listenToCustomerUpdated();
-    this.initializeApp();
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
+      this.initPushNotification();
       //StatusBar.styleDefault();
       this.splashScreen.hide();
     });
   }
 
   initPushNotification() {
-    this.push.hasPermission()
-      .then((res: any) => {
-
-        if (res.isEnabled) {
-          console.log('We have permission to send push notifications');
-        } else {
-          console.log('We do not have permission to send push notifications');
-        }
-
-      });
-
     // to initialize push notifications
     const options: PushOptions = {
-      android: {
-      senderID: '615968990679'},
-      ios: {
-      alert: 'true',
-      badge: true,
-      sound: 'false'
-      },
-    windows: {}
+      android: { senderID: '615968990679' },
+      ios: { alert: 'true', badge: true, sound: 'false' },
+      windows: {}
     };
     const pushObject: PushObject = this.push.init(options);
     // when a notification arrives
     pushObject.on('notification').subscribe(
       (notification: NotificationEventResponse) => {
-        console.log('Received a notification', notification);
-        console.log(notification.additionalData);
         let work: Work;
-        if(notification.additionalData.work) {
-          work = new Work(notification.additionalData.work);
-        }
+        if(notification.additionalData.work) work = new Work(notification.additionalData.work);
         if(notification.additionalData.foreground) {
           let confirmAlert = this.alertCtrl.create({
             title: notification.title,
             message: notification.message,
-            buttons: [{
-              text: 'Cancelar',
-              role: 'cancel'
-            }, {
-              text: 'Ver',
-              handler: () => {
-                if(work) {
-                  this.nav.setRoot('WorkDetailsPage', {
-                    work: work
-                  });
-                }
+            buttons: [
+              { text: 'Cancelar', role: 'cancel' }, 
+              {
+                text: 'Ver',
+                handler: () => { if(work) this.nav.setRoot('WorkDetailsPage', { work: work}); }
               }
-            }]
-            });
+            ]
+          });
           confirmAlert.present();
         } else {
-          console.log('no foreground');
           if(work) {
-            this.nav.setRoot('WorkDetailsPage', {
-              work: work
-            })
+            this.pageAfterLogin = 'WorkDetailsPage';
+            this.nav.setRoot('WorkDetailsPage', { work: work });
           }
+          console.log('no foreground');
         }
+      });
+
+    this.push.hasPermission().then(
+      (res: any) => {
+        if (res.isEnabled) console.log('We have permission to send push notifications');
+        else console.log('We do not have permission to send push notifications');
       });
     
     pushObject.on('registration').subscribe(
       (registration: any) => {
-        console.log('Device registered', registration)
         localStorage.setItem('deviceToke', registration.registrationId);
         let platform_type = 'UNKNOWN';
-        if(this.platform.is('ios')) {
-          platform_type = 'IOS';
-        } else if(this.platform.is('android')) {
-          platform_type = 'ANDROID';
-        }
-        console.log(platform_type);
+        if(this.platform.is('android'))  platform_type = 'ANDROID';
+        else if(this.platform.is('ios')) platform_type = 'IOS';
         localStorage.setItem('platform', platform_type);
 
         // register device token in server
         this.deviceService.registerDevice().subscribe(
-          (data) => { 
-            console.log('register device token status: '+ data.status);
-          },
-          (err) => { 
-            console.log('registre device error: ');
-            console.log(err); 
-          });
+          (data) => console.log('register device token status: '+ data.status),
+          (err) => console.error('registre device error', err)
+        );
       });
 
-    pushObject.on('error').subscribe(
-      error => console.error('Error with Push plugin', error));
+    pushObject.on('error').subscribe( error => console.error('Error with Push plugin', error) );
   }
   
   openPage(page) {
@@ -179,15 +149,41 @@ export class MyApp {
     }
   }
 
+  /**
+   * saves the logged customer in userDataService
+   * and sets the root page after log in
+   */
   listenToCustomerLogged() {
     this.events.subscribe('customer:logged', 
       (customer) => {
         this.customer = customer;
         this.userDataService.setCustomer(this.customer);
-        this.platform.ready().then(() => {
-          if(this.platform.is('cordova'))
-            this.initPushNotification();
-        });
+
+        // decide what page to set as root after login
+        if (this.pageAfterLogin == 'FindWorksPage') {
+          if ( customer.confirmations.some(conf => conf.state == true) ) {
+            this.workTypeService.getWorkTypes().subscribe(
+              categories => {
+                console.log('voy a preguntar adentro');
+                if (this.pageAfterLogin == 'FindWorksPage') {
+                  this.nav.setRoot(FindWorkPage, { categories: categories.reverse() });
+                }
+              },
+              error => {
+                //TODO a-santamaria: manage this error
+                console.log(error);
+              });
+            } else {
+              console.log('ir a confirmar sms or mail');
+              this.nav.setRoot(CreateUserPage, {
+                isConfirmingSMS: true,
+                customer: customer
+              })
+              
+            }
+        } else {
+          console.log('allready set to work details');
+        }
       });
   }
 
