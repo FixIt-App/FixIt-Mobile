@@ -120,6 +120,25 @@ export class WorkService {
     }) 
   }
 
+  sendWorkRating(work_id: number, score: number, comment: string) {
+    this.token = localStorage.getItem('token');
+    let createWorkUrl: string = `${SERVER_URL}/api/work/rating/`;
+    var headers = new Headers({ 'Content-Type': 'application/json', 
+                                'Accept': 'application/json',
+                                'Authorization': `Token ${this.token}`
+                            });
+    
+    let body = {
+      work_id: work_id,
+      score: score,
+      comment: comment
+    }
+    var options = new RequestOptions({ headers: headers });
+    return this.http.post(createWorkUrl, body, options)
+                    .map(response => response.status)
+                    .catch(this.handleError)
+  }
+
   private handleError(error: any): Observable<any> {
         console.error('An error occurred', error);
         return Observable.throw(error.message || error);
