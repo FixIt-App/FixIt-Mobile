@@ -1,0 +1,39 @@
+rating {
+    .range-md [range-left] {
+        margin: 0px;
+    }
+    .range-ios [range-left] {
+        margin: 0px;
+    }
+    #stars-container {
+        margin: 0px 50px;
+        ion-range {
+            position: relative;
+            padding: 0px !important;
+            ion-icon {
+                font-size: 4rem;
+                color: $primary;
+                position: absolute;
+            }
+            .range-knob, .range-bar, .range-bar-active, .range-tick {
+                background: $transparent !important;
+                border: none !important;
+            }
+            #star1 {
+                left: calc(0% - 16px);
+            }
+            #star2 {
+                left: calc(25% - 16px);
+            }
+            #star3 {
+                left: calc(50% - 16px);
+            }
+            #star4 {
+                left: calc(75% - 16px);
+            }
+            #star5 {
+                left: calc(100% - 16px);
+            }
+        }
+    }
+}

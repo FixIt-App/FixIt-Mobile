@@ -1,0 +1,39 @@
+<ion-header>
+
+  <ion-navbar color="transparent">
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  
+  <div id="title">
+    <h3> {{ work.workType.name }} </h3>
+    <!-- <p>Lunes 27 de Febrero 3pm</p> -->
+  </div>
+  <div padding text-center id="rate-box">
+      <div class="avatar">
+        <img id="avatar-img" [src]="work.worker.profile_pic">
+        <br>
+        {{ work.worker.first_name }} {{ work.worker.last_name }}
+      </div>
+    <h3>Califica el trabajo</h3>
+    <rating (starsChange)="starsChange($event)"></rating>
+    <p> {{ starsText }} </p>
+  </div>
+  <!-- <rating (starsChange)="starsChange($event)"></rating> -->
+  <ion-item>
+    <ion-label floating>Agregar comentario</ion-label>
+    <ion-input [(ngModel)]="comment" type="text"></ion-input>
+  </ion-item>
+</ion-content>
+
+<ion-footer id="request-service">
+  <button ion-button block [disabled]="stars == 0" (click)="sendRating()">
+    Enviar
+  </button>
+</ion-footer>

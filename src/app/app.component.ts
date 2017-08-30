@@ -78,15 +78,26 @@ export class MyApp {
               { text: 'Cancelar', role: 'cancel' }, 
               {
                 text: 'Ver',
-                handler: () => { if(work) this.nav.setRoot('WorkDetailsPage', { work: work}); }
+                handler: () => {
+                  if(notification.additionalData.type == 'WORKER ASSIGNED') {
+                    this.nav.setRoot('WorkDetailsPage', { work: work });
+                  } else if(notification.additionalData.type == 'WORK FINISHED') {
+                    this.nav.setRoot('RateWorkPage', { work: work });
+                  }
+                }
               }
             ]
           });
           confirmAlert.present();
         } else {
-          if(work) {
+          console.log("notification type");
+          console.log(notification.additionalData.type);
+          if(notification.additionalData.type == 'WORKER ASSIGNED') {
             this.pageAfterLogin = 'WorkDetailsPage';
             this.nav.setRoot('WorkDetailsPage', { work: work });
+          } else if(notification.additionalData.type == 'WORK FINISHED') {
+            this.pageAfterLogin = 'RateWorkPage';
+            this.nav.setRoot('RateWorkPage', { work: work });
           }
           console.log('no foreground');
         }

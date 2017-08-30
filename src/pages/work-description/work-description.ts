@@ -107,7 +107,12 @@ export class WorkDescriptionPage {
           },
           (error) => {
             this.deleteImageNoConfirm(imageId);
-            //TODO what to do on error
+            let alert = this.alertCtrl.create({
+              title: 'Error',
+              buttons: [ { text: 'Aceptar' } ],
+              message: 'Error al subir la imagen, por favor intenta más tarde'
+            });
+            alert.present();
             console.log(error);
           }
         )

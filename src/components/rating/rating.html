@@ -1,0 +1,11 @@
+<div id="stars-container">
+  <ion-range min="1" max="5" step="1" snaps="true" [(ngModel)]="starsNumber" (ionChange)="rangeChanged($event)">
+    <!-- <ion-icon range-left small color="danger" name="thermometer"></ion-icon>
+    <ion-icon range-right color="danger" name="thermometer"></ion-icon> -->
+    <ion-icon range-left id="star1" [name]="iconName[0]"></ion-icon>
+    <ion-icon range-left id="star2" [name]="iconName[1]"></ion-icon>
+    <ion-icon range-left id="star3" [name]="iconName[2]"></ion-icon>
+    <ion-icon range-left id="star4" [name]="iconName[3]"></ion-icon>
+    <ion-icon range-left id="star5" [name]="iconName[4]"></ion-icon>
+  </ion-range>
+</div>
