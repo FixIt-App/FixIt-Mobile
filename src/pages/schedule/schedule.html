@@ -61,7 +61,7 @@
           </ion-slide>
           <ion-slide>
             <div class="address-card" >
-              <button class="not-selected" (click)="newAddress()">
+              <button (click)="newAddress()" [ngClass]="{'selected': !addresses || addresses.length < 0, 'not-selected': addresses && addresses.length > 0 }">
                 <ion-icon ios="ios-add" md="md-add"></ion-icon>
               </button>
               <span>Agregar</span>
@@ -88,7 +88,7 @@
             <ion-icon ios="ios-calendar" md="md-calendar"></ion-icon>
           </ion-col>
           <ion-col col-11>
-            {{ work.date | formatDayOfWeek }}, {{ work.date | formatMonth }} {{work.date.getDate() }}         
+            {{ work.date | formatDayOfWeek }}, {{ work.date | formatMonth }} {{work.date.getDate() }} de {{work.date.getFullYear() }}
           </ion-col>
         </ion-row>
         <ion-row *ngIf="work.date">

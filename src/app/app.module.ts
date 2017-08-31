@@ -25,6 +25,9 @@ import { WorkService } from '../providers/work-service';
 import { ConfirmationService } from '../providers/confirmation-service';
 import { DeviceService } from '../providers/device-service';
 import { PaymentService } from '../providers/payment-service';
+import { FormatDayOfWeekPipe } from "../pipes/format-day-of-week-pipe";
+import { FormatMonthPipe } from "../pipes/format-month-pipe";
+import { FormatTimePipe } from "../pipes/format-time";
 
 @NgModule({
   declarations: [
@@ -63,7 +66,10 @@ import { PaymentService } from '../providers/payment-service';
     WorkService,
     ConfirmationService,
     DeviceService,
-    PaymentService
+    PaymentService,
+    FormatDayOfWeekPipe,
+    FormatMonthPipe,
+    FormatTimePipe
   ]
 })
 export class AppModule {}

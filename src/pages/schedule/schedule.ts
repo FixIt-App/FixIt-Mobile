@@ -11,6 +11,9 @@ import { Address } from '../../models/address';
 import { AddressService } from '../../providers/address-service';
 import { WorkService } from '../../providers/work-service';
 import { PaymentService } from '../../providers/payment-service';
+import { FormatDayOfWeekPipe } from "../../pipes/format-day-of-week-pipe";
+import { FormatMonthPipe } from "../../pipes/format-month-pipe";
+import { FormatTimePipe } from "../../pipes/format-time";
 
 @Component({
   selector: 'page-schedule',
@@ -41,6 +44,9 @@ export class SchedulePage {
               private workService: WorkService,
               private addressService: AddressService,
               private paymentService: PaymentService,
+              private formatDayOfWeekPipe: FormatDayOfWeekPipe,
+              private formatMonthPipe: FormatMonthPipe,
+              private formatTimePipe: FormatTimePipe,
               private platform: Platform)
   {
     this.work = navParams.get('work');
@@ -142,14 +148,44 @@ export class SchedulePage {
   preSendWork() {
     this.loader = this.loadingCtrl.create({spinner: 'crescent'});
     this.loader.present();
+
+    let msg = "Sólo puedes cancelar 12 horas antes de la hora agendada, de lo contrario se cobrará una tarifa de cancelación.";
+    if (this.work.asap) {
+      msg = "¿Estás seguro de pedir este trabajo lo más pronto posible? Recuerda que si cancelas se cobrará una tarifa de cancelación."
+    }
+    let confirmAlert = this.alertCtrl.create({
+      title: "¿Pedir trabajo para el " + 
+              this.formatDayOfWeekPipe.transform(this.work.date) +
+              " " + this.work.date.getDate() + " de " +
+              this.formatMonthPipe.transform(this.work.date) +
+              (!this.work.asap ? " " + this.formatTimePipe.transform(this.work.date) : "") + "?",
+      message: msg,
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          handler: () => {
+            this.loader.dismiss();
+          }
+        },
+        {
+          text: 'Si',
+          handler: () => {
+            this.sendWork();
+            this.loader.dismiss();
+          }
+        }
+      ]
+    })
+
     if (this.creditCard) {
       console.log('ya tegnto credit card');
-      this.sendWork();
+      confirmAlert.present();
     } else {
       this.paymentService.getCreditCard().subscribe(
         (card) => {
           console.log(card);
-          this.sendWork();
+          confirmAlert.present();
         },
         (error) => {
           console.log(error);
@@ -171,7 +207,6 @@ export class SchedulePage {
 
   sendWork() {
     this.work.address = this.selectedAddress;
-    
     this.workService.createWork(this.work).subscribe(
       (work) => {
         //TODO (a-santamaria): el need it now deberia guardarse en el servidor
