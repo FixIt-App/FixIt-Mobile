@@ -25,14 +25,12 @@
             <button id="login-button" ion-button round type="button" full (click)="login()">
                 Inicia Sesión
             </button>
+            <a (click)="forgotPassword()">Olvidé mi Contraseña</a>
         </form>
-        <div id="signup-footer">
-            <p id="signup-text">¿No tienes una cuenta?</p>
-            <button id="signup-button" ion-button round type="button" full (click)="signUp()">
-                Regístrate
-            </button>
-        </div>
     </span>
-
-
 </ion-content>
+<ion-footer id="footer">
+    <button ion-button full (click)="signUp()">
+        ¿No tienes una cuenta? Regístrate
+    </button>
+</ion-footer>

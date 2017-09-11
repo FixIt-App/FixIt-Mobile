@@ -11,6 +11,7 @@ import { SERVER_URL } from '../../providers/services.util';
 import { ConfirmationService } from '../../providers/confirmation-service';
 import { WorkTypeService } from '../../providers/wortktype-service'
 
+
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html'
@@ -36,7 +37,6 @@ export class LoginPage {
 		this.passwordType = "password";
 	}
 
-
 	ionViewDidLoad() {
 		if(localStorage.getItem('token')) {
 			this.authenticatingUser = true;
@@ -47,6 +47,8 @@ export class LoginPage {
 	}
 
 	login() {
+		if(!this.username)
+			return;
 		this.presentLoader();
 		this.username = this.username.toLowerCase();
 		this.authService.login(this.username, this.password).subscribe(
@@ -107,6 +109,10 @@ export class LoginPage {
 		if(this.loader) {
 			this.loader.dismiss();
 		}
+	}
+
+	forgotPassword(){
+		this.navController.push("RecoverPasswordPage");
 	}
 }
 

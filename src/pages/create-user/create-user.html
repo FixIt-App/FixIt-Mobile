@@ -1,6 +1,5 @@
 <ion-content>
     <form>
-
         <div *ngIf="stepNumber == 1">
             <h1> ¿Cómo te llamas? </h1>
             <ion-item>
@@ -10,7 +9,6 @@
                 <ion-input placeholder="Apellido" name="lastname" [(ngModel)]="customer.lastName" type="text"></ion-input>
             </ion-item>
         </div>
-
 
         <div *ngIf="stepNumber == 2">
             <h1> Contraseña </h1>

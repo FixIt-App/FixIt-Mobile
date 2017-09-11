@@ -18,6 +18,7 @@ page-login {
   
   form {
     padding: 0 20px;
+    text-align: center;
     .item {
       border: 1px solid $whitesnake;
       border-radius: 10px;
@@ -29,24 +30,22 @@ page-login {
       }
     }
 
-    #login-button{ 
+    #login-button { 
       background-color: $keane;
       margin: 20px 0;
       border-radius: 10px;
       border-color: $the-strokes;
-    }    
+    }
   }
 
-  #signup-footer{
-    padding: 0 20px;
-    #signup-button{
-      margin: 20px 0;
-      border-radius: 10px;
+  #footer {
+    &:before {
+      background-image: none;
+    }
+    button {
+      padding-top: 20px;
+      padding-bottom: 20px;
       background-color: $deff-leppard;
     }
-  }  
-  #signup-text{
-    text-align: center;
-    color: $radiohead;
   }
 }
