@@ -23,6 +23,7 @@ export class LoginPage {
 	authenticatingUser: boolean;
 	passwordType: string;
 	loader: Loading;
+	isKeyboardOpen: boolean;
 
 	constructor(private navController: NavController,
 				private authService: AuthService,
@@ -35,6 +36,7 @@ export class LoginPage {
 	{
 		this.authenticatingUser = true;
 		this.passwordType = "password";
+		this.isKeyboardOpen = false;
 	}
 
 	ionViewDidLoad() {

@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RatingComponent } from './rating/rating';
 @NgModule({
-	declarations: [RatingComponent],
+	declarations: [],
 	imports: [],
-	exports: [RatingComponent]
+	exports: []
 })
 export class ComponentsModule {}

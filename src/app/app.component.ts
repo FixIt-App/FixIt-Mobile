@@ -116,12 +116,6 @@ export class MyApp {
         if(this.platform.is('android'))  platform_type = 'ANDROID';
         else if(this.platform.is('ios')) platform_type = 'IOS';
         localStorage.setItem('platform', platform_type);
-
-        // register device token in server
-        this.deviceService.registerDevice().subscribe(
-          (data) => console.log('register device token status: '+ data.status),
-          (err) => console.error('registre device error', err)
-        );
       });
 
     pushObject.on('error').subscribe( error => console.error('Error with Push plugin', error) );
@@ -169,6 +163,13 @@ export class MyApp {
       (customer) => {
         this.customer = customer;
         this.userDataService.setCustomer(this.customer);
+        
+        // register device token in server
+        console.log('going to register device');
+        this.deviceService.registerDevice().subscribe(
+          (data) => console.log('register device token status: '+ data.status),
+          (err) => console.error('registre device error', err)
+        );
 
         // decide what page to set as root after login
         if (this.pageAfterLogin == 'FindWorksPage') {
