@@ -51,7 +51,7 @@ export class FindWorkPage implements OnInit {
     this.work.workType = selectedWork;
     console.log(this.work);
     if(this.work.workType.price_type != 'UNKNOWN') {
-      this.navController.push(SchedulePage, {
+      this.navController.push('WorkDescriptionPage', {
         work: this.work
       });
     } else {
