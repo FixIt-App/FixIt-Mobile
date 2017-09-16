@@ -34,7 +34,7 @@ export class AuthService {
                                 });
         var options = new RequestOptions({ headers: headers });
         return this.http.get(authCustomerUrl, options)
-                        .map(response => { console.log(response); return new Customer(response.json())})
+                        .map(response => new Customer(response.json()))
                         .catch(this.handleError)
     }
     
@@ -43,4 +43,14 @@ export class AuthService {
         return Observable.throw(error.message || error);
     }
 
+    resetPassword(email:string): Observable<any> {
+        let url = `${SERVER_URL}/api/user/${email}/password/token/`;
+        var headers = new Headers({ 'Content-Type': 'application/json', 
+            'Accept': 'application/json',
+        });
+        var options = new RequestOptions({ headers: headers });
+        return this.http.post(url, options)
+            .map(response => response.status)
+            .catch(this.handleError)
+    }
 }
