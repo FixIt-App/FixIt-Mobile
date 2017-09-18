@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="co.com.fixit" version="0.0.7" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="co.com.fixit" version="0.0.11" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>FixIt</name>
     <description>FixIt app.</description>
     <author email="development@fixitgroup.co" href="http://fixitgroup.co">FixIt Group</author>
@@ -52,22 +52,19 @@
     <feature name="StatusBar">
         <param name="ios-package" onload="true" value="CDVStatusBar" />
     </feature>
+    <preference name="SplashScreenDelay" value="3000" />
+    <engine name="android" spec="~6.1.2" />
     <plugin name="cordova-plugin-camera" spec="~2.4.0" />
-    <plugin name="ionic-plugin-keyboard" spec="~2.2.1" />
-    <plugin name="cordova-plugin-whitelist" spec="1.3.1" />
-    <plugin name="cordova-plugin-statusbar" spec="2.2.1" />
     <plugin name="cordova-plugin-console" spec="1.0.5" />
     <plugin name="cordova-plugin-datepicker" spec="~0.9.3" />
-    <engine name="android" spec="~6.1.2" />
     <plugin name="cordova-plugin-device" spec="1.1.4" />
     <plugin name="cordova-plugin-geolocation" spec="~2.4.2" />
     <plugin name="cordova-plugin-splashscreen" spec="~4.0.1" />
     <plugin name="cordova-plugin-statusbar" spec="2.2.1" />
     <plugin name="cordova-plugin-whitelist" spec="1.3.1" />
-    <plugin name="ionic-plugin-keyboard" spec="~2.2.1" />
+    <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
     <plugin name="phonegap-plugin-barcodescanner" spec="~6.0.6" />
     <plugin name="phonegap-plugin-push" spec="~1.10.2">
         <variable name="SENDER_ID" value="615968990679" />
     </plugin>
-    <engine name="android" spec="~6.1.2" />
 </widget>

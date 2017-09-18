@@ -9,6 +9,7 @@ import { DatePicker } from '@ionic-native/date-picker';
 import { Geolocation } from '@ionic-native/geolocation';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Push } from '@ionic-native/push';
+import { Keyboard } from '@ionic-native/keyboard';
 
 import { FindWorkPage } from '../pages/findwork/findwork';
 import { LoginPage } from '../pages/login/login';

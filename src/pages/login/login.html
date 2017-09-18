@@ -26,11 +26,12 @@
                 Inicia Sesión
             </button>
             <a (click)="forgotPassword()">Olvidé mi Contraseña</a>
+            <div id="footer" *ngIf="!authenticatingUser">
+                <button ion-button full round (click)="signUp()">
+                    ¿No tienes una cuenta? Regístrate
+                </button>
+            </div>
         </form>
+
     </span>
 </ion-content>
-<ion-footer id="footer">
-    <button ion-button full (click)="signUp()">
-        ¿No tienes una cuenta? Regístrate
-    </button>
-</ion-footer>
