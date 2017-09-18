@@ -30,7 +30,6 @@ export class PaymentService {
 
   saveTokenToServer(tokenCreditCard: string) {
     let token = localStorage.getItem('token');
-    // TODO (a-santamaria): revisar que funcione
     let tpagoTokenUrl: string = `${SERVER_URL}/api/tpago/token/`;
       var headers = new Headers({ 'Content-Type': 'application/json', 
                                   'Accept': 'application/json',

@@ -1,7 +1,7 @@
 export class CreditCard {
     number: string;
     lastFour: string;
-    cvc: string;
+    cvv: string;
     expirationYear: string;
     expirationMonth: string;
     cardHolderName: string;
@@ -19,7 +19,7 @@ export class CreditCard {
     exportTPaga(): any {
         var obj: any = {};
         obj.primaryAccountNumber = this.number;
-        obj.cvc = this.cvc;
+        obj.cvv = this.cvv;
         obj.expirationYear = this.expirationYear;
         obj.expirationMonth = this.expirationMonth;
         obj.cardHolderName = this.number;

@@ -197,6 +197,22 @@ export class MyApp {
           console.log('allready set to work details');
         }
       });
+
+      this.events.subscribe('customer:loggedFirstTime', 
+      (customer) => {
+        this.customer = customer;
+        this.userDataService.setCustomer(this.customer);
+        
+        // register device token in server
+        console.log('going to register device');
+        this.deviceService.registerDevice().subscribe(
+          (data) => console.log('register device token status: '+ data.status),
+          (err) => console.error('registre device error', err)
+        );
+
+        // show payment page first time
+        this.nav.setRoot('PaymentMethodPage', { firstTime: true });
+      });
   }
 
   listenToCustomerUpdated() {
