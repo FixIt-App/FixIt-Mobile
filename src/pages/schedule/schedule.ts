@@ -147,8 +147,8 @@ export class SchedulePage {
       this.sendWork();
     } else {
       this.paymentService.getCreditCard().subscribe(
-        (card) => {
-          console.log(card);
+        (cards) => {
+          console.log(cards);
           this.sendWork();
         },
         (error) => {

@@ -27,9 +27,11 @@ page-payment-method-page {
   }
 
   #tpaga-logo {
-    text-align: center;
+    margin-top: 50px;
     img {
       height: 50px;
+      display: block;
+      margin: auto;
     }
   }
 }

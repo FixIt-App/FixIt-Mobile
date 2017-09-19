@@ -134,11 +134,12 @@ export class PaymentMethodPage {
           (response) => {
             console.log(response.token);
             this.paymentService.saveTokenToServer(response.token).subscribe(
-              (status) => {
+              (card) => {
+                console.log(card);
                 if (this.firstTime) {
                   this.goToFindWorks();
                 } else {
-                  this.creditCard.lastFour = this.creditCard.number.substr(this.creditCard.number.length-5, 4);
+                  this.creditCard = card;
                   this.viewCtrl.dismiss({
                     card: this.creditCard
                   });

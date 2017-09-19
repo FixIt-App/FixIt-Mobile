@@ -31,9 +31,10 @@
     <ion-list-header>
       Métodos de pago
     </ion-list-header>
-    <ion-item class="no-lines" *ngIf="creditCard" (click)="editPaymentMethod()">
-      <ion-icon name="card" item-left></ion-icon>
-      **** **** **** {{ creditCard.lastFour }}
+    <ion-item class="no-lines credit-card" *ngIf="creditCard" (click)="editPaymentMethod()">
+      <!-- <ion-icon name="card" item-left></ion-icon> -->
+        <img [src]=" 'assets/' + creditCard.type + '.png'">
+        **** **** **** {{ creditCard.lastFour }}
       <ion-icon name="trash" color="danger" item-right (click)="deletePaymentMethod()"></ion-icon>
     </ion-item>
     <button ion-button clear full *ngIf="!creditCard" (click)="addPaymentMethod()">
