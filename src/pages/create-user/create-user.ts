@@ -214,13 +214,12 @@ export class CreateUserPage {
   getAuthenticatedCustomer() {
 		this.authService.getAuthCustomer().subscribe(
 			customer => {
-				this.events.publish('customer:logged', customer);
-				this.userDataService.setCustomer(customer);
+				this.events.publish('customer:loggedFirstTime', customer);
         console.log(customer);
         this.unregisterCustomBackActionFunction();
-        this.navController.setRoot('PaymentMethodPage', {firstTime: true});
 			},  
 			error => {
+        console.log(error);
 			}
 		);
 	}

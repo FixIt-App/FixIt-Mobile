@@ -28,9 +28,8 @@ export class PaymentService {
                       .catch(this.handleError)
   }
 
-  saveTokenToServer(tokenCreditCard: string) {
+  saveTokenToServer(tokenCreditCard: string): Observable<CreditCard> {
     let token = localStorage.getItem('token');
-    // TODO (a-santamaria): revisar que funcione
     let tpagoTokenUrl: string = `${SERVER_URL}/api/tpago/token/`;
       var headers = new Headers({ 'Content-Type': 'application/json', 
                                   'Accept': 'application/json',
@@ -39,11 +38,11 @@ export class PaymentService {
 
       var options = new RequestOptions({ headers: headers });
       return this.http.post(tpagoTokenUrl, { token: tokenCreditCard }, options)
-                      .map(response => response.status)
+                      .map(response => new CreditCard(response.json()))
                       .catch(this.handleError)
   }
 
-  getCreditCard(): Observable<CreditCard> {
+  getCreditCard(): Observable<CreditCard[]> {
     let token = localStorage.getItem('token');
     console.log(token);
     let getCreditCardUrl: string = `${SERVER_URL}/api/customer/tpago/payment/`;
@@ -54,7 +53,7 @@ export class PaymentService {
 
       var options = new RequestOptions({ headers: headers });
       return this.http.get(getCreditCardUrl, options)
-                      .map(response => new CreditCard(response.json()))
+                      .map(response => response.json().map( data => new CreditCard(data)))
                       .catch(this.handleError)
   }
 

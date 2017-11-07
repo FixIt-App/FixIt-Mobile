@@ -38,8 +38,8 @@ export class SettingsPage {
     let loader = this.loadingCtrl.create({spinner: 'crescent'});
     loader.present();
     this.paymentService.getCreditCard().subscribe(
-      (card) => {
-        this.creditCard = card;
+      (cards) => {
+        this.creditCard = cards[0];
         loader.dismiss();
       },
       (error) => {

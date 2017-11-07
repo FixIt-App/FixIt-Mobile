@@ -38,4 +38,17 @@ page-settings {
       border-bottom: none !important;
     }
   }
+  .credit-card {
+    .label-md {
+      background: linear-gradient(to right, $metallica, $guns-n-roses);
+      padding: 13px 8px 8px 20px;
+      border-radius: 20px 20px 0px 0px;
+      margin: 0px 18px 0px 0px;
+      color: white;
+      word-spacing: 8px;
+      img {
+        width: 50px;
+      }
+    }
+  }
 }
