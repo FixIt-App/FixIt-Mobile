@@ -140,20 +140,27 @@ export class SchedulePage {
   }
 
   preSendWork() {
+    console.log('entra a pre send work');
     this.loader = this.loadingCtrl.create({spinner: 'crescent'});
     this.loader.present();
     if (this.creditCard) {
-      console.log('ya tegnto credit card');
       this.sendWork();
     } else {
       this.paymentService.getCreditCard().subscribe(
         (cards) => {
+          console.log('Cards = ');
           console.log(cards);
-          this.sendWork();
+          if(cards.length == 0) {
+            this.loader.dismiss();
+            this.addPaymentMethod();
+          }
+          else
+            this.sendWork();
         },
         (error) => {
           console.log(error);
           if (error.status == 404) {
+            console.log('Error 404');
             this.loader.dismiss();
             this.addPaymentMethod();
           } else {
