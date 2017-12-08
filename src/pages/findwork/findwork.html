@@ -9,7 +9,7 @@
 <ion-content>
    <div class="category" *ngFor="let category of categories">
     <div class="title-category">{{category.name}}</div> 
-    <ion-slides [slidesPerView]="3">
+    <ion-slides [slidesPerView]="2">
       <ion-slide  *ngFor="let worktype of category.worktypes" >
         <ion-card (click)="goToNextStep(worktype)">
           <div class="cover">
