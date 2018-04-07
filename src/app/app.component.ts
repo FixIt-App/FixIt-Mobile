@@ -3,6 +3,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Platform, MenuController, Nav, Events, AlertController, LoadingController, App } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Push, PushOptions, PushObject, NotificationEventResponse } from '@ionic-native/push';
+import { FCM } from '@ionic-native/fcm';
 
 import { LoginPage } from '../pages/login/login';
 import { FindWorkPage } from '../pages/findwork/findwork';
@@ -32,6 +33,7 @@ export class MyApp {
               public splashScreen: SplashScreen,
               private alertCtrl: AlertController,
               private push: Push,
+              private fcm: FCM,
               private deviceService: DeviceService,
               private userDataService: UserDataService,
               private workTypeService: WorkTypeService,
@@ -51,12 +53,30 @@ export class MyApp {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.initPushNotification();
+      //this.initPushNotification();
+      this.initPushNotification2();
       //StatusBar.styleDefault();
       this.splashScreen.hide();
     });
   }
 
+  initPushNotification2() {
+    this.fcm.subscribeToTopic('all');
+    this.fcm.getToken().then(token => {
+      // backend.registerToken(token);
+    });
+    this.fcm.onNotification().subscribe(data => {
+      if(data.wasTapped) {
+        console.info("Received in background");
+      } else {
+        console.info("Received in foreground");
+      };
+    });
+    this.fcm.onTokenRefresh().subscribe(token => {
+      // backend.registerToken(token);
+    });
+  }
+  
   initPushNotification() {
     // to initialize push notifications
     const options: PushOptions = {
@@ -165,7 +185,6 @@ export class MyApp {
         this.userDataService.setCustomer(this.customer);
         
         // register device token in server
-        console.log('going to register device');
         this.deviceService.registerDevice().subscribe(
           (data) => console.log('register device token status: '+ data.status),
           (err) => console.error('registre device error', err)
@@ -176,7 +195,6 @@ export class MyApp {
           if ( customer.confirmations.some(conf => conf.state == true) ) {
             this.workTypeService.getWorkTypes().subscribe(
               categories => {
-                console.log('voy a preguntar adentro');
                 if (this.pageAfterLogin == 'FindWorksPage') {
                   this.nav.setRoot(FindWorkPage, { categories: categories.reverse() });
                 }
