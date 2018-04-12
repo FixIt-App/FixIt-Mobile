@@ -53,94 +53,78 @@ export class MyApp {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      //this.initPushNotification();
-      this.initPushNotification2();
+      this.initPushNotification();
       //StatusBar.styleDefault();
       this.splashScreen.hide();
     });
   }
 
-  initPushNotification2() {
-    this.fcm.subscribeToTopic('all');
+  initPushNotification() {
+
     this.fcm.getToken().then(token => {
-      // backend.registerToken(token);
+      this.saveTokenLocally(token);
     });
+
     this.fcm.onNotification().subscribe(data => {
+      console.log(data);
       if(data.wasTapped) {
         console.info("Received in background");
       } else {
         console.info("Received in foreground");
       };
     });
-    this.fcm.onTokenRefresh().subscribe(token => {
-      // backend.registerToken(token);
-    });
-  }
-  
-  initPushNotification() {
-    // to initialize push notifications
-    const options: PushOptions = {
-      android: { senderID: '615968990679' },
-      ios: { alert: 'true', badge: true, sound: 'false' },
-      windows: {}
-    };
-    const pushObject: PushObject = this.push.init(options);
-    // when a notification arrives
-    pushObject.on('notification').subscribe(
-      (notification: NotificationEventResponse) => {
-        let work: Work;
-        if(notification.additionalData.work) work = new Work(notification.additionalData.work);
-        if(notification.additionalData.foreground) {
-          let confirmAlert = this.alertCtrl.create({
-            title: notification.title,
-            message: notification.message,
-            buttons: [
-              { text: 'Cancelar', role: 'cancel' }, 
-              {
-                text: 'Ver',
-                handler: () => {
-                  if(notification.additionalData.type == 'WORKER ASSIGNED') {
-                    this.nav.setRoot('WorkDetailsPage', { work: work });
-                  } else if(notification.additionalData.type == 'WORK FINISHED') {
-                    this.nav.setRoot('RateWorkPage', { work: work });
-                  }
-                }
-              }
-            ]
-          });
-          confirmAlert.present();
-        } else {
-          console.log("notification type");
-          console.log(notification.additionalData.type);
-          if(notification.additionalData.type == 'WORKER ASSIGNED') {
+
+    this.fcm.onNotification().subscribe(data => {
+      console.log(data);
+      let work: Work;
+      if(data.work) work = new Work(data.work);
+      if(data.wasTapped) {
+        console.info("Received in background");
+        console.log("notification type");
+          console.log(data.type);
+          if(data.type == 'WORKER ASSIGNED') {
             this.pageAfterLogin = 'WorkDetailsPage';
             this.nav.setRoot('WorkDetailsPage', { work: work });
-          } else if(notification.additionalData.type == 'WORK FINISHED') {
+          } else if(data.type == 'WORK FINISHED') {
             this.pageAfterLogin = 'RateWorkPage';
             this.nav.setRoot('RateWorkPage', { work: work });
           }
           console.log('no foreground');
-        }
-      });
+      } else {
+        console.info("Received in foreground");
+        let confirmAlert = this.alertCtrl.create({
+          title: data.title,
+          message: data.message,
+          buttons: [
+            { text: 'Cancelar', role: 'cancel' }, 
+            {
+              text: 'Ver',
+              handler: () => {
+                if(data.type == 'WORKER ASSIGNED') {
+                  this.nav.setRoot('WorkDetailsPage', { work: work });
+                } else if(data.type == 'WORK FINISHED') {
+                  this.nav.setRoot('RateWorkPage', { work: work });
+                }
+              }
+            }
+          ]
+        });
+      };
+    });
 
-    this.push.hasPermission().then(
-      (res: any) => {
-        if (res.isEnabled) console.log('We have permission to send push notifications');
-        else console.log('We do not have permission to send push notifications');
-      });
-    
-    pushObject.on('registration').subscribe(
-      (registration: any) => {
-        localStorage.setItem('deviceToke', registration.registrationId);
-        let platform_type = 'UNKNOWN';
-        if(this.platform.is('android'))  platform_type = 'ANDROID';
-        else if(this.platform.is('ios')) platform_type = 'IOS';
-        localStorage.setItem('platform', platform_type);
-      });
-
-    pushObject.on('error').subscribe( error => console.error('Error with Push plugin', error) );
+    this.fcm.onTokenRefresh().subscribe(token => {
+      //TODO (alfredo): revisar si toca update en el servidor
+      this.saveTokenLocally(token);
+    });
   }
   
+  saveTokenLocally(token: string) {
+    localStorage.setItem('deviceToke', token);
+      let platform_type = 'UNKNOWN';
+      if(this.platform.is('android'))  platform_type = 'ANDROID';
+      else if(this.platform.is('ios')) platform_type = 'IOS';
+      localStorage.setItem('platform', platform_type);
+  }
   openPage(page) {
     if(page.title == 'Cerrar sesión') {
       let loader = this.loadingCtrl.create({spinner: 'crescent'});
