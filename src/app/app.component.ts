@@ -1,6 +1,6 @@
 import { Work } from './../models/work';
 import { Component, ViewChild } from '@angular/core';
-import { Platform, MenuController, Nav, Events, AlertController, LoadingController, App } from 'ionic-angular';
+import { Platform, MenuController, Nav, Events, AlertController, LoadingController } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { FCM } from '@ionic-native/fcm';
 
@@ -19,14 +19,13 @@ import { WorkTypeService } from '../providers/wortktype-service'
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  // make HelloIonicPage the root (or first) page
+
   rootPage: any = LoginPage;
   pages: Array<{title: string, component: any, icon: string}>;
   customer: Customer;
   pageAfterLogin: string = "FindWorksPage";
 
   constructor(public platform: Platform,
-              private app: App,
               public menu: MenuController,
               public events: Events,
               public splashScreen: SplashScreen,
@@ -63,17 +62,14 @@ export class MyApp {
       this.saveTokenLocally(token);
     });
 
-    this.fcm.onNotification().subscribe(data => {
-      console.log(data);
-      if(data.wasTapped) {
-        console.info("Received in background");
-      } else {
-        console.info("Received in foreground");
-      };
+    this.fcm.onTokenRefresh().subscribe(token => {
+      //TODO (alfredo): revisar si toca update en el servidor
+      this.saveTokenLocally(token);
     });
 
     this.fcm.onNotification().subscribe(data => {
       console.log(data);
+      //TODO unfalten data
       let work: Work;
       if(data.work) work = new Work(data.work);
       if(data.wasTapped) {
@@ -107,12 +103,8 @@ export class MyApp {
             }
           ]
         });
+        confirmAlert.present();
       };
-    });
-
-    this.fcm.onTokenRefresh().subscribe(token => {
-      //TODO (alfredo): revisar si toca update en el servidor
-      this.saveTokenLocally(token);
     });
   }
   

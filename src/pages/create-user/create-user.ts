@@ -10,7 +10,6 @@ import { Customer } from '../../models/user'
 import { CreditCard } from '../../models/credit-card'
 import { ConfirmationService } from '../../providers/confirmation-service'
 import { AuthService } from '../../providers/auth-service'
-import { WorkTypeService } from '../../providers/wortktype-service'
 
 @Component({
     selector: 'page-create-user',
@@ -51,7 +50,6 @@ export class CreateUserPage {
               private modalCtrl: ModalController,
               private confirmationService: ConfirmationService,
               private authService: AuthService,
-              private workTypeService: WorkTypeService,
               public events: Events,
               public userDataService: UserDataService,
               public loadingCtrl: LoadingController)
