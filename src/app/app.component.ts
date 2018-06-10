@@ -13,6 +13,8 @@ import { DeviceService } from '../providers/device-service';
 import { UserDataService } from '../providers/user-data-service';
 import { WorkTypeService } from '../providers/wortktype-service'
 
+const unflatten = require('unflatten')
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -68,8 +70,9 @@ export class MyApp {
     });
 
     this.fcm.onNotification().subscribe(data => {
+      data = unflatten(data);
       console.log(data);
-      //TODO unfalten data
+
       let work: Work;
       if(data.work) work = new Work(data.work);
       if(data.wasTapped) {
